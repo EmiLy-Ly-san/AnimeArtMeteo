@@ -1,0 +1,39 @@
+/*****COLORS*****/
+$theme-colors: (
+  "base": #e5e2e2,
+  "primary": rgba(255, 255, 255),
+  "sub-primary": #ffffff,
+  "secondary": rgba(12, 10, 97, 0.8),
+  "sub-secondary": #0c0a61,
+);
+
+@import "../node_modules/bootstrap/scss/bootstrap.scss"; //a laisser après les variables cgangéees !!
+
+body {
+  max-width: 1200px;
+  height: 100vh;
+  position: relative;
+  font-size: 1rem;
+}
+
+.background-container {
+  width: 100%;
+  height: 100%;
+  border: solid 1px black;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+
+  background-image: url("/assets/backgrounds/autumn-winter/snow/72f3b88e1fc39a68e060203e4d2a8272.jpg");
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+}
+
+button {
+  width: 9.375rem;
+  height: 2.5rem;
+  margin: 0.313rem;
+}

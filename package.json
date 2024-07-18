@@ -1,0 +1,22 @@
+{
+  "name": "animeartmeteo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Emily-Ly-san/AnimeArtMeteo.git"
+  },
+  "author": "Emilie De Duyver",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Emily-Ly-san/AnimeArtMeteo/issues"
+  },
+  "homepage": "https://github.com/Emily-Ly-san/AnimeArtMeteo#readme",
+  "dependencies": {
+    "bootstrap": "^5.3.3"
+  }
+}
