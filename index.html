@@ -5,18 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AnimaArtMeteo</title>
     <link rel="stylesheet" href="design/default.css" />
+    <script src="script.js" defer></script>
   </head>
   <body class="bg-base vh-100 vw-100">
     <div class="background-container"></div>
     <nav
-      class="navbar sticky-top navbar-light bg-primary bg-opacity-75 shadow-sm navbar-expand"
+      class="navbar sticky-top navbar-light bg-primary bg-opacity-75 shadow-sm navbar-expand ps-4"
     >
-      <div class="collapse navbar-collapse">
-        <ul class="navbar-nav d-flex flex-wrap">
+      <div class="collapse navbar-collapse ">
+        <ul class="navbar-nav d-flex flex-wrap gap-3">
           <li class="nav-item">
             <button
               type="button"
-              class="btn border-sub-secondary rounded-pill rounded-3 text-sub-secondary fw-bold"
+              class="btn border-sub-secondary rounded-pill rounded-3 text-sub-secondary fw-bold "
             >
               Tokyo
             </button>
@@ -66,28 +67,44 @@
           </li>
         </ul>
       </div>
-      <div class="" dropdown>
-        <button
-          class="btn btn-secondary text-primary dropdown-toggle"
-          type="button"
-          id="dropDownButton"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          Menu
+      <button type="button" class="nav-link" id="menuBtn">
+        <img src="assets/icons/menu.svg" alt="toggle menu" />
+      </button>
+      <aside class="unrolledMenuContainer hidden">
+        <button type="button" class="btn btn-sub-secondary menu-button text-sub-primary m-0 rounded-0">
+          Geolocalise me
         </button>
-
-        <ul class="dropdown-menu" aria-labelledby="dropDownButton">
-          <li>
-            <a class="dropdown-item">Geolocalise me</a>
-          </li>
-          <li>
-            <a class="dropdown-item">Geolocalise me</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+        <button type="button" class="btn btn-sub-primary menu-button text-sub-secondary m-0 rounded-0">
+          Search a city
+        </button>
+        <button type="button" class="btn btn-sub-secondary menu-button text-sub-primary m-0 rounded-0">
+          My cities 
+        </button>
+        <button type="button" class="btn btn-sub-primary menu-button text-sub-secondary m-0 rounded-0">
+          My backgrounds 
+        </button>
+        <button type="button" class="btn btn-sub-secondary menu-button text-sub-primary m-0 rounded-0">
+          About the author
+    </aside>
+    </nav>   
+    <main class="w-100">
+        <div class="quickOptionsContainer m-4">
+            <div class='input-group '>    
+                <input type="text" name='cityUser' id="cityUser" placeholder="Enter a city here..." class='form-control rounded-0 fst-italic bg-sub-primary text-sub-secondary border-0'>
+                <span class='input-group-text rounded-0 bg-sub-secondary border-0' type="submit"><img src="assets/icons/search.svg" alt="search button"></span>
+           </div>
+           <div class='input-group geolocalisationContainer'>    
+            <input type="text" name='geolocalisation' id="geolocalisation" value="Geolocalise me" class='form-control rounded-0 bg-sub-secondary text-sub-primary border-0'>
+            <span class='input-group-text rounded-0 bg-sub-primary border-0' type="button"><img src="assets/icons/myLocation.svg" alt="my location button"></span>
+       </div>
+        </div>
+    </main>
+    <footer>
+        <div class="assetsContainer">
+            <p>@backgroundSource</p>
+            <img src="assets/pictures/" alt="">
+        </div>
+    </footer>
   </body>
   <script
     src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
