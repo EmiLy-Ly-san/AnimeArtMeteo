@@ -59,6 +59,10 @@ nav {
   position: relative;
 }
 
+.nav-items-container {
+  max-width: 1200px;
+}
+
 main {
   max-width: 1200px;
   margin-right: auto;
@@ -100,7 +104,9 @@ aside {
 }
 
 .city-card {
-  width: 30%;
+  width: 395px;
+  height: 348px;
+  overflow: hidden;
 }
 
 .reduced-city-card {
