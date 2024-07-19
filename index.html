@@ -10,14 +10,14 @@
   <body class="bg-base vh-100 vw-100">
     <div class="background-container"></div>
     <nav
-      class="navbar sticky-top navbar-light bg-primary bg-opacity-75 shadow-sm navbar-expand ps-4"
+      class="navbar sticky-top navbar-light bg-primary bg-opacity-75 shadow-sm navbar-expand px-4"
     >
-      <div class="collapse navbar-collapse ">
+      <div class="collapse navbar-collapse d-flex justify-content-center align-items-center">
         <ul class="navbar-nav d-flex flex-wrap gap-3">
           <li class="nav-item">
             <button
               type="button"
-              class="btn border-sub-secondary rounded-pill rounded-3 text-sub-secondary fw-bold "
+              class="btn border-secondary rounded-pill text-secondary fw-bold "
             >
               Tokyo
             </button>
@@ -25,7 +25,7 @@
           <li class="nav-item">
             <button
               type="button"
-              class="btn border-sub-secondary rounded-pill rounded-3 text-sub-secondary fw-bold"
+              class="btn border-secondary rounded-pill text-secondary fw-bold"
             >
               Paris
             </button>
@@ -33,7 +33,7 @@
           <li class="nav-item">
             <button
               type="button"
-              class="btn border-sub-secondary rounded-pill rounded-3 text-sub-secondary fw-bold"
+              class="btn border-secondary rounded-pill  text-secondary fw-bold"
             >
               Montreal
             </button>
@@ -41,7 +41,7 @@
           <li class="nav-item">
             <button
               type="button"
-              class="btn border-sub-secondary rounded-pill rounded-3 text-sub-secondary fw-bold"
+              class="btn border-secondary rounded-pill  text-secondary fw-bold"
             >
               Nantes
             </button>
@@ -49,7 +49,7 @@
           <li class="nav-item">
             <button
               type="button"
-              class="btn border-sub-secondary rounded-pill rounded-3 text-sub-secondary fw-bold"
+              class="btn border-secondary rounded-pill text-secondary fw-bold"
             >
               Vallencia
             </button>
@@ -57,7 +57,7 @@
           <li class="nav-item">
             <button
               type="button"
-              class="btn btn-sub-primary border-sub-secondary rounded-pill rounded-3 text-sub-secondary"
+              class="btn btn-primary border-secondary rounded-pill text-secondary"
             >
               <img
                 src="assets/icons/add-circle.svg"
@@ -71,32 +71,60 @@
         <img src="assets/icons/menu.svg" alt="toggle menu" />
       </button>
       <aside class="unrolledMenuContainer hidden">
-        <button type="button" class="btn btn-sub-secondary menu-button text-sub-primary m-0 rounded-0">
+        <button type="button" class="btn btn-secondary menu-button text-primary m-0 rounded-0">
           Geolocalise me
         </button>
-        <button type="button" class="btn btn-sub-primary menu-button text-sub-secondary m-0 rounded-0">
+        <button type="button" class="btn btn-primary menu-button text-secondary m-0 rounded-0">
           Search a city
         </button>
-        <button type="button" class="btn btn-sub-secondary menu-button text-sub-primary m-0 rounded-0">
+        <button type="button" class="btn btn-secondary menu-button text-primary m-0 rounded-0">
           My cities 
         </button>
-        <button type="button" class="btn btn-sub-primary menu-button text-sub-secondary m-0 rounded-0">
+        <button type="button" class="btn btn-primary menu-button text-secondary m-0 rounded-0">
           My backgrounds 
         </button>
-        <button type="button" class="btn btn-sub-secondary menu-button text-sub-primary m-0 rounded-0">
+        <button type="button" class="btn btn-secondary menu-button text-primary m-0 rounded-0">
           About the author
     </aside>
     </nav>   
     <main class="w-100">
         <div class="quickOptionsContainer m-4">
             <div class='input-group '>    
-                <input type="text" name='cityUser' id="cityUser" placeholder="Enter a city here..." class='form-control rounded-0 fst-italic bg-sub-primary text-sub-secondary border-0'>
-                <span class='input-group-text rounded-0 bg-sub-secondary border-0' type="submit"><img src="assets/icons/search.svg" alt="search button"></span>
+                <input type="text" name='cityUser' id="cityUser" placeholder="Enter a city here..." class='form-control rounded-0 fst-italic bg-primary text-secondary border-0'>
+                <span class='input-group-text rounded-0 bg-secondary border-0' type="submit"><img src="assets/icons/search.svg" alt="search button"></span>
            </div>
            <div class='input-group geolocalisationContainer'>    
-            <input type="text" name='geolocalisation' id="geolocalisation" value="Geolocalise me" class='form-control rounded-0 bg-sub-secondary text-sub-primary border-0'>
-            <span class='input-group-text rounded-0 bg-sub-primary border-0' type="button"><img src="assets/icons/myLocation.svg" alt="my location button"></span>
+            <input type="text" name='geolocalisation' id="geolocalisation" value="Geolocalise me" class='form-control rounded-0 bg-secondary text-primary border-0'>
+            <span class='input-group-text rounded-0 bg-primary border-0' type="button"><img src="assets/icons/myLocation.svg" alt="my location button"></span>
        </div>
+        </div>
+        <div class="card w-25 m-auto bg-primary bg-opacity-75 shadow-sm rounded-40">
+            <div class="card-header d-flex justify-content-end ">
+                <div class="card-header-icons w-25">
+                    <button type="button" class="button-reduce btn  border-0 w-100">
+                        <img src="assets/icons/reduce-blue.svg" alt="icon to reduce this city card">
+                    </button>
+                </div>
+            </div>
+            <div class="card-body  d-flex flex-column justify-content-center align-items-center gap-3 text-secondary">
+                <h3 class="card-title border-bottom border-secondary"> Nantes</h3>
+                <div class="tempContainer d-flex align-items-center justify-content-center gap-3">
+                    <h2 class="temperature card-subtitle">20°C</h2>
+                    <img class="w-25" src="assets/icons/sunny.png" alt="sun icon">
+                </div>
+                <div class="card-text d-flex flex-column justify-content-center align-items-center gap-2">
+                    <h4 class="card-subtitle">Ensolleillé</h4>
+                    <div class="currentDayTimeContainer d-flex gap-2">
+                        <p class="currentDate text-muted">06/28/2024</p> 
+                        <p class="currentTime text-muted">15:32</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer d-flex justify-content-end p-3">
+                <div class="card-footer-icons w-25">
+                    <button type="button" class="btn btn-primary w-100 rounded-3"><img src="assets/icons/garbage-blue.svg" alt="icon to remove this city from your cities collection"></button>
+                </div>
+            </div>
         </div>
     </main>
     <footer>

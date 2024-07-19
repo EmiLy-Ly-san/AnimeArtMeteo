@@ -2,9 +2,7 @@
 $theme-colors: (
   "base": #e5e2e2,
   "primary": rgba(255, 255, 255),
-  "sub-primary": #ffffff,
-  "secondary": rgba(12, 10, 97, 0.8),
-  "sub-secondary": #0c0a61,
+  "secondary": rgba(12, 10, 97),
 );
 
 @import "../node_modules/bootstrap/scss/bootstrap.scss"; //a laisser après les variables cgangéees !!
@@ -38,6 +36,10 @@ body {
 button {
   width: 9.375rem;
   height: 2.5rem;
+}
+
+.rounded-40 {
+  border-radius: 40px;
 }
 
 .hidden {
