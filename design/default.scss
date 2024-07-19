@@ -38,6 +38,10 @@ button {
   height: 2.5rem;
 }
 
+.icon26 {
+  height: 26px;
+  width: 26px;
+}
 .rounded-40 {
   border-radius: 40px;
 }
@@ -77,6 +81,7 @@ aside {
 
 .quickOptionsContainer {
   width: 20%;
+  height: 80px;
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
   border-bottom-right-radius: 20px;
@@ -84,4 +89,26 @@ aside {
   overflow: hidden;
   /* margin-top: 5rem;
   border-radius: 20px;*/
+}
+
+.reduced-city-card {
+  overflow: hidden;
+  height: 40px;
+}
+
+.city-informations {
+  width: 200px;
+  border-bottom-left-radius: 20px;
+  border-top-left-radius: 20px;
+}
+
+.enlarge-container {
+  width: 40px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.temp-icon-reduced-card {
+  height: 33px;
+  width: 33px;
 }

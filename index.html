@@ -59,7 +59,7 @@
               type="button"
               class="btn btn-primary border-secondary rounded-pill text-secondary"
             >
-              <img
+              <img class="icon26"
                 src="assets/icons/add-circle.svg"
                 alt="Add circle button for adding a new town in your collection"
               />
@@ -88,15 +88,27 @@
     </aside>
     </nav>   
     <main class="w-100">
-        <div class="quickOptionsContainer m-4">
-            <div class='input-group '>    
-                <input type="text" name='cityUser' id="cityUser" placeholder="Enter a city here..." class='form-control rounded-0 fst-italic bg-primary text-secondary border-0'>
-                <span class='input-group-text rounded-0 bg-secondary border-0' type="submit"><img src="assets/icons/search.svg" alt="search button"></span>
-           </div>
-           <div class='input-group geolocalisationContainer'>    
-            <input type="text" name='geolocalisation' id="geolocalisation" value="Geolocalise me" class='form-control rounded-0 bg-secondary text-primary border-0'>
-            <span class='input-group-text rounded-0 bg-primary border-0' type="button"><img src="assets/icons/myLocation.svg" alt="my location button"></span>
-       </div>
+        <div class="d-flex justify-content-between align-items-first-baseline">
+            <div class="quickOptionsContainer m-4 ">
+                <div class='input-group '>    
+                    <input type="text" name='cityUser' id="cityUser" placeholder="Enter a city here..." class='form-control rounded-0 fst-italic bg-primary text-secondary border-0'>
+                    <span class='input-group-text rounded-0 bg-secondary border-0' type="submit"><img class="icon26" src="assets/icons/search.svg" alt="search button"></span>
+                </div>
+                <div class='input-group geolocalisationContainer'>    
+                    <input type="text" name='geolocalisation' id="geolocalisation" value="Geolocalise me" class='form-control rounded-0 bg-secondary text-primary border-0'>
+                    <span class='input-group-text rounded-0 bg-primary border-0' type="button"><img class="icon26" src="assets/icons/myLocation.svg" alt="my location button"></span>
+                </div>
+            </div>
+            <div class="reduced-city-card d-flex   m-4 ">
+                <div class="city-informations d-flex gap-3 align-items-center justify-content-center bg-primary bg-opacity-75">
+                    <p>Nantes</p>
+                    <p>20°C</p>
+                    <img class="icon26 " src="assets/icons/sunny.png" alt="icon sun">
+                </div>
+                <div class="enlarge-container bg-secondary ">
+                    <button type="button" class="btn w-100 btn-secondary d-flex justify-content-center"><img class="icon26" src="assets/icons/visibility-blue.svg" alt="visibility icon to enlarge th city card"></button>
+                </div>
+            </div>
         </div>
         <div class="card w-25 m-auto bg-primary bg-opacity-75 shadow-sm rounded-40">
             <div class="card-header d-flex justify-content-end ">
@@ -122,7 +134,7 @@
             </div>
             <div class="card-footer d-flex justify-content-end p-3">
                 <div class="card-footer-icons w-25">
-                    <button type="button" class="btn btn-primary w-100 rounded-3"><img src="assets/icons/garbage-blue.svg" alt="icon to remove this city from your cities collection"></button>
+                    <button type="button" class="btn btn-primary w-100 rounded-3"><img class="icon26" src="assets/icons/garbage-blue.svg" alt="icon to remove this city from your cities collection"></button>
                 </div>
             </div>
         </div>
