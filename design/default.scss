@@ -8,7 +8,7 @@ $theme-colors: (
 @import "../node_modules/bootstrap/scss/bootstrap.scss"; //a laisser après les variables cgangéees !!
 
 body {
-  max-width: 1200px;
+  width: 100vw;
   height: 100vh;
   position: relative;
   font-size: 1rem;
@@ -31,6 +31,7 @@ body {
   background-size: cover;
   background-position: top;
   background-repeat: no-repeat;
+  filter: blur(2px);
 }
 
 button {
@@ -58,6 +59,12 @@ nav {
   position: relative;
 }
 
+main {
+  max-width: 1200px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
 aside {
   width: 20%;
   top: 100%;
@@ -72,7 +79,7 @@ aside {
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;
   overflow: hidden;
-  width: 270px;
+  width: 240px;
 }
 
 .menu-button {
@@ -90,6 +97,10 @@ aside {
   overflow: hidden;
   /* margin-top: 5rem;
   border-radius: 20px;*/
+}
+
+.city-card {
+  width: 30%;
 }
 
 .reduced-city-card {
