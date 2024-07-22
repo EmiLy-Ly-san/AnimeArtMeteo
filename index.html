@@ -17,7 +17,8 @@
           <li class="nav-item">
             <button
               type="button"
-              class="btn border-secondary rounded-pill text-secondary fw-bold "
+              class="cityBtn btn border-secondary rounded-pill text-secondary fw-bold "
+              data-bs-toggle="modal" data-bs-target="#cityCardModal"
             >
               Tokyo
             </button>
@@ -25,7 +26,8 @@
           <li class="nav-item">
             <button
               type="button"
-              class="btn border-secondary rounded-pill text-secondary fw-bold"
+              class="cityBtn btn border-secondary rounded-pill text-secondary fw-bold"
+              data-bs-toggle="modal" data-bs-target="#cityCardModal"
             >
               Paris
             </button>
@@ -33,7 +35,8 @@
           <li class="nav-item">
             <button
               type="button"
-              class="btn border-secondary rounded-pill  text-secondary fw-bold"
+              class=" cityBtn btn border-secondary rounded-pill  text-secondary fw-bold"
+              data-bs-toggle="modal" data-bs-target="#cityCardModal"
             >
               Montreal
             </button>
@@ -41,7 +44,8 @@
           <li class="nav-item">
             <button
               type="button"
-              class="btn border-secondary rounded-pill  text-secondary fw-bold"
+              class="cityBtn btn border-secondary rounded-pill  text-secondary fw-bold"
+              data-bs-toggle="modal" data-bs-target="#cityCardModal"
             >
               Nantes
             </button>
@@ -49,7 +53,8 @@
           <li class="nav-item">
             <button
               type="button"
-              class="btn border-secondary rounded-pill text-secondary fw-bold"
+              class="cityBtn btn border-secondary rounded-pill text-secondary fw-bold"
+              data-bs-toggle="modal" data-bs-target="#cityCardModal"
             >
               Vallencia
             </button>
@@ -58,6 +63,7 @@
             <button
               type="button"
               class="btn btn-primary border-secondary rounded-pill text-secondary"
+              data-bs-toggle="modal" data-bs-target="#addingANewCity"
             >
               <img class="icon26"
                 src="assets/icons/add-circle.svg"
@@ -99,56 +105,92 @@
                     <span class='input-group-text rounded-0 bg-primary border-0' type="button"><img class="icon26" src="assets/icons/myLocation.svg" alt="my location button"></span>
                 </div>
             </div>
-            <div class="reduced-city-card d-flex   m-4 ">
-                <div class="city-informations d-flex gap-3 align-items-center justify-content-center bg-primary bg-opacity-75">
-                    <p>Nantes</p>
-                    <p>20°C</p>
+            <div class="reducedCityCard d-flex   m-4 hidden">
+                <div class="city-informations d-flex gap-3 align-items-center justify-content-center bg-primary bg-opacity-75 px-3">
+                    <p class="m-auto">Nantes</p>
+                    <p class="m-auto">20°C</p>
                     <img class="icon26 " src="assets/icons/sunny.png" alt="icon sun">
                 </div>
                 <div class="enlarge-container bg-secondary ">
-                    <button type="button" class="btn w-100 btn-secondary d-flex justify-content-center" title="Enlarge the city informations" ><img class="icon26" src="assets/icons/visibility-blue.svg" alt="visibility icon to enlarge th city card"></button>
+                    <button type="button" class="visibilityBtn btn w-100 btn-secondary d-flex justify-content-center" data-bs-toggle="modal" data-bs-target="#cityCardModal" title="Enlarge the city informations" ><img class="icon26" src="assets/icons/visibility-blue.svg" alt="visibility icon to enlarge th city card"></button>
                 </div>
             </div>
         </div>
-        <div class="city-card card m-auto bg-primary bg-opacity-75 shadow-sm rounded-40">
-            <div class="card-header d-flex justify-content-end p-0 ">
-                <div class="card-header-icons w-25">
-                    <button type="button" title="Reduce the city informations" class="button-reduce btn  border-0 w-100">
-                        <img src="assets/icons/reduce-blue.svg" alt="icon to reduce this city card">
-                    </button>
-                </div>
-            </div>
-            <div class="card-body  d-flex flex-column justify-content-center align-items-center gap-3 text-secondary">
-                <h3 class="card-title border-bottom border-secondary"> Nantes</h3>
-                <div class="tempContainer d-flex align-items-center justify-content-center gap-3">
-                    <h2 class="temperature card-subtitle">20°C</h2>
-                    <img class="w-25" src="assets/icons/sunny.png" alt="sun icon">
-                </div>
-                <div class="card-text d-flex flex-column justify-content-center align-items-center gap-2">
-                    <h4 class="card-subtitle">Ensolleillé</h4>
-                    <div class="currentDayTimeContainer d-flex gap-2">
-                        <p class="currentDate text-muted">06/28/2024</p> 
-                        <p class="currentTime text-muted">15:32</p>
+
+        <!--MODAL CITY CARD-->
+        <div class=" modal fade " id="cityCardModal">
+            <div class="modal-dialog modal-dialog-centered ">
+                <div class="modal-content bg-primary opacity-75 rounded-40 ">
+                    <div class="modal-header d-flex justify-content-end  ">
+                        <div class="w-25">
+                            <button type="button" title="Reduce the city informations" class=" reduceBtn btn  btn-close border-0 w-100" data-bs-dismiss="modal">
+                                
+                            </button>
+                        </div>
+                    </div>
+                    <div class="modal-body  d-flex flex-column justify-content-center align-items-center gap-3 text-secondary">
+                        <h3 class="modal-title border-bottom border-secondary"> Nantes</h3>
+                        <div class="tempContainer d-flex align-items-center justify-content-center gap-3">
+                            <h2 class="temperature card-subtitle">20°C</h2>
+                            <img class="w-25" src="assets/icons/sunny.png" alt="sun icon">
+                        </div>
+                        <div class="modal-text d-flex flex-column justify-content-center align-items-center gap-2">
+                            <h4 class="modal-subtitle">Ensolleillé</h4>
+                            <div class="currentDayTimeContainer d-flex gap-2">
+                                <p class="currentDate text-muted">06/28/2024</p> 
+                                <p class="currentTime text-muted">15:32</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex  justify-content-end align-items-center p-0">
+                        <div class=" w-25">
+                            <button type="button" title="Remove this city from my cities collection" class="btn  w-100 rounded-0"><img class="icon26" src="assets/icons/garbage-blue.svg" alt="icon to remove this city from your cities collection"></button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="card-footer d-flex  justify-content-end align-items-center p-0">
-                <div class="card-footer-icons w-25">
-                    <button type="button" title="Remove this city from my cities collection" class="btn btn-primary w-100 rounded-0"><img class="icon26" src="assets/icons/garbage-blue.svg" alt="icon to remove this city from your cities collection"></button>
+        </div>
+
+        <!--MODAL ADDING A NEW TOWN-->
+        <div class="modal fade" id="addingANewCity" data-bs-backdrop="static">
+            <!--creer la boite de dialogue du modal-->
+            <div class="modal-dialog modal-dialog-centered">
+              <!--creer le contenu du modal-->
+              <div class="modal-content">
+                <!--header-->
+                <div class="modal-header bg-secondary">
+                  <h5 class="modal-title text-primary">Add a new city in my collection</h5>
+                  <button type="button" class="btn-close bg-primary" data-bs-dismiss="modal">
+                  </button>
                 </div>
+                <!--body-->
+                <div class="modal-body d-flex flex-column gap-3 justify-content-center align-items-center border-3">
+                  <input type="text" name="cityUser" id="cityUser" placeholder="Enter a new city here..." class="m-0">
+                  <button type="button" class="btn btn-primary border-secondary rounded-pill"><img src="assets/icons/add-in-collection-blue.svg" alt="icon to add in your favorites"></button>
+                </div>
+              </div>
             </div>
-        </div>
+          </div>
     </main>
-    <footer>
-        <div class="assetsContainer">
-            <p>@backgroundSource</p>
-            <img src="assets/pictures/" alt="">
-        </div>
+    <footer class="p-2">
+        <ul class="nav footerElementsContainer justify-content-end align-item-center">
+            <li class="nav-item backgroundSource text-primary"><a class="nav-link text-primary" href="#">@backgroundSource</a></li>
+            <li class="nav-item "><button type="button" class=" heart-button btn  h-100"><img class="icon33" src="assets/icons/hearts.png" alt="Liked icon"></button></li>
+        </ul>
     </footer>
   </body>
-  <script
-    src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-    crossorigin="anonymous"
-  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script>
+      var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+          return new bootstrap.Tooltip(tooltipTriggerEl)
+      })
+  </script>
+    <script>
+      var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+      var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+          return new bootstrap.Popover(popoverTriggerEl)
+      })
+  </script>
 </html>
