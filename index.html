@@ -80,10 +80,10 @@
         <button type="button" class="btn btn-secondary menu-button text-primary m-0 rounded-0">
           Geolocalise me
         </button>
-        <button type="button" class="btn btn-primary menu-button text-secondary m-0 rounded-0">
+        <button type="button" class="btn btn-primary menu-button text-secondary m-0 rounded-0" >
           Search a city
         </button>
-        <button type="button" class="btn btn-secondary menu-button text-primary m-0 rounded-0">
+        <button type="button" class="btn btn-secondary menu-button text-primary m-0 rounded-0" data-bs-toggle="modal" data-bs-target="#citiesCollectionUser">
           My cities 
         </button>
         <button type="button" class="btn btn-primary menu-button text-secondary m-0 rounded-0">
@@ -94,6 +94,8 @@
     </aside>
     </nav>   
     <main class="w-100">
+    
+    <!--QUICK OPTIONS AND REDUCED CITY CARD-->
         <div class="d-flex justify-content-between align-items-first-baseline">
             <div class="quickOptionsContainer m-4 ">
                 <div class='input-group '>    
@@ -105,6 +107,7 @@
                     <span class='input-group-text rounded-0 bg-primary border-0' type="button"><img class="icon26" src="assets/icons/myLocation.svg" alt="my location button"></span>
                 </div>
             </div>
+            <!--REDUCED CITY CARD-->
             <div class="reducedCityCard d-flex   m-4 hidden">
                 <div class="city-informations d-flex gap-3 align-items-center justify-content-center bg-primary bg-opacity-75 px-3">
                     <p class="m-auto">Nantes</p>
@@ -156,21 +159,204 @@
             <!--creer la boite de dialogue du modal-->
             <div class="modal-dialog modal-dialog-centered">
               <!--creer le contenu du modal-->
-              <div class="modal-content">
+              <div class="modal-content rounded-40 bg-primary opacity-75 overflow-hidden">
                 <!--header-->
-                <div class="modal-header bg-secondary">
+                <div class="modal-header bg-secondary d-flex justify-content-between">
                   <h5 class="modal-title text-primary">Add a new city in my collection</h5>
-                  <button type="button" class="btn-close bg-primary" data-bs-dismiss="modal">
+                  <button type="button" class="btn-close bg-primary mx-3" data-bs-dismiss="modal">
                   </button>
                 </div>
                 <!--body-->
-                <div class="modal-body d-flex flex-column gap-3 justify-content-center align-items-center border-3">
+                <div class="modal-body d-flex flex-column gap-3 justify-content-center align-items-center ">
                   <input type="text" name="cityUser" id="cityUser" placeholder="Enter a new city here..." class="m-0">
                   <button type="button" class="btn btn-primary border-secondary rounded-pill"><img src="assets/icons/add-in-collection-blue.svg" alt="icon to add in your favorites"></button>
                 </div>
               </div>
             </div>
           </div>
+
+        <!--MODAL CITIES COLLECTION USER-->  
+        <div class="modal fade " id="citiesCollectionUser">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content rounded-40 opacity-75 overflow-hidden ">
+                    <div class="modal-header bg-secondary  d-flex justify-content-between ">
+                        <h5 class="modal-title text-primary bg-secondary">My cities Collection</h5>
+                        <button type="button" class="btn btn-close bg-primary mx-3" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body d-flex justify-content-center align-items-center gap-5 flex-wrap overflow-scroll">
+                        <div class=" favoriteCityCard bg-secondary  p-4 text-primary shadow-sm rounded-40 ">
+                            <div class="favoriteCityCard-Info">
+                                <h3>Tokyo</h3>
+                                <div class="temperature d-flex gap-3 justify-content-center">
+                                <h3>23°C</h3>
+                                <div><img class="icon26" src="assets/icons/icons8-nuage-emoji-48.png" alt="cloud icon"></div>
+                                </div>
+                                <p>Nuageux</p>
+                            </div>
+                            <div class="btn-group m-3">
+                                <button type="button" class=" btn btn-primary w-25 "><img src="assets/icons/garbage-blue.svg" alt="icon to delete this city from your favorite"></button>
+                                <button type="button" class=" btn btn-secondary w-25"><img src="assets/icons/visibility-blue.svg" alt="icon to select and enlarge this city"></button>
+                            </div>
+                        </div>
+                        <div class=" favoriteCityCard bg-secondary p-4 text-primary shadow-sm rounded-40">
+                            <div class="favoriteCityCard-Info">
+                                <h3>Paris</h3>
+                                <div class="temperature d-flex gap-3 justify-content-center">
+                                    <h3>23°C</h3>
+                                    <div><img class="icon26" src="assets/icons/icons8-nuage-avec-pluie-emoji-48.png" alt="rain icon"></div>
+                                </div>
+                                <p>Pluvieux</p>
+                            </div>
+                            <div class="btn-group m-3">
+                                <button type="button" class=" btn btn-primary w-25 "><img src="assets/icons/garbage-blue.svg" alt="icon to delete this city from your favorite"></button>
+                                <button type="button" class=" btn btn-secondary w-25"><img src="assets/icons/visibility-blue.svg" alt="icon to select and enlarge this city"></button>
+                            </div>
+                        </div>
+                        <div class="favoriteCityCard bg-secondary p-4 text-primary shadow-sm rounded-40 ">
+                            <div class="favoriteCityCard-Info">
+                                <h3>Montreal</h3>
+                                <div class="temperature d-flex gap-3 justify-content-center">
+                                    <h3>23°C</h3>
+                                    <div><img class="icon26" src="assets/icons/icons8-nuage-avec-éclair-et-pluie-emoji-48.png" alt="thunderstorm icon"></div>
+                                </div>
+                                <p>Orageux</p>
+                            </div>
+                            <div class="btn-group m-3">
+                                <button type="button" class=" btn btn-primary w-25 "><img src="assets/icons/garbage-blue.svg" alt="icon to delete this city from your favorite"></button>
+                                <button type="button" class=" btn btn-secondary w-25"><img src="assets/icons/visibility-blue.svg" alt="icon to select and enlarge this city"></button>
+                            </div>
+                        </div>
+                        <div class=" favoriteCityCard bg-secondary  p-4 text-primary shadow-sm rounded-40 ">
+                            <div class="favoriteCityCard-Info">
+                                <h3>Tokyo</h3>
+                                <div class="temperature d-flex gap-3 justify-content-center">
+                                <h3>23°C</h3>
+                                <div><img class="icon26" src="assets/icons/icons8-nuage-emoji-48.png" alt="cloud icon"></div>
+                                </div>
+                                <p>Nuageux</p>
+                            </div>
+                            <div class="btn-group m-3">
+                                <button type="button" class=" btn btn-primary w-25 "><img src="assets/icons/garbage-blue.svg" alt="icon to delete this city from your favorite"></button>
+                                <button type="button" class=" btn btn-secondary w-25"><img src="assets/icons/visibility-blue.svg" alt="icon to select and enlarge this city"></button>
+                            </div>
+                        </div>
+                        <div class=" favoriteCityCard bg-secondary p-4 text-primary shadow-sm rounded-40">
+                            <div class="favoriteCityCard-Info">
+                                <h3>Paris</h3>
+                                <div class="temperature d-flex gap-3 justify-content-center">
+                                    <h3>23°C</h3>
+                                    <div><img class="icon26" src="assets/icons/icons8-nuage-avec-pluie-emoji-48.png" alt="rain icon"></div>
+                                </div>
+                                <p>Pluvieux</p>
+                            </div>
+                            <div class="btn-group m-3">
+                                <button type="button" class=" btn btn-primary w-25 "><img src="assets/icons/garbage-blue.svg" alt="icon to delete this city from your favorite"></button>
+                                <button type="button" class=" btn btn-secondary w-25"><img src="assets/icons/visibility-blue.svg" alt="icon to select and enlarge this city"></button>
+                            </div>
+                        </div>
+                        <div class="favoriteCityCard bg-secondary p-4 text-primary shadow-sm rounded-40 ">
+                            <div class="favoriteCityCard-Info">
+                                <h3>Montreal</h3>
+                                <div class="temperature d-flex gap-3 justify-content-center">
+                                    <h3>23°C</h3>
+                                    <div><img class="icon26" src="assets/icons/icons8-nuage-avec-éclair-et-pluie-emoji-48.png" alt="thunderstorm icon"></div>
+                                </div>
+                                <p>Orageux</p>
+                            </div>
+                            <div class="btn-group m-3">
+                                <button type="button" class=" btn btn-primary w-25 "><img src="assets/icons/garbage-blue.svg" alt="icon to delete this city from your favorite"></button>
+                                <button type="button" class=" btn btn-secondary w-25"><img src="assets/icons/visibility-blue.svg" alt="icon to select and enlarge this city"></button>
+                            </div>
+                        </div>
+                        <div class=" favoriteCityCard bg-secondary  p-4 text-primary shadow-sm rounded-40 ">
+                            <div class="favoriteCityCard-Info">
+                                <h3>Tokyo</h3>
+                                <div class="temperature d-flex gap-3 justify-content-center">
+                                <h3>23°C</h3>
+                                <div><img class="icon26" src="assets/icons/icons8-nuage-emoji-48.png" alt="cloud icon"></div>
+                                </div>
+                                <p>Nuageux</p>
+                            </div>
+                            <div class="btn-group m-3">
+                                <button type="button" class=" btn btn-primary w-25 "><img src="assets/icons/garbage-blue.svg" alt="icon to delete this city from your favorite"></button>
+                                <button type="button" class=" btn btn-secondary w-25"><img src="assets/icons/visibility-blue.svg" alt="icon to select and enlarge this city"></button>
+                            </div>
+                        </div>
+                        <div class=" favoriteCityCard bg-secondary p-4 text-primary shadow-sm rounded-40">
+                            <div class="favoriteCityCard-Info">
+                                <h3>Paris</h3>
+                                <div class="temperature d-flex gap-3 justify-content-center">
+                                    <h3>23°C</h3>
+                                    <div><img class="icon26" src="assets/icons/icons8-nuage-avec-pluie-emoji-48.png" alt="rain icon"></div>
+                                </div>
+                                <p>Pluvieux</p>
+                            </div>
+                            <div class="btn-group m-3">
+                                <button type="button" class=" btn btn-primary w-25 "><img src="assets/icons/garbage-blue.svg" alt="icon to delete this city from your favorite"></button>
+                                <button type="button" class=" btn btn-secondary w-25"><img src="assets/icons/visibility-blue.svg" alt="icon to select and enlarge this city"></button>
+                            </div>
+                        </div>
+                        <div class="favoriteCityCard bg-secondary p-4 text-primary shadow-sm rounded-40 ">
+                            <div class="favoriteCityCard-Info">
+                                <h3>Montreal</h3>
+                                <div class="temperature d-flex gap-3 justify-content-center">
+                                    <h3>23°C</h3>
+                                    <div><img class="icon26" src="assets/icons/icons8-nuage-avec-éclair-et-pluie-emoji-48.png" alt="thunderstorm icon"></div>
+                                </div>
+                                <p>Orageux</p>
+                            </div>
+                            <div class="btn-group m-3">
+                                <button type="button" class=" btn btn-primary w-25 "><img src="assets/icons/garbage-blue.svg" alt="icon to delete this city from your favorite"></button>
+                                <button type="button" class=" btn btn-secondary w-25"><img src="assets/icons/visibility-blue.svg" alt="icon to select and enlarge this city"></button>
+                            </div>
+                        </div>
+                        <div class=" favoriteCityCard bg-secondary  p-4 text-primary shadow-sm rounded-40 ">
+                            <div class="favoriteCityCard-Info">
+                                <h3>Tokyo</h3>
+                                <div class="temperature d-flex gap-3 justify-content-center">
+                                <h3>23°C</h3>
+                                <div><img class="icon26" src="assets/icons/icons8-nuage-emoji-48.png" alt="cloud icon"></div>
+                                </div>
+                                <p>Nuageux</p>
+                            </div>
+                            <div class="btn-group m-3">
+                                <button type="button" class=" btn btn-primary w-25 "><img src="assets/icons/garbage-blue.svg" alt="icon to delete this city from your favorite"></button>
+                                <button type="button" class=" btn btn-secondary w-25"><img src="assets/icons/visibility-blue.svg" alt="icon to select and enlarge this city"></button>
+                            </div>
+                        </div>
+                        <div class=" favoriteCityCard bg-secondary p-4 text-primary shadow-sm rounded-40">
+                            <div class="favoriteCityCard-Info">
+                                <h3>Paris</h3>
+                                <div class="temperature d-flex gap-3 justify-content-center">
+                                    <h3>23°C</h3>
+                                    <div><img class="icon26" src="assets/icons/icons8-nuage-avec-pluie-emoji-48.png" alt="rain icon"></div>
+                                </div>
+                                <p>Pluvieux</p>
+                            </div>
+                            <div class="btn-group m-3">
+                                <button type="button" class=" btn btn-primary w-25 "><img src="assets/icons/garbage-blue.svg" alt="icon to delete this city from your favorite"></button>
+                                <button type="button" class=" btn btn-secondary w-25"><img src="assets/icons/visibility-blue.svg" alt="icon to select and enlarge this city"></button>
+                            </div>
+                        </div>
+                        <div class="favoriteCityCard bg-secondary p-4 text-primary shadow-sm rounded-40 ">
+                            <div class="favoriteCityCard-Info">
+                                <h3>Montreal</h3>
+                                <div class="temperature d-flex gap-3 justify-content-center">
+                                    <h3>23°C</h3>
+                                    <div><img class="icon26" src="assets/icons/icons8-nuage-avec-éclair-et-pluie-emoji-48.png" alt="thunderstorm icon"></div>
+                                </div>
+                                <p>Orageux</p>
+                            </div>
+                            <div class="btn-group m-3">
+                                <button type="button" class=" btn btn-primary w-25 "><img src="assets/icons/garbage-blue.svg" alt="icon to delete this city from your favorite"></button>
+                                <button type="button" class=" btn btn-secondary w-25"><img src="assets/icons/visibility-blue.svg" alt="icon to select and enlarge this city"></button>
+                            </div>
+                        </div>
+                    </div>           
+                </div>
+            </div>   
+        </div>
+    </div>
     </main>
     <footer class="p-2">
         <ul class="nav footerElementsContainer justify-content-end align-item-center">
@@ -179,6 +365,8 @@
         </ul>
     </footer>
   </body>
+
+  
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script>
