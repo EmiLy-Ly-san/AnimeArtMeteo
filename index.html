@@ -89,7 +89,7 @@
         <button type="button" class="btn btn-primary menu-button text-secondary m-0 rounded-0" data-bs-toggle="modal" data-bs-target="#backgroundCollectionUser">
           My backgrounds 
         </button>
-        <button type="button" class="btn btn-secondary menu-button text-primary m-0 rounded-0">
+        <button type="button" class="btn btn-secondary menu-button text-primary m-0 rounded-0" data-bs-toggle="modal" data-bs-target="#aboutTheAuthor">
           About the author
     </aside>
     </nav>   
@@ -173,7 +173,7 @@
                 </div>
               </div>
             </div>
-          </div>
+        </div>
 
 <!--MODAL CITIES COLLECTION USER-->  
         <div class="modal fade " id="citiesCollectionUser">
@@ -461,12 +461,43 @@
                                     <button type="button" class=" btn  w-25"><img src="assets/icons/visibility-blue.svg" alt="icon to select and enlarge this city"></button>
                                 </div>
                             </div> 
-                        </div>                                                                                                                                
-                        
+                        </div>                                                                                                                                                        
                     </div>
                 </div>   
             </div>
         </div>
+
+<!--MODAL ABOUT THE AUTHOR-->
+<div class="modal fade" id="aboutTheAuthor" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content rounded-40 bg-primary opacity-75 overflow-hidden">
+        <div class="modal-header bg-secondary d-flex justify-content-between">
+          <h5 class="modal-title text-primary">About the author</h5>
+          <button type="button" class="btn-close bg-primary mx-3" data-bs-dismiss="modal">
+          </button>
+        </div>
+        <div class="modal-body d-flex gap-5 justify-content-center align-items-center p-4">
+            <img class="w-25" src="assets/pictures/5ab46a34084cf46af57e53647ebe6587.jpg" alt="Anime Art picture">
+            <div class="container bg-base p-4 m-5 d-flex flex-column align-items-center ">
+                <div class="text-author text-secondary">
+                    <p class="fw-bold">Hello!<br>
+                        I'm Emily. </p>
+                    <p>I'm a front-end developper based in France at Nantes.<br> Passionated by code and anime art, I usually made home code project inspired by anime art.</p>
+                    <p>I hope you enjoy it !<br>
+                        If you want to see more, you can go on my code pen or my gitHub right here :</p>
+                </div>
+                <div class="icon-author d-flex gap-5 m-2">
+                    <img src="/assets/icons/Icon-codepen-blue.svg" alt="icon to go to my codePen account">
+                    <img src="/assets/icons/github-blue.svg" alt="icon to go to my gitHub account">
+                 </div>
+            </div>
+             
+            </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
     </main>
     <footer class="p-2">
         <ul class="nav footerElementsContainer justify-content-end align-item-center">
