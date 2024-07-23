@@ -142,10 +142,28 @@ footer {
   margin-right: 60px;
 }
 
-.favoriteCityCard {
+.favoriteCityCard,
+.favoriteBackgroundCard {
   width: 320px;
-  height: 215px;
-
-  background-color: rgba(12, 10, 97);
+  height: 380px;
   text-align: center;
+}
+
+.container-img-background {
+  height: 50%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.container-img-background-1 {
+  background-image: url("/assets/backgrounds/autumn-winter/snow/72f3b88e1fc39a68e060203e4d2a8272.jpg");
+}
+
+.container-img-background-2 {
+  background-image: url("/assets/backgrounds/autumn-winter/snow/0a7ac3cf9cb1cc1c739a93c8c3a10821.jpg");
+}
+
+.container-img-background-3 {
+  background-image: url("/assets/backgrounds/autumn-winter/rain/11426a7e2d15a45f0be41982ad38134e.jpg");
 }
