@@ -14,6 +14,24 @@ function unrollMenu() {
   }
 }
 
+/*******NAVBAR EXTENSION***** */
+const expandBtn = document.querySelector(".expandBtn");
+const extensionNav = document.querySelector(".navExtension");
+const expandIcon = document.getElementById("expandIcon");
+
+function expandNav() {
+  extensionNav.classList.toggle("display-none");
+  if (expandIcon.getAttribute("data-navDisplayState") == "reduced") {
+    expandIcon.src = "assets/icons/reduced-expand-blue.svg";
+    expandIcon.setAttribute("data-navDisplayState", "expanded");
+  } else {
+    expandIcon.src = "assets/icons/expand-blue.svg";
+    expandIcon.setAttribute("data-navDisplayState", "reduced");
+  }
+}
+
+expandBtn.addEventListener("click", expandNav);
+
 /*******CITY CARD ENLARGED AND REDUCED******/
 
 let reducedCityCard = document.getElementById("reducedCityCard");
@@ -43,10 +61,18 @@ function likedUnlikedBackground() {
   if (heartIcon.getAttribute("data-heart") == "unliked") {
     heartIcon.src = "assets/icons/hearts.png";
     heartIcon.setAttribute("data-heart", "liked");
+    heartIcon.setAttribute(
+      "title",
+      "Unlike and remove this background from my collection"
+    );
     /****Add the background in the background collection user */
   } else {
     heartIcon.src = "assets/icons/empty-heart.svg";
     heartIcon.setAttribute("data-heart", "unliked");
+    heartIcon.setAttribute(
+      "title",
+      "Like and add in my backgrounds Collection"
+    );
     /****Remove the background in the background collection User */
   }
 }
