@@ -35,6 +35,22 @@ function closeReducedCityCard() {
   });
 }
 
-menuBtn.addEventListener("click", unrollMenu);
+/******LIKED BACKGROUND HEART***** */
+const heartBtn = document.querySelector(".heart-button");
+let heartIcon = document.getElementById("heartIcon");
 
+function likedUnlikedBackground() {
+  if (heartIcon.getAttribute("data-heart") == "unliked") {
+    heartIcon.src = "assets/icons/hearts.png";
+    heartIcon.setAttribute("data-heart", "liked");
+    /****Add the background in the background collection user */
+  } else {
+    heartIcon.src = "assets/icons/empty-heart.svg";
+    heartIcon.setAttribute("data-heart", "unliked");
+    /****Remove the background in the background collection User */
+  }
+}
+
+heartBtn.addEventListener("click", likedUnlikedBackground);
+menuBtn.addEventListener("click", unrollMenu);
 closeReducedCityCard();
