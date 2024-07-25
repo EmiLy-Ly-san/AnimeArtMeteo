@@ -10,71 +10,193 @@
   <body class="bg-base vh-100 vw-100">
     <div class="background-container"></div>
     <nav
-      class="navbar sticky-top navbar-light bg-primary bg-opacity-75 shadow-sm navbar-expand px-4"
+      class="navbar sticky-top navbar-light bg-primary bg-opacity-75 shadow-sm navbar-expand px-4 d-flex justify-content-center align-items-center "
     >
-      <div class="collapse navbar-collapse d-flex justify-content-center align-items-center">
-        <ul class="navbar-nav d-flex flex-wrap gap-3 nav-items-container">
-          <li class="nav-item">
-            <button
-              type="button"
-              class="citiesBtn btn border-secondary rounded-pill text-secondary fw-bold "
-              data-bs-toggle="modal" data-bs-target="#cityCardModal"
-            >
-              Tokyo
-            </button>
-          </li>
-          <li class="nav-item">
-            <button
-              type="button"
-              class="citiesBtn btn border-secondary rounded-pill text-secondary fw-bold"
-              data-bs-toggle="modal" data-bs-target="#cityCardModal"
-            >
-              Paris
-            </button>
-          </li>
-          <li class="nav-item">
-            <button
-              type="button"
-              class=" citiesBtn btn border-secondary rounded-pill  text-secondary fw-bold"
-              data-bs-toggle="modal" data-bs-target="#cityCardModal"
-            >
-              Montreal
-            </button>
-          </li>
-          <li class="nav-item">
-            <button
-              type="button"
-              class="citiesBtn btn border-secondary rounded-pill  text-secondary fw-bold"
-              data-bs-toggle="modal" data-bs-target="#cityCardModal"
-            >
-              Nantes
-            </button>
-          </li>
-          <li class="nav-item">
-            <button
-              type="button"
-              class="citiesBtn btn border-secondary rounded-pill text-secondary fw-bold"
-              data-bs-toggle="modal" data-bs-target="#cityCardModal"
-            >
-              Vallencia
-            </button>
-          </li>
-          <li class="nav-item">
-            <button
-              type="button"
-              class="btn btn-primary border-secondary rounded-pill text-secondary"
-              data-bs-toggle="modal" data-bs-target="#addingANewCity"
-            >
-              <img 
-                class="icon26"
-                src="assets/icons/add-circle.svg"
-                alt="Add circle button for adding a new town in your collection"
-              />
-            </button>
-          </li>
-        </ul>
-      </div>
-      <button type="button" class="nav-link" id="menuBtn">
+    <!--NAVBAR REDUCED-->
+        <div class="itemsCity d-flex flex-column gap-3">
+            <div class="collapse navbar-collapse d-flex gap-3 nav-items-container ">
+                <ul class="navbar-nav d-flex flex-wrap gap-3  ">
+                <li class="nav-item">
+                    <button
+                    type="button"
+                    class="citiesBtn btn border-secondary rounded-pill text-secondary fw-bold "
+                    data-bs-toggle="modal" data-bs-target="#cityCardModal"
+                    >
+                    Tokyo
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button
+                    type="button"
+                    class="citiesBtn btn border-secondary rounded-pill text-secondary fw-bold"
+                    data-bs-toggle="modal" data-bs-target="#cityCardModal"
+                    >
+                    Paris
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button
+                    type="button"
+                    class=" citiesBtn btn border-secondary rounded-pill  text-secondary fw-bold"
+                    data-bs-toggle="modal" data-bs-target="#cityCardModal"
+                    >
+                    Montreal
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button
+                    type="button"
+                    class="citiesBtn btn border-secondary rounded-pill  text-secondary fw-bold"
+                    data-bs-toggle="modal" data-bs-target="#cityCardModal"
+                    >
+                    Nantes
+                    </button>
+                </li>
+                
+                <li class="nav-item">
+                    <button
+                    type="button"
+                    class="btn btn-primary border-secondary rounded-pill text-secondary"
+                    data-bs-toggle="modal" data-bs-target="#addingANewCity"
+                    >
+                    <img 
+                        class="icon26"
+                        src="assets/icons/add-circle.svg"
+                        alt="Add circle button for adding a new town in your collection"
+                    />
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button
+                    type="button"
+                    class="btn expandBtn"
+                    data-bs-toggle="modal" data-bs-target="#navExtension"
+                    >
+                    <img 
+                        id="expandIcon"
+                        class="icon33"
+                        src="assets/icons/expand-blue.svg"
+                        alt="Expand the navigation to see all my cities saved"
+                        data-navDisplayState = "reduced";
+                    />
+                    </button>
+                </li>
+                </ul>
+            </div>
+    
+<!--EXTENSION NAV-->       
+                <div class="navExtension display-none">
+                    <ul class="navbar-nav d-flex flex-wrap gap-3 nav-items-container">
+                    <li class="nav-item">
+                        <button
+                        type="button"
+                        class="citiesBtn btn border-secondary rounded-pill text-secondary fw-bold "
+                        data-bs-toggle="modal" data-bs-target="#cityCardModal"
+                        >
+                        Tokyo
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button
+                        type="button"
+                        class="citiesBtn btn border-secondary rounded-pill text-secondary fw-bold"
+                        data-bs-toggle="modal" data-bs-target="#cityCardModal"
+                        >
+                        Paris
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button
+                        type="button"
+                        class=" citiesBtn btn border-secondary rounded-pill  text-secondary fw-bold"
+                        data-bs-toggle="modal" data-bs-target="#cityCardModal"
+                        >
+                        Montreal
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button
+                        type="button"
+                        class="citiesBtn btn border-secondary rounded-pill  text-secondary fw-bold"
+                        data-bs-toggle="modal" data-bs-target="#cityCardModal"
+                        >
+                        Nantes
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button
+                        type="button"
+                        class="citiesBtn btn border-secondary rounded-pill text-secondary fw-bold"
+                        data-bs-toggle="modal" data-bs-target="#cityCardModal"
+                        >
+                        Vallencia
+                        </button>
+                    </li>  
+                    <li class="nav-item">
+                        <button
+                        type="button"
+                        class="citiesBtn btn border-secondary rounded-pill text-secondary fw-bold"
+                        data-bs-toggle="modal" data-bs-target="#cityCardModal"
+                        >
+                        Vallencia
+                        </button>
+                    </li>  
+                    <li class="nav-item">
+                        <button
+                        type="button"
+                        class="citiesBtn btn border-secondary rounded-pill text-secondary fw-bold"
+                        data-bs-toggle="modal" data-bs-target="#cityCardModal"
+                        >
+                        Vallencia
+                        </button>
+                    </li>  
+                    <li class="nav-item">
+                        <button
+                        type="button"
+                        class="citiesBtn btn border-secondary rounded-pill text-secondary fw-bold"
+                        data-bs-toggle="modal" data-bs-target="#cityCardModal"
+                        >
+                        Vallencia
+                        </button>
+                    </li>  
+                    <li class="nav-item">
+                        <button
+                        type="button"
+                        class="citiesBtn btn btn-primary opacity-75 rounded-pill text-secondary fw-bold"
+                        data-bs-toggle="modal" data-bs-target="#cityCardModal"
+                        >
+                        </button>
+                    </li>  
+                    <li class="nav-item">
+                        <button
+                        type="button"
+                        class="citiesBtn btn btn-primary opacity-75 rounded-pill text-secondary fw-bold"
+                        data-bs-toggle="modal" data-bs-target="#cityCardModal"
+                        >
+                        
+                        </button>
+                    </li>  
+                    <li class="nav-item">
+                        <button
+                        type="button"
+                        class="citiesBtn btn btn-primary opacity-75 rounded-pill text-secondary fw-bold"
+                        data-bs-toggle="modal" data-bs-target="#cityCardModal"
+                        >                        </button>
+                    </li>  
+                    <li class="nav-item">
+                        <button
+                        type="button"
+                        class="citiesBtn btn btn-primary opacity-75 rounded-pill text-secondary fw-bold"
+                        data-bs-toggle="modal" data-bs-target="#cityCardModal"
+                        >
+                        
+                        </button>
+                    </li>  
+                    </ul>
+                </div> 
+        </div>   
+
+      <button type="button" class="nav-link burgerMenu" id="menuBtn">
         <img  id="menuIcon" src="assets/icons/menu.svg" alt="toggle menu" data-src-menu="menuClosed"/>
       </button>
       <aside class="unrolledMenuContainer hidden">
@@ -95,6 +217,9 @@
     </aside>
     </nav>   
     <main class="w-100">
+
+
+               
     
 <!--QUICK OPTIONS AND REDUCED CITY CARD-->
         <div class="d-flex justify-content-between align-items-first-baseline">
@@ -520,7 +645,7 @@
     <footer class="p-4">
         <ul class="nav footerElementsContainer justify-content-end align-item-center">
             <li class="nav-item backgroundSource text-primary"><a class="nav-link text-primary" href="#">@backgroundSource</a></li>
-            <li class="nav-item "><button type="button"  class="heart-button btn  h-100"><img id="heartIcon" class="icon33" src="assets/icons/empty-heart.svg" alt="Empty heart to like the current background" data-heart="unliked"></button></li>
+            <li class="nav-item "><button type="button" title="Like and add in my backgrounds Collection" class="heart-button btn  h-100"><img id="heartIcon" class="icon33" src="assets/icons/empty-heart.svg" alt="Empty heart to like the current background" data-heart="unliked"></button></li>
         </ul>
     </footer>
   </body>

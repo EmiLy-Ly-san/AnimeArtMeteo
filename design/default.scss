@@ -10,11 +10,10 @@ $theme-colors: (
 body {
   width: 100vw;
   height: 100vh;
-  position: relative;
   font-size: 1rem;
+  position: relative;
   display: flex;
   flex-direction: column;
-  margin: auto;
 }
 
 .background-container {
@@ -48,7 +47,7 @@ button {
 }
 
 .icon33 {
-  width: 40px;
+  width: 33px;
 }
 
 .rounded-40 {
@@ -63,12 +62,12 @@ button {
   visibility: visible;
 }
 
-nav {
-  position: relative;
+.display-none {
+  display: none;
 }
 
 .nav-items-container {
-  max-width: 1200px;
+  max-width: 1000px;
 }
 
 main {
