@@ -1,36 +1,29 @@
-/******DROPDOWN MENU*******/
-let menuBtn = document.querySelector("#menuBtn");
-let unrolledMenuContainer = document.querySelector(".unrolledMenuContainer");
-let menuIcon = document.getElementById("menuIcon");
-
-function unrollMenu() {
-  unrolledMenuContainer.classList.toggle("hidden");
-  if (menuIcon.getAttribute("data-src-menu") == "menuClosed") {
-    menuIcon.src = "assets/icons/menu-open-blue.svg";
-    menuIcon.setAttribute("data-src-menu", "menuOpened");
-  } else {
-    menuIcon.src = "assets/icons/menu.svg";
-    menuIcon.setAttribute("data-src-menu", "menuClosed");
-  }
+function switchIcon(icon) {
+  const currentSrc = icon.getAttribute("src");
+  const nextSrc = icon.getAttribute("data-icon");
+  icon.setAttribute("src", nextSrc);
+  icon.setAttribute("data-icon", currentSrc);
 }
+
+/******DROPDOWN MENU*******/
+const menuBtn = document.querySelector("#menuBtn");
+const unrolledMenuContainer = document.querySelector(".unrolledMenuContainer");
+const menuIcon = document.getElementById("menuIcon");
+
+menuBtn.addEventListener("click", () => {
+  unrolledMenuContainer.classList.toggle("hidden");
+  switchIcon(menuIcon);
+});
 
 /*******NAVBAR EXTENSION***** */
 const expandBtn = document.querySelector(".expandBtn");
 const extensionNav = document.querySelector(".navExtension");
 const expandIcon = document.getElementById("expandIcon");
 
-function expandNav() {
+expandBtn.addEventListener("click", () => {
   extensionNav.classList.toggle("display-none");
-  if (expandIcon.getAttribute("data-navDisplayState") == "reduced") {
-    expandIcon.src = "assets/icons/reduced-expand-blue.svg";
-    expandIcon.setAttribute("data-navDisplayState", "expanded");
-  } else {
-    expandIcon.src = "assets/icons/expand-blue.svg";
-    expandIcon.setAttribute("data-navDisplayState", "reduced");
-  }
-}
-
-expandBtn.addEventListener("click", expandNav);
+  switchIcon(expandIcon);
+});
 
 /*******CITY CARD ENLARGED AND REDUCED******/
 
@@ -78,5 +71,5 @@ function likedUnlikedBackground() {
 }
 
 heartBtn.addEventListener("click", likedUnlikedBackground);
-menuBtn.addEventListener("click", unrollMenu);
+
 closeReducedCityCard();
