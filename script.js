@@ -141,4 +141,6 @@ heartBtn.addEventListener("click", () => {
   }
 });
 
+/********BACKGROUND DISPLAY */
+
 geolocaliseMe();
