@@ -225,12 +225,12 @@
         <div class="d-flex justify-content-between align-items-first-baseline">
             <div class="quickOptionsContainer m-4 w-25 h-50">
                 <div class='input-group '>    
-                    <input type="text" name='cityUser' id="cityUser" placeholder="Enter a city here..." class='form-control rounded-0 fst-italic bg-primary text-secondary border-0'>
-                    <span class='input-group-text rounded-0 bg-secondary border-0' type="submit"  title="Start a research"><img  class="icon26" src="assets/icons/search.svg" alt="search button"></span>
+                    <input type="text" name='cityUserQuick' id="cityUserQuick" placeholder="Enter a city here..." class='inputCityUser form-control rounded-0 fst-italic bg-primary text-secondary border-0'>
+                    <button class='searchBtn btn w-25 rounded-0 bg-secondary border-0' type="submit" id="0" title="Start a research"><img  class="icon26" src="assets/icons/search.svg" alt="search button"></button>
                 </div>
                 <div class='input-group geolocalisationContainer'>    
                     <input type="text" name='geolocalisation' id="geolocalisation" value="Geolocalise me" class='form-control rounded-0 bg-secondary text-primary border-0'>
-                    <span class='input-group-text rounded-0 bg-primary border-0' type="button"><img class="icon26" src="assets/icons/myLocation.svg" alt="my location button"></span>
+                    <button class='geolocaliseMeBtn btn w-25 rounded-0 bg-primary border-0' type="button"><img class="icon26" src="assets/icons/myLocation.svg" alt="my location button"></button>
                 </div>
             </div>
             
@@ -295,8 +295,8 @@
                   </button>
                 </div>
                 <div class="modal-body d-flex flex-column gap-3 justify-content-center align-items-center ">
-                  <input type="text" name="cityUser" id="cityUser" placeholder="Enter a new city here..." class="m-0">
-                  <button type="button" class="btn btn-primary border-secondary rounded-pill"><img src="assets/icons/add-in-collection-blue.svg" alt="icon to add in your favorites"></button>
+                  <input type="text" name="addCity" id="addCity" placeholder="Enter a new city here..." class="m-0">
+                  <button type="button" class="addCityBtn btn btn-primary border-secondary rounded-pill"><img src="assets/icons/add-in-collection-blue.svg" alt="icon to add in your favorites"></button>
                 </div>
               </div>
             </div>
@@ -313,8 +313,8 @@
                     </div>
                     <div class="modal-body d-flex flex-column gap-3 justify-content-center align-items-start m-5">
                         <div class='input-group w-75'>    
-                            <input type="text" name='cityUser' id="cityUser" placeholder="Enter a city here..." class='form-control rounded-0 fst-italic bg-primary text-secondary border-secondary'>
-                            <span class='input-group-text rounded-0 bg-secondary border-0' type="submit"  title="Start a research"><img  class="icon26" src="assets/icons/search.svg" alt="search button"></span>
+                            <input type="text" name='cityUser' id="cityUser" placeholder="Enter a city here..." class='inputCityUser form-control rounded-0 fst-italic bg-primary text-secondary border-secondary'>
+                            <button class='searchBtn btn w-25 rounded-0 bg-secondary border-0' type="submit" id="1" title="Start a research"><img  class="icon26" src="assets/icons/search.svg" alt="search button"></button>
                         </div>
                     </div>
                 </div>
@@ -645,7 +645,7 @@
     <footer class="p-4">
         <ul class="nav footerElementsContainer justify-content-end align-item-center">
             <li class="nav-item backgroundSource text-primary"><a class="nav-link text-primary" href="#">@backgroundSource</a></li>
-            <li class="nav-item "><button type="button" title="Like and add in my backgrounds Collection" class="heart-button btn  h-100"><img id="heartIcon" class="icon33" src="assets/icons/empty-heart.svg" alt="Empty heart to like the current background" data-heart="unliked"></button></li>
+            <li class="nav-item "><button type="button" title="Like and add in my backgrounds Collection" class="heart-button btn  h-100"><img id="heartIcon" class="icon33" src="assets/icons/empty-heart.svg" alt="Empty heart to like the current background" data-icon="assets/icons/hearts.png"></button></li>
         </ul>
     </footer>
   </body>
