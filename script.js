@@ -1,6 +1,10 @@
+import { backgroundsData } from "./backgrounds.js";
+
 /*******GEOLOCALISE ME */
 let town;
 let url;
+let temp;
+let description;
 const geolocaliseMeBtn = document.querySelector(".geolocaliseMeBtn");
 geolocaliseMeBtn.addEventListener("click", geolocaliseMe);
 
@@ -11,7 +15,7 @@ function geolocaliseMe() {
     };
     //Finding the current user position with api openweather
     let watch = navigator.geolocation.watchPosition(
-      (position) => {
+      async (position) => {
         navigator.geolocation.clearWatch(watch);
         console.log(position.coords.latitude);
         console.log(position.coords.longitude);
@@ -22,7 +26,10 @@ function geolocaliseMe() {
           position.coords.latitude +
           "&appid=075e3c803b57e9d25a7e50c00e33a2ff&units=metric";
         console.log(url);
-        recoverTown();
+
+        await recoverTown();
+        setSeasonBackground();
+        await getBackground();
       },
       error,
       options
@@ -48,6 +55,10 @@ async function recoverTown() {
     console.log(datas);
     town = datas.name;
     console.log(town);
+    temp = datas.main.temp;
+    console.log(temp);
+    description = datas.weather[0].main;
+    console.log(description);
   }
 }
 
@@ -142,5 +153,98 @@ heartBtn.addEventListener("click", () => {
 });
 
 /********BACKGROUND DISPLAY */
+/*const response = fetch("backgrounds.json");
+const backgrounds = response.json();*/
+let backgroundContainer = document.querySelector(".background-container");
+let selectedBackground;
+let backgroundSeason;
+let currentDate;
 
+console.log({ backgroundsData });
+//AUTUMNWINTER BACKLGROUNDS
+const backgroundsAutumnWinterSun = backgroundsData.autumnWinter.filter(
+  function (background) {
+    return background.weather === "sun";
+  }
+);
+const backgroundsAutumnWinterRain = backgroundsData.autumnWinter.filter(
+  function (background) {
+    return background.weather === "rain";
+  }
+);
+const backgroundsAutumnWinterSnow = backgroundsData.autumnWinter.filter(
+  function (background) {
+    return background.weather === "snow";
+  }
+);
+const backgroundsAutumnWinterClouds = backgroundsData.autumnWinter.filter(
+  function (background) {
+    return background.weather === "clouds";
+  }
+);
+//SPRINGSUMMER BACKGROUNDS
+const backgroundsSpringSummerSun = backgroundsData.springSummer.filter(
+  function (background) {
+    return background.weather === "sun";
+  }
+);
+const backgroundsSpringSummerRain = backgroundsData.springSummer.filter(
+  function (background) {
+    return background.weather === "rain";
+  }
+);
+
+const backgroundsSpringSummerClouds = backgroundsData.springSummer.filter(
+  function (background) {
+    return background.weather === "clouds";
+  }
+);
+
+let month;
+
+function setMonth() {
+  currentDate = new Date();
+  month = currentDate.getMonth();
+  console.log(month);
+}
+
+function setSeasonBackground() {
+  setMonth();
+  if ((month >= 1) & (month < 5)) {
+    backgroundSeason = "autunmWinter";
+  } else {
+    backgroundSeason = "springSummer";
+  }
+  console.log(backgroundSeason);
+}
+
+function indexGenerator(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+function getBackground() {
+  if (backgroundSeason == "springSummer" && description == "Clear") {
+    const randomIndex = indexGenerator(backgroundsSpringSummerSun.length);
+    console.log({ randomIndex });
+    const randomBackgroundArray = Array.from(backgroundsSpringSummerSun);
+    const randomBackground = randomBackgroundArray[randomIndex].file;
+
+    console.log({ randomBackground });
+
+    backgroundContainer.style.backgroundImage = "url(`${randomBackground}`)";
+  }
+}
+
+/*(async function runApplication() {
+
+  await geolocaliseMe();
+})(); //immediatly invoked function IIF*/
+
+console.log({ backgroundsSpringSummerSun });
+console.log({ backgroundsSpringSummerRain });
+console.log({ backgroundsSpringSummerClouds });
+console.log({ backgroundsAutumnWinterRain });
+console.log({ backgroundsAutumnWinterSnow });
+console.log({ backgroundsAutumnWinterClouds });
+console.log({ backgroundsAutumnWinterSun });
 geolocaliseMe();
