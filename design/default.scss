@@ -17,20 +17,38 @@ body {
 }
 
 .background-container {
-  width: 100%;
+  max-width: 33%;
+  margin: auto;
   height: 100%;
-  border: solid 1px black;
+  position: absolute;
+  z-index: -9;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-image: none;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(0px);
+}
+
+.background-container-big {
+  width: 100%;
+  margin: auto;
+  height: 100%;
   position: absolute;
   z-index: -10;
   top: 0;
   bottom: 0;
   right: 0;
   left: 0;
-  background-image: url("/assets/backgrounds/autumn-winter/snow/72f3b88e1fc39a68e060203e4d2a8272.jpg");
+  border: solid 1px black;
+  background-image: none;
   background-size: cover;
   background-position: top;
   background-repeat: no-repeat;
-  filter: blur(2px);
+  filter: blur(5px);
 }
 
 button {

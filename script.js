@@ -156,12 +156,14 @@ heartBtn.addEventListener("click", () => {
 /*const response = fetch("backgrounds.json");
 const backgrounds = response.json();*/
 let backgroundContainer = document.querySelector(".background-container");
-let selectedBackground;
+let backgroundContainerBig = document.querySelector(
+  ".background-container-big"
+);
 let backgroundSeason;
 let currentDate;
 
 console.log({ backgroundsData });
-//AUTUMNWINTER BACKLGROUNDS
+//AUTUMNWINTER BACKGROUNDS
 const backgroundsAutumnWinterSun = backgroundsData.autumnWinter.filter(
   function (background) {
     return background.weather === "sun";
@@ -210,10 +212,10 @@ function setMonth() {
 
 function setSeasonBackground() {
   setMonth();
-  if ((month >= 1) & (month < 5)) {
-    backgroundSeason = "autunmWinter";
-  } else {
+  if (month >= 4 && month < 9) {
     backgroundSeason = "springSummer";
+  } else {
+    backgroundSeason = "autumnWinter";
   }
   console.log(backgroundSeason);
 }
@@ -223,28 +225,183 @@ function indexGenerator(max) {
 }
 
 function getBackground() {
-  if (backgroundSeason == "springSummer" && description == "Clear") {
+  if (backgroundSeason == "springSummer") {
+    switch (description) {
+      case "Clear":
+        let randomIndex = indexGenerator(backgroundsSpringSummerSun.length);
+        console.log({ randomIndex });
+        let randomBackgroundArray = Array.from(backgroundsSpringSummerSun);
+        let randomBackground = randomBackgroundArray[randomIndex].file;
+        console.log({ randomBackground });
+        backgroundContainer.style.backgroundImage = `url(${randomBackground})`;
+        backgroundContainerBig.style.backgroundImage = `url(${randomBackground})`;
+        break;
+      case "Drizzle":
+      case "Rain":
+        randomIndex = indexGenerator(backgroundsSpringSummerRain.length);
+        console.log({ randomIndex });
+        randomBackgroundArray = Array.from(backgroundsSpringSummerRain);
+        randomBackground = randomBackgroundArray[randomIndex].file;
+        console.log({ randomBackground });
+        backgroundContainer.style.backgroundImage = `url(${randomBackground})`;
+        backgroundContainerBig.style.backgroundImage = `url(${randomBackground})`;
+        break;
+      case "Clouds":
+      case "Atmosphere":
+        randomIndex = indexGenerator(backgroundsSpringSummerClouds.length);
+        console.log({ randomIndex });
+        randomBackgroundArray = Array.from(backgroundsSpringSummerClouds);
+        randomBackground = randomBackgroundArray[randomIndex].file;
+        console.log({ randomBackground });
+        backgroundContainer.style.backgroundImage = `url(${randomBackground})`;
+        backgroundContainerBig.style.backgroundImage = `url(${randomBackground})`;
+        break;
+      default:
+        backgroundContainer =
+          "url(assets/backgrounds/summer-spring/sun/1e4fe3db756c83c5c3f7ed904e002436.jpg)";
+        backgroundContainerBig.style.backgroundImage =
+          "url(assets/backgrounds/summer-spring/sun/1e4fe3db756c83c5c3f7ed904e002436.jpg)";
+    }
+  } else {
+    if (backgroundSeason == "autunmWinter") {
+      switch (description) {
+        case "Clear":
+          let randomIndex = indexGenerator(backgroundsAutumnWinterSun.length);
+          console.log({ randomIndex });
+          let randomBackgroundArray = Array.from(backgroundsAutumnWinterSun);
+          let randomBackground = randomBackgroundArray[randomIndex].file;
+          console.log({ randomBackground });
+          backgroundContainer.style.backgroundImage = `url(${randomBackground})`;
+          backgroundContainerBig.style.backgroundImage = `url(${randomBackground})`;
+          break;
+        case "Drizzle":
+        case "Rain":
+          randomIndex = indexGenerator(backgroundsAutumnWinterRain.length);
+          console.log({ randomIndex });
+          randomBackgroundArray = Array.from(backgroundsAutumnWinterRain);
+          randomBackground = randomBackgroundArray[randomIndex].file;
+          console.log({ randomBackground });
+          backgroundContainer.style.backgroundImage = `url(${randomBackground})`;
+          backgroundContainerBig.style.backgroundImage = `url(${randomBackground})`;
+          break;
+        case "Clouds":
+        case "Atmosphere":
+          randomIndex = indexGenerator(backgroundsAutumnWinterClouds.length);
+          console.log({ randomIndex });
+          randomBackgroundArray = Array.from(backgroundsAutumnWinterClouds);
+          randomBackground = randomBackgroundArray[randomIndex].file;
+          console.log({ randomBackground });
+          backgroundContainer.style.backgroundImage = `url(${randomBackground})`;
+          backgroundContainerBig.style.backgroundImage = `url(${randomBackground})`;
+          break;
+        case "Snow":
+          randomIndex = indexGenerator(backgroundsAutumnWinterSnow.length);
+          console.log({ randomIndex });
+          randomBackgroundArray = Array.from(backgroundsAutumnWinterSnow);
+          randomBackground = randomBackgroundArray[randomIndex].file;
+          console.log({ randomBackground });
+          backgroundContainer.style.backgroundImage = `url(${randomBackground})`;
+          backgroundContainerBig.style.backgroundImage = `url(${randomBackground})`;
+          break;
+        default:
+          backgroundContainer =
+            "url(/assets/backgrounds/autumn-winter/sun/2e22f614e218b2d8e9b6ad04a74db87f.jpg)";
+          backgroundContainerBig.style.backgroundImage =
+            "url(/assets/backgrounds/autumn-winter/sun/2e22f614e218b2d8e9b6ad04a74db87f.jpg)";
+      }
+    }
+  }
+}
+
+/*function getBackgroundSpringSummer() {
+  if (description == "Clear") {
     const randomIndex = indexGenerator(backgroundsSpringSummerSun.length);
     console.log({ randomIndex });
     const randomBackgroundArray = Array.from(backgroundsSpringSummerSun);
     const randomBackground = randomBackgroundArray[randomIndex].file;
-
     console.log({ randomBackground });
+    backgroundContainer.style.backgroundImage = `url(${randomBackground})`;
+    backgroundContainerBig.style.backgroundImage = `url(${randomBackground})`;
+  } if else {
+    if (description == "Drizzle" || "Rain") {
+      const randomIndex = indexGenerator(backgroundsSpringSummerRain.length);
+      console.log({ randomIndex });
+      const randomBackgroundArray = Array.from(backgroundsSpringSummerRain);
+      const randomBackground = randomBackgroundArray[randomIndex].file;
+      console.log({ randomBackground });
+      backgroundContainer.style.backgroundImage = `url(${randomBackground})`;
+      backgroundContainerBig.style.backgroundImage = `url(${randomBackground})`;
+    }
+  } else {
 
-    backgroundContainer.style.backgroundImage = "url(`${randomBackground}`)";
+  if (description == "Clouds" || "Atmosphere") {
+    const randomIndex = indexGenerator(backgroundsSpringSummerClouds.length);
+    console.log({ randomIndex });
+    const randomBackgroundArray = Array.from(backgroundsSpringSummerClouds);
+    const randomBackground = randomBackgroundArray[randomIndex].file;
+    console.log({ randomBackground });
+    backgroundContainer.style.backgroundImage = `url(${randomBackground})`;
+    backgroundContainerBig.style.backgroundImage = `url(${randomBackground})`;
+    } 
+  } else {
+    backgroundContainer = url(
+      "/assets/backgrounds/summer-spring/sun/1e4fe3db756c83c5c3f7ed904e002436.jpg"
+    );
+    backgroundContainerBig.style.backgroundImage = url(
+      "/assets/backgrounds/summer-spring/sun/1e4fe3db756c83c5c3f7ed904e002436.jpg"
+    );
   }
-}
+}*/
+
+/*function getBackgroundAutumnWinter() {
+  if (description == "Clear") {
+    const randomIndex = indexGenerator(backgroundsAutumnWinterSun.length);
+    console.log({ randomIndex });
+    const randomBackgroundArray = Array.from(backgroundsAutumnWinterSun);
+    const randomBackground = randomBackgroundArray[randomIndex].file;
+    console.log({ randomBackground });
+    backgroundContainer.style.backgroundImage = `url(${randomBackground})`;
+    backgroundContainerBig.style.backgroundImage = `url(${randomBackground})`;
+  }
+  if (description == "Drizzle" || "Rain") {
+    const randomIndex = indexGenerator(backgroundsAutumnWinterRain.length);
+    console.log({ randomIndex });
+    const randomBackgroundArray = Array.from(backgroundsAutumnWinterRain);
+    const randomBackground = randomBackgroundArray[randomIndex].file;
+    console.log({ randomBackground });
+    backgroundContainer.style.backgroundImage = `url(${randomBackground})`;
+    backgroundContainerBig.style.backgroundImage = `url(${randomBackground})`;
+  }
+  if (description == "Clouds" || "Atmosphere") {
+    const randomIndex = indexGenerator(backgroundsAutumnWinterClouds.length);
+    console.log({ randomIndex });
+    const randomBackgroundArray = Array.from(backgroundsAutumnWinterClouds);
+    const randomBackground = randomBackgroundArray[randomIndex].file;
+    console.log({ randomBackground });
+    backgroundContainer.style.backgroundImage = `url(${randomBackground})`;
+    backgroundContainerBig.style.backgroundImage = `url(${randomBackground})`;
+  }
+  if (description == "Snow") {
+    const randomIndex = indexGenerator(backgroundsAutumnWinterSnow.length);
+    console.log({ randomIndex });
+    const randomBackgroundArray = Array.from(backgroundsAutumnWinterSnow);
+    const randomBackground = randomBackgroundArray[randomIndex].file;
+    console.log({ randomBackground });
+    backgroundContainer.style.backgroundImage = `url(${randomBackground})`;
+    backgroundContainerBig.style.backgroundImage = `url(${randomBackground})`;
+  } else {
+    backgroundContainer = url(
+      "/assets/backgrounds/autumn-winter/sun/2e22f614e218b2d8e9b6ad04a74db87f.jpg"
+    );
+    backgroundContainerBig.style.backgroundImage = url(
+      "/assets/backgrounds/autumn-winter/sun/2e22f614e218b2d8e9b6ad04a74db87f.jpg"
+    );
+  }
+}*/
 
 /*(async function runApplication() {
 
   await geolocaliseMe();
 })(); //immediatly invoked function IIF*/
 
-console.log({ backgroundsSpringSummerSun });
-console.log({ backgroundsSpringSummerRain });
-console.log({ backgroundsSpringSummerClouds });
-console.log({ backgroundsAutumnWinterRain });
-console.log({ backgroundsAutumnWinterSnow });
-console.log({ backgroundsAutumnWinterClouds });
-console.log({ backgroundsAutumnWinterSun });
 geolocaliseMe();
