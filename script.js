@@ -1,4 +1,23 @@
 import { backgroundsData } from "./backgrounds.js";
+/*******GENRALS FUNCTIONS */
+function switchIcon(icon) {
+  const currentSrc = icon.getAttribute("src");
+  const nextSrc = icon.getAttribute("data-icon");
+  icon.setAttribute("src", nextSrc);
+  icon.setAttribute("data-icon", currentSrc);
+}
+
+function getEmptyButtons(buttonsArray) {
+  return buttonsArray.filter(function (button) {
+    return button.textContent === "";
+  });
+}
+
+function getEmptyCards(cardsArray) {
+  return cardsArray.filter(function (card) {
+    return card.id === "";
+  });
+}
 
 /*******GEOLOCALISE ME */
 let townGeo;
@@ -31,7 +50,7 @@ function geolocaliseMe() {
         await recoverGeolocTown();
         fillCityCard(townGeo, tempGeo, descriptionGeo, iconWeatherGeo);
         setSeasonBackground(descriptionGeo);
-        
+        isBgLiked();
       },
       error,
       options
@@ -47,7 +66,7 @@ function geolocaliseMe() {
         iconWeatherSearched
       );
       setSeasonBackground(descriptionSearched);
-     
+      isBgLiked();
     }
   } else {
     alert("La geolocalisation ne peut pas etre utilisee.");
@@ -60,7 +79,7 @@ function geolocaliseMe() {
       iconWeatherSearched
     );
     setSeasonBackground(descriptionSearched);
-    
+    isBgLiked();
   }
 }
 
@@ -165,6 +184,7 @@ function indexGenerator(max) {
 let randomIndex;
 let randomBackgroundArray;
 let randomBackground;
+let backgroundId;
 
 function getBackgroundSpringSummer(description) {
   switch (description) {
@@ -173,58 +193,69 @@ function getBackgroundSpringSummer(description) {
       console.log({ randomIndex });
       randomBackgroundArray = Array.from(backgroundsSpringSummerSun);
       randomBackground = randomBackgroundArray[randomIndex].file;
+      backgroundId = randomBackgroundArray[randomIndex].id;
       console.log({ randomBackground });
       backgroundContainer.style.backgroundImage = `url(${randomBackground})`;
       backgroundContainerBig.style.backgroundImage = `url(${randomBackground})`;
+      backgroundContainer.setAttribute("data-backgroundId", `${backgroundId}`);
       break;
     case "Drizzle":
     case "Rain":
+    case "Mist":
       randomIndex = indexGenerator(backgroundsSpringSummerRain.length);
       console.log({ randomIndex });
       randomBackgroundArray = Array.from(backgroundsSpringSummerRain);
       randomBackground = randomBackgroundArray[randomIndex].file;
+      backgroundId = randomBackgroundArray[randomIndex].id;
       console.log({ randomBackground });
       backgroundContainer.style.backgroundImage = `url(${randomBackground})`;
       backgroundContainerBig.style.backgroundImage = `url(${randomBackground})`;
+      backgroundContainer.setAttribute("data-backgroundId", `${backgroundId}`);
       break;
     case "Clouds":
-
     case "Atmosphere":
       randomIndex = indexGenerator(backgroundsSpringSummerClouds.length);
       console.log({ randomIndex });
       randomBackgroundArray = Array.from(backgroundsSpringSummerClouds);
       randomBackground = randomBackgroundArray[randomIndex].file;
+      backgroundId = randomBackgroundArray[randomIndex].id;
       console.log({ randomBackground });
       backgroundContainer.style.backgroundImage = `url(${randomBackground})`;
       backgroundContainerBig.style.backgroundImage = `url(${randomBackground})`;
+      backgroundContainer.setAttribute("data-backgroundId", `${backgroundId}`);
       break;
     case "Thunderstorm":
       randomIndex = indexGenerator(backgroundsSpringSummerThunderstorm.length);
       console.log({ randomIndex });
       randomBackgroundArray = Array.from(backgroundsSpringSummerClouds);
       randomBackground = randomBackgroundArray[randomIndex].file;
+      backgroundId = randomBackgroundArray[randomIndex].id;
       console.log({ randomBackground });
       backgroundContainer.style.backgroundImage = `url(${randomBackground})`;
       backgroundContainerBig.style.backgroundImage = `url(${randomBackground})`;
+      backgroundContainer.setAttribute("data-backgroundId", `${backgroundId}`);
       break;
     default:
       backgroundContainer =
         "url(assets/backgrounds/summer-spring/sun/1e4fe3db756c83c5c3f7ed904e002436.jpg)";
       backgroundContainerBig.style.backgroundImage =
         "url(assets/backgrounds/summer-spring/sun/1e4fe3db756c83c5c3f7ed904e002436.jpg)";
+      backgroundContainer.setAttribute("data-backgroundId", "ss60");
   }
 }
 
 function getBackgroundAutumnWinter(description) {
   switch (description) {
     case "Clear":
-      let randomIndex = indexGenerator(backgroundsAutumnWinterSun.length);
+      randomIndex = indexGenerator(backgroundsAutumnWinterSun.length);
       console.log({ randomIndex });
-      let randomBackgroundArray = Array.from(backgroundsAutumnWinterSun);
-      let randomBackground = randomBackgroundArray[randomIndex].file;
+      randomBackgroundArray = Array.from(backgroundsAutumnWinterSun);
+      randomBackground = randomBackgroundArray[randomIndex].file;
+      backgroundId = randomBackgroundArray[randomIndex].id;
       console.log({ randomBackground });
       backgroundContainer.style.backgroundImage = `url(${randomBackground})`;
       backgroundContainerBig.style.backgroundImage = `url(${randomBackground})`;
+      backgroundContainer.setAttribute("data-backgroundId", `${backgroundId}`);
       break;
     case "Drizzle":
     case "Rain":
@@ -233,9 +264,11 @@ function getBackgroundAutumnWinter(description) {
       console.log({ randomIndex });
       randomBackgroundArray = Array.from(backgroundsAutumnWinterRain);
       randomBackground = randomBackgroundArray[randomIndex].file;
+      backgroundId = randomBackgroundArray[randomIndex].id;
       console.log({ randomBackground });
       backgroundContainer.style.backgroundImage = `url(${randomBackground})`;
       backgroundContainerBig.style.backgroundImage = `url(${randomBackground})`;
+      backgroundContainer.setAttribute("data-backgroundId", `${backgroundId}`);
       break;
     case "Clouds":
     case "Atmosphere":
@@ -243,43 +276,257 @@ function getBackgroundAutumnWinter(description) {
       console.log({ randomIndex });
       randomBackgroundArray = Array.from(backgroundsAutumnWinterClouds);
       randomBackground = randomBackgroundArray[randomIndex].file;
+      backgroundId = randomBackgroundArray[randomIndex].id;
       console.log({ randomBackground });
       backgroundContainer.style.backgroundImage = `url(${randomBackground})`;
       backgroundContainerBig.style.backgroundImage = `url(${randomBackground})`;
+      backgroundContainer.setAttribute("data-backgroundId", `${backgroundId}`);
       break;
     case "Snow":
       randomIndex = indexGenerator(backgroundsAutumnWinterSnow.length);
       console.log({ randomIndex });
       randomBackgroundArray = Array.from(backgroundsAutumnWinterSnow);
       randomBackground = randomBackgroundArray[randomIndex].file;
+      backgroundId = randomBackgroundArray[randomIndex].id;
       console.log({ randomBackground });
       backgroundContainer.style.backgroundImage = `url(${randomBackground})`;
       backgroundContainerBig.style.backgroundImage = `url(${randomBackground})`;
+      backgroundContainer.setAttribute("data-backgroundId", `${backgroundId}`);
       break;
-    case "Snow":
+    case "Thunderstorm":
       randomIndex = indexGenerator(backgroundsAutumnWinterThunderstorm.length);
       console.log({ randomIndex });
       randomBackgroundArray = Array.from(backgroundsAutumnWinterThunderstorm);
       randomBackground = randomBackgroundArray[randomIndex].file;
+      backgroundId = randomBackgroundArray[randomIndex].id;
       console.log({ randomBackground });
       backgroundContainer.style.backgroundImage = `url(${randomBackground})`;
       backgroundContainerBig.style.backgroundImage = `url(${randomBackground})`;
+      backgroundContainer.setAttribute("data-backgroundId", `${backgroundId}`);
       break;
     default:
       backgroundContainer =
         "url(/assets/backgrounds/autumn-winter/sun/2e22f614e218b2d8e9b6ad04a74db87f.jpg)";
       backgroundContainerBig.style.backgroundImage =
         "url(/assets/backgrounds/autumn-winter/sun/2e22f614e218b2d8e9b6ad04a74db87f.jpg)";
+      backgroundContainer.setAttribute("data-backgroundId", "ah92");
   }
 }
 
-/*******GENRALS FUNCTIONS */
-function switchIcon(icon) {
-  const currentSrc = icon.getAttribute("src");
-  const nextSrc = icon.getAttribute("data-icon");
-  icon.setAttribute("src", nextSrc);
-  icon.setAttribute("data-icon", currentSrc);
+/******LIKED BACKGROUND HEART***** */
+const heartBtn = document.querySelector(".heart-button");
+const heartIcon = document.getElementById("heartIcon");
+const favoritesBackgroundsAll = document.querySelectorAll(
+  ".favoriteBackgroundCard"
+);
+const favoritesBackgroundsArray = Array.from(favoritesBackgroundsAll);
+
+function isBgLiked() {
+  const dataBgId = backgroundContainer.getAttribute("data-backgroundId");
+  console.log({ dataBgId });
+
+  const bgToFind = favoritesBackgroundsArray.find(
+    (bg) => bg.id === `${dataBgId}`
+  );
+  console.log({ favoritesBackgroundsArray });
+  console.log({ bgToFind });
+  if (bgToFind) {
+    heartIcon.setAttribute("src", "assets/icons/hearts.png");
+  } else {
+    heartIcon.setAttribute("src", "assets/icons/empty-heart.svg");
+  }
 }
+
+heartBtn.addEventListener("click", () => {
+  if (heartIcon.getAttribute("src") == "assets/icons/hearts.png") {
+    heartIcon.setAttribute("src", "assets/icons/empty-heart.svg");
+    const dataBgId = backgroundContainer.getAttribute("data-backgroundId");
+    const cardToFind = favoritesBackgroundsArray.find(
+      (card) => card.id === `${dataBgId}`
+    );
+    cardToFind.classList.add("display-none");
+
+    //remove card with the same data id than backgroundContainer
+  } else {
+    /*const filledFavoritesBackgroundCards = favoritesBackgroundsArray.filter(
+      (card) => {
+        return !!card.id;
+      }
+    );
+    const dataBgId = backgroundContainer.getAttribute("data-backgroundId");
+    const hasAlreadyLoadedTheCurrentBackground =
+      filledFavoritesBackgroundCards.some((card) => card.id === dataBgId);
+    if (!hasAlreadyLoadedTheCurrentBackground) {*/
+    heartIcon.setAttribute("src", "assets/icons/hearts.png");
+    placeInCollectionBackground();
+  }
+});
+
+/******COLLECTION BACKGROUND ***** */
+const visibilityButton = document.querySelectorAll(".visibilityButton");
+
+const garbageButton = document.querySelectorAll(".garbageButton");
+
+const autumnWinterSection = document.querySelector(".autumnWinterSection");
+const springSummerSection = document.querySelector(".springSummerSection");
+const backgroundsAutumnWinterCards =
+  document.querySelectorAll(".autumnWinterCard");
+let backgroundsAutumnWinterCardsArray = Array.from(
+  backgroundsAutumnWinterCards
+);
+const backgroundsSpringSummerCards =
+  document.querySelectorAll(".springSummerCard");
+let backgroundsSpringSummerCardsArray = Array.from(
+  backgroundsSpringSummerCards
+);
+
+function createNewCardIfNecessary(arrayOfEmptyCard, section) {
+  if (arrayOfEmptyCard.length === 0) {
+    const newCard = document.createElement("div");
+    section.append(newCard);
+    newCard.classList.add(
+      "card",
+      "favoriteBackgroundCard",
+      "springSummerCard",
+      "shadow-sm",
+      "overflow-hidden",
+      "bg-primary",
+      "rounded-40"
+    );
+    newCard.setAttribute("data-backgroundId", `${backgroundId}`);
+    favoritesBackgroundsArray.push(newCard);
+
+    const newBackgroundContainer = document.createElement("div");
+    newCard.append(newBackgroundContainer);
+    newBackgroundContainer.classList.add(
+      "container-img-background",
+      "m-4",
+      "rounded-40",
+      "overflow-hidden",
+      "m-4"
+    );
+    const newCardFooter = document.createElement("div");
+    newCard.append(newCardFooter);
+    newCardFooter.classList.add(
+      "card-footer",
+      "d-flex",
+      "justify-content-center",
+      "bg-primary",
+      "m-4",
+      "p-4"
+    );
+    const newGarbageButton = document.createElement("button");
+    newCardFooter.append(newGarbageButton);
+    newGarbageButton.classList.add("garbageButton", "btn", "w-25");
+    const newGarbageIcon = document.createElement("img");
+    newGarbageButton.append(newGarbageIcon);
+    newGarbageIcon.setAttribute("src", "assets/icons/garbage-blue.svg");
+    newGarbageIcon.setAttribute(
+      "alt",
+      "icon to delete this city from your favorite"
+    );
+    newBackgroundContainer.id = randomBackgroundArray[randomIndex].id;
+    const newVisibilityButton = document.createElement("button");
+    newCardFooter.append(newVisibilityButton);
+    newVisibilityButton.classList.add("visibilityButton", "btn", "w-25");
+    newVisibilityButton.setAttribute("type", "button");
+    const newVisibilityIcon = document.createElement("img");
+    newVisibilityButton.append(newVisibilityIcon);
+    newVisibilityIcon.setAttribute("src", "assets/icons/visibility-blue.svg");
+    newVisibilityIcon.setAttribute(
+      "alt",
+      "icon to select and enlarge this city"
+    );
+    arrayOfEmptyCard.push(newCard);
+    newVisibilityButton.addEventListener("click", () => {
+      const bgToDisplay = newVisibilityButton.getAttribute("data-src");
+      backgroundContainer.style.backgroundImage = `url(${bgToDisplay})`;
+      backgroundContainerBig.style.backgroundImage = `url(${bgToDisplay})`;
+    });
+    newGarbageButton.addEventListener("click", () => {
+      const idToFind = newGarbageButton.id;
+      console.log({ idToFind });
+      console.log({ favoritesBackgroundsArray });
+      const cardToFind = favoritesBackgroundsArray.find(
+        (card) => card.id === `${idToFind}`
+      );
+      cardToFind.classList.add("display-none");
+    });
+  }
+}
+
+function placeInCollectionBackground() {
+  const miniBackgroundCard = {
+    id: randomBackgroundArray[randomIndex].id,
+    file: randomBackgroundArray[randomIndex].file,
+    season: randomBackgroundArray[randomIndex].season,
+    putAwayInSubCollection: function () {
+      if (miniBackgroundCard.season === "autumnWinter") {
+        const emptyBackgroundsAutumnWinterCards = getEmptyCards(
+          backgroundsAutumnWinterCardsArray
+        );
+        createNewCardIfNecessary(
+          emptyBackgroundsAutumnWinterCards,
+          autumnWinterSection
+        );
+        emptyBackgroundsAutumnWinterCards[0].id = miniBackgroundCard.id;
+        const cardToFill = document.getElementById(`${miniBackgroundCard.id}`);
+        cardToFill.querySelector(
+          ".container-img-background"
+        ).style.backgroundImage = `url(${miniBackgroundCard.file})`;
+        cardToFill.setAttribute(
+          "data-backgroundId",
+          `${miniBackgroundCard.id}`
+        );
+      } else {
+        const emptyBackgroundsSpringSummerCards = getEmptyCards(
+          backgroundsSpringSummerCardsArray
+        );
+        createNewCardIfNecessary(
+          emptyBackgroundsSpringSummerCards,
+          springSummerSection
+        );
+        console.log({ emptyBackgroundsSpringSummerCards });
+        emptyBackgroundsSpringSummerCards[0].id = miniBackgroundCard.id;
+        const cardToFill = document.getElementById(`${miniBackgroundCard.id}`);
+        cardToFill.querySelector(
+          ".container-img-background"
+        ).style.backgroundImage = `url(${miniBackgroundCard.file})`;
+        cardToFill.querySelector(
+          ".visibilityButton"
+        ).dataset.src = `${miniBackgroundCard.file}`;
+        console.log({ cardToFill });
+        cardToFill.querySelector(
+          ".garbageButton"
+        ).id = `${miniBackgroundCard.id}`;
+        console.log({ cardToFill });
+      }
+    },
+  };
+  console.log({ miniBackgroundCard });
+  miniBackgroundCard.putAwayInSubCollection();
+  favoritesBackgroundsArray.push(miniBackgroundCard);
+}
+
+visibilityButton.forEach(function (button) {
+  button.addEventListener("click", () => {
+    const bgToDisplay = button.getAttribute("data-src");
+    backgroundContainer.style.backgroundImage = `url(${bgToDisplay})`;
+    backgroundContainerBig.style.backgroundImage = `url(${bgToDisplay})`;
+  });
+});
+
+garbageButton.forEach(function (button) {
+  button.addEventListener("click", () => {
+    const idToFind = button.id;
+    console.log({ idToFind });
+    console.log({ favoritesBackgroundsArray });
+    const cardToFind = favoritesBackgroundsArray.find(
+      (card) => card.id === `${idToFind}`
+    );
+    cardToFind.classList.add("display-none");
+  });
+});
 
 /******DROPDOWN MENU*******/
 const menuBtn = document.querySelector("#menuBtn");
@@ -334,32 +581,27 @@ async function recoverTown(town) {
 }
 
 /****PRESELECTED CITIES */
-let cityPreselected;
+
 const buttonsCityNav = document.querySelectorAll(".citiesBtn");
 const buttonsCityNavArray = Array.from(buttonsCityNav);
+
 buttonsCityNavArray[0].textContent = "Tokyo";
 buttonsCityNavArray[1].textContent = "Paris";
 buttonsCityNavArray[2].textContent = "Montreal";
-buttonsCityNavArray[3].textContent = "New-York";
+buttonsCityNavArray[3].textContent = "Singapour";
 
-function generatePreselectedCityObject(); {
-  buttonsCityNavArray.forEach(function (button) {
-    cityPreselected = `${button.textContent}`;
-    generateCityObject(cityPreselected);
-  });
+for await (const button of buttonsCityNavArray.slice(0, 4)) {
+  console.log(button.textContent);
+  generateCityObject(button.textContent);
 }
 
 console.log({ buttonsCityNavArray });
 
 /****ADDING A NEW CITY */
-let emptyButtons = buttonsCityNavArray.filter(function (button) {
-  return button.textContent === "";
-});
-console.log({ emptyButtons });
+
+// console.log({ emptyButtons });
 const inputAddCity = document.getElementById("addCity");
 const addCityBtn = document.querySelector(".addCityBtn");
-let newCity;
-let miniCityCard = {};
 
 addCityBtn.addEventListener("click", () => {
   generateCityObject(inputAddCity.value);
@@ -368,50 +610,64 @@ addCityBtn.addEventListener("click", () => {
 /******CITIES COLLECTION GESTION */
 const favoritesCitiesCardsAll = document.querySelectorAll(".favoriteCityCard");
 let favoriteCityCardArray = Array.from(favoritesCitiesCardsAll);
-let emptyCards = favoriteCityCardArray.filter(function (card) {
-  return card.id === "";
-});
 
 async function generateCityObject(value) {
-  newCity = value;
+  const newCity = value;
   await recoverTown(newCity);
-  miniCityCard = {
+  const miniCityCard = {
     id: idTownSearched,
     cityName: newCity,
     temperature: tempSearched,
     icon: iconWeatherSearched,
     descriptionWeather: descriptionSearched,
     generateCityButton: function () {
-      emptyButtons[0].textContent = newCity;
-      emptyButtons[0].classList.remove("btn-primary", "opacity-75");
-      emptyButtons[0].classList.add("border-secondary");
-      emptyButtons = buttonsCityNavArray.filter(function (button) {
-        return button.textContent === "";
+      const filledButtons = buttonsCityNavArray.filter((btn) => {
+        // double negation veut dire "n'est pas , n'est pas" et revient donc a dire ici "a un text.content"
+        return !!btn.textContent;
       });
+      const hasAlreadyLoadedTheCurrentCity = filledButtons.some(
+        (btn) => btn.textContent === newCity
+      );
+      if (!hasAlreadyLoadedTheCurrentCity) {
+        const emptyButtons = getEmptyButtons(buttonsCityNavArray);
+        emptyButtons[0].textContent = newCity;
+        emptyButtons[0].disabled = false;
+        emptyButtons[0].classList.remove("btn-primary", "opacity-75");
+        emptyButtons[0].classList.add("border-secondary");
+      } else {
+        const emptyButtons = getEmptyButtons(buttonsCityNavArray);
+        emptyButtons[0].disabled = true;
+      }
     },
     fillMiniCityCard: function () {
-      emptyCards[0].id = idTownSearched;
-      const cardToFill = document.getElementById(`${idTownSearched}`);
-      cardToFill.querySelector(
-        ".miniCardTown"
-      ).textContent = `${miniCityCard.cityName}`;
-      cardToFill.querySelector(
-        ".miniCardTemp"
-      ).textContent = `${miniCityCard.temperature} °C`;
-      cardToFill.querySelector(
-        ".miniCardIconWeather"
-      ).textContent = `${miniCityCard.icon}`;
-      cardToFill.querySelector(
-        ".miniCardDescription"
-      ).textContent = `${miniCityCard.descriptionWeather}`;
-      emptyCards = favoriteCityCardArray.filter(function (card) {
-        return card.id === "";
+      const filledCards = favoriteCityCardArray.filter((card) => {
+        return !!card.id;
       });
+      const hasAlreadyLoadedTheCurrentCardCity = filledCards.some(
+        (btn) => btn.id === idTownSearched
+      );
+      if (!hasAlreadyLoadedTheCurrentCardCity) {
+        const emptyCards = getEmptyCards(favoriteCityCardArray);
+        emptyCards[0].id = idTownSearched;
+        const cardToFill = document.getElementById(`${idTownSearched}`);
+        cardToFill.querySelector(
+          ".miniCardTown"
+        ).textContent = `${miniCityCard.cityName}`;
+        cardToFill.querySelector(
+          ".miniCardTemp"
+        ).textContent = `${miniCityCard.temperature} °C`;
+        cardToFill.querySelector(
+          ".miniCardIconWeather"
+        ).src = `https://openweathermap.org/img/wn/${miniCityCard.icon}@2x.png`;
+        cardToFill.querySelector(
+          ".miniCardDescription"
+        ).textContent = `${miniCityCard.descriptionWeather}`;
+      }
     },
   };
   miniCityCard.generateCityButton();
   miniCityCard.fillMiniCityCard();
-  console.log(miniCityCard.cityName);
+  console.log({ miniCityCard });
 }
 
 /******SEARCHING A TOWN */
@@ -438,6 +694,7 @@ buttonsCityNav.forEach(function (cityBtn) {
     townSearched = cityBtn.textContent;
     await recoverTown(townSearched);
     setSeasonBackground(descriptionSearched);
+    isBgLiked();
     fillCityCard(
       townSearched,
       tempSearched,
@@ -467,32 +724,8 @@ function fillCityCard(town, temp, iconWeather, description) {
     ` ${currentDate.getMinutes()}`;
 }
 
-/******LIKED BACKGROUND HEART***** */
-const heartBtn = document.querySelector(".heart-button");
-const heartIcon = document.getElementById("heartIcon");
-
-heartBtn.addEventListener("click", () => {
-  switchIcon(heartIcon);
-  if (heartIcon.getAttribute("src") == "assets/icons/hearts.png") {
-    heartIcon.setAttribute(
-      "title",
-      "Unlike and remove this background from my collection"
-    );
-    /****Add the background in the background collection user */
-  } else {
-    heartIcon.setAttribute(
-      "title",
-      "Like and add in my backgrounds Collection"
-    );
-    /****Remove the background in the background collection User */
-  }
-});
-
-/******COLLECTION BACKGROUND ***** */
-
-/*(async function runApplication() {
+(async function runApplication() {
   await geolocaliseMe();
+
+  /*generateCitiesPreselectedObjects();*/
 })(); //immediatly invoked function IIF*/
-
-geolocaliseMe();
-

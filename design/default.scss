@@ -30,7 +30,6 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  filter: blur(0px);
 }
 
 .background-container-big {
@@ -48,7 +47,7 @@ body {
   background-size: cover;
   background-position: top;
   background-repeat: no-repeat;
-  filter: blur(5px);
+  filter: blur(4px);
 }
 
 button {
@@ -156,6 +155,12 @@ footer {
   flex-shrink: 0;
 }
 
+.footerElementsContainer {
+  width: fit-content;
+  backdrop-filter: blur(10px);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
+}
+
 .heart-button {
   width: 60px;
   margin-right: 60px;
@@ -166,6 +171,7 @@ footer {
   width: 320px;
   height: 380px;
   text-align: center;
+  display: block;
 }
 
 .container-img-background {
@@ -173,28 +179,5 @@ footer {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-}
-
-.container-img-background-1 {
-  background-image: url("/assets/backgrounds/autumn-winter/snow/72f3b88e1fc39a68e060203e4d2a8272.jpg");
-}
-
-.container-img-background-2 {
-  background-image: url("/assets/backgrounds/autumn-winter/snow/0a7ac3cf9cb1cc1c739a93c8c3a10821.jpg");
-}
-
-.container-img-background-3 {
-  background-image: url("/assets/backgrounds/autumn-winter/rain/11426a7e2d15a45f0be41982ad38134e.jpg");
-}
-
-.container-img-background-4 {
-  background-image: url("/assets/backgrounds/autumn-winter/sun/2e22f614e218b2d8e9b6ad04a74db87f.jpg");
-}
-
-.container-img-background-5 {
-  background-image: url("/assets/backgrounds/autumn-winter/clouds/2f55e09ba669f68b9bd914a6490ae1d9.jpg");
-}
-
-.container-img-background-6 {
-  background-image: url("/assets/backgrounds/autumn-winter/rain/5e7639ebd5c0cfc61de258db18511028.jpg");
+  background-image: none;
 }
