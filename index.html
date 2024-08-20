@@ -195,8 +195,8 @@
         <div class="optionsAndReducedContainer d-flex justify-content-between align-items-first-baseline">
             <div class="quickOptionsContainer m-4 w-25 h-50">
                 <div class='input-group '>    
-                    <input type="text" name='cityUserQuick' id="cityUserQuick" placeholder="Enter a city here..." class='inputCityUser form-control rounded-0 fst-italic bg-primary text-secondary border-0'>
-                    <button class='searchBtn btn w-25 rounded-0 bg-secondary border-0' type="submit" id="0" title="Start a research"><img  class="icon26" src="assets/icons/search.svg" alt="search button"></button>
+                    <input type="text" name='cityUserQuick' id="cityUserQuick" placeholder="Enter a city here..." class='inputCityUser inputCityUserQuickOptions form-control rounded-0 fst-italic bg-primary text-secondary border-0'>
+                    <button data-bs-toggle="modal" data-bs-target="#cityCardModal" class='searchBtn btn w-25 rounded-0 bg-secondary border-0' type="submit" id="0" title="Start a research"><img  class="icon26" src="assets/icons/search.svg" alt="search button"></button>
                 </div>
                 <div class='input-group geolocalisationContainer'>    
                     <input type="text" name='geolocalisation' id="geolocalisation" value="Geolocalise me" class='form-control rounded-0 bg-secondary text-primary border-0'>
@@ -205,11 +205,11 @@
             </div>
             
             <!--REDUCED CITY CARD-->
-            <div class=" d-flex m-4  w-25-md h-25" id="reducedCityCard" data-stateCityCard ='enlarged'>
+            <div class=" d-flex m-4  w-50-md h-25" id="reducedCityCard" data-stateCityCard ='enlarged'>
                 <div class="city-informations d-flex gap-3 align-items-center justify-content-center bg-primary  px-3">
                     <p class="cityCardTitle reducedCityCardTitle m-auto">Nantes</p>
                     <p class="temperature m-auto">20°C</p>
-                    <img class="icon26 iconWeather" src="assets/icons/sunny.png" alt="icon sun">
+                    <img class="icon26 iconWeather" src="assets/icons/sunny.png" alt="sun icon">
                 </div>
                 <div class="enlarge-container bg-secondary ">
                     <button type="button" class=" visibilityBtn btn w-100 btn-secondary d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#cityCardModal" title="Enlarge the city informations" ><img class="icon26" src="assets/icons/visibility-white.svg" alt="visibility icon to enlarge th city card"></button>
@@ -273,18 +273,18 @@
         </div>
 
 <!--MODAL RESEARCHING A NEW TOWN-->
-        <div class="modal fade" id="searchingANewCity" data-bs-backdrop="static">
+        <div class="modal fade" id="searchingANewCity" >
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content rounded-40 bg-primary  overflow-hidden">
                     <div class="modal-header bg-secondary d-flex justify-content-between">
-                        <h5 class="modal-title text-primary mx-5">Research a city</h5>
-                        <button type="button" class="btn-close bg-primary mx-3" data-bs-dismiss="modal">
+                        <h5 class="  modal-title text-primary mx-5">Research a city</h5>
+                        <button type="button" class=" researchCityInMenuBtn btn-close bg-primary mx-3" data-bs-dismiss="modal">
                         </button>
                     </div>
-                    <div class="modal-body d-flex flex-column gap-3 justify-content-center align-items-start m-5">
+                    <div class="modal-body d-flex flex-column gap-3 justify-content-center align-items-center m-5">
                         <div class='input-group w-75'>    
-                            <input type="text" name='cityUser' id="cityUser" placeholder="Enter a city here..." class='inputCityUser form-control rounded-0 fst-italic bg-primary text-secondary border-secondary'>
-                            <button class='searchBtn btn w-25 rounded-0 bg-secondary border-0' type="submit" id="1" title="Start a research"><img  class="icon26" src="assets/icons/search.svg" alt="search button"></button>
+                            <input type="text" name='cityUser' id="cityUser" placeholder="Enter a city here..." class='inputCityUser inputCityUserMenu form-control rounded-0 fst-italic bg-primary text-secondary border-secondary'>
+                            <button data-bs-toggle="modal" data-bs-target="#cityCardModal" data-bs-dismiss="modal" class='searchBtn btn w-25 rounded-0 bg-secondary border-0' type="submit" id="1" title="Start a research"><img  class="icon26" src="assets/icons/search.svg" alt="search button"></button>                            
                         </div>
                     </div>
                 </div>

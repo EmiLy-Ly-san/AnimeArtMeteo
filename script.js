@@ -29,7 +29,7 @@ function geolocaliseMe() {
         console.log(urlGeo);
 
         await recoverGeolocTown();
-        fillCityCard(townGeo, tempGeo, descriptionGeo, iconWeatherGeo);
+        fillCityCard(townGeo, tempGeo, iconWeatherGeo, descriptionGeo);
         setSeasonBackground(descriptionGeo);
         isBgLiked();
       },
@@ -535,7 +535,9 @@ function fillCityCard(town, temp, iconWeather, description) {
   document.querySelectorAll(".temperature").forEach(function (tempText) {
     tempText.textContent = `${temp} °C`;
   });
-  document.querySelector(".iconWeather").textContent = `${iconWeather}`;
+  document.querySelectorAll(".iconWeather").forEach(function (icon) {
+    icon.src = `https://openweathermap.org/img/wn/${iconWeather}@2x.png`;
+  });
   document.querySelector(".descriptionText").textContent = `${description}`;
   let currentDate = new Date();
   document.querySelector(".currentDate").textContent =
@@ -620,7 +622,7 @@ async function generateCityObject(value) {
   console.log({ miniCityCard });
 }
 
-/******SEARCHING A TOWN */
+/******SEARCHING A TOWN VIA QUICKOPTIONS*/
 const inputCityUser = document.querySelectorAll(".inputCityUser");
 let inputCityUserValue;
 const searchBtn = document.querySelectorAll(".searchBtn");
@@ -628,13 +630,16 @@ searchBtn.forEach(function (eachSearchBtn) {
   eachSearchBtn.addEventListener("click", async () => {
     console.log(searchBtn);
     inputCityUserValue = inputCityUser[eachSearchBtn.id].value;
-
-    url =
-      "https://api.openweathermap.org/data/2.5/weather?q=" +
-      town +
-      "&appid=075e3c803b57e9d25a7e50c00e33a2ff&units=metric";
     await recoverTown(inputCityUserValue);
-    fillCityCard(inputCityUserValue);
+    fillCityCard(
+      inputCityUserValue,
+      tempSearched,
+      iconWeatherSearched,
+      descriptionSearched
+    );
+    inputCityUser.forEach(function (input) {
+      input.value = "";
+    });
   });
 });
 

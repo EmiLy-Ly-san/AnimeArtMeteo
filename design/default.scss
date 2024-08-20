@@ -3,6 +3,7 @@ $theme-colors: (
   "base": #f6f5f3,
   "primary": rgba(255, 255, 255),
   "secondary": rgba(12, 10, 97),
+  "tertiary": #ff6f61,
 );
 
 @import "../node_modules/bootstrap/scss/bootstrap.scss"; //a laisser après les variables cgangéees !!
@@ -124,8 +125,6 @@ aside {
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;
   overflow: hidden;
-  /* margin-top: 5rem;
-  border-radius: 20px;*/
 }
 
 .reducedCityCard {
