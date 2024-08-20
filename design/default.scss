@@ -42,7 +42,6 @@ body {
   bottom: 0;
   right: 0;
   left: 0;
-  border: solid 1px black;
   background-image: none;
   background-size: cover;
   background-position: top;
@@ -134,6 +133,9 @@ aside {
   height: 40px;
 }
 
+.autumnWinterSection {
+  padding-bottom: 3rem;
+}
 .city-informations {
   width: 200px;
   border-bottom-left-radius: 20px;
@@ -180,4 +182,61 @@ footer {
   background-position: center;
   background-repeat: no-repeat;
   background-image: none;
+}
+
+@media (max-width: 1280px) {
+  .background-container {
+    max-width: 50%;
+  }
+}
+
+@media (max-width: 912px) {
+  .background-container {
+    max-width: 100%;
+  }
+  .btn-backgrounds {
+    height: 30px;
+  }
+  .favoriteCityCard,
+  .favoriteBackgroundCard {
+    margin-left: 2.5rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .citiesNavigation {
+    display: none;
+  }
+  .quickOptionsContainer {
+    display: none;
+  }
+  .btn-backgroundsContainer {
+    display: none;
+  }
+  .optionsAndReducedContainer {
+    width: 80%;
+    margin: auto;
+  }
+  .heart-button {
+    margin: auto;
+  }
+
+  .favoriteCityCard,
+  .favoriteBackgroundCard {
+    width: 260px;
+    height: 320px;
+    margin-left: 1rem;
+  }
+  .miniCardIconWeather {
+    width: 56px;
+  }
+}
+
+@media (max-width: 390px) {
+  .cityCardsCollection {
+    padding: 0rem;
+  }
+  .modal-body-cityCollection {
+    padding: 0;
+  }
 }
