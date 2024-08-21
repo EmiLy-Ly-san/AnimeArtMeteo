@@ -75,7 +75,7 @@ async function recoverGeolocTown() {
     console.log({ datas });
     townGeo = datas.name;
     console.log({ townGeo });
-    tempGeo = datas.main.temp;
+    tempGeo = Math.round(datas.main.temp);
     console.log({ tempGeo });
     descriptionGeo = datas.weather[0].main;
     console.log({ descriptionGeo });
@@ -171,13 +171,13 @@ let backgroundLink = document.querySelector(".backgroundLink");
 function setBackgroundProperties(seasonBackgroundArray) {
   randomIndex = indexGenerator(seasonBackgroundArray.length);
   console.log({ randomIndex });
-  randomBackgroundArray = Array.from(backgroundsSpringSummerSun);
+  randomBackgroundArray = Array.from(seasonBackgroundArray);
   randomBackground = randomBackgroundArray[randomIndex].file;
   backgroundId = randomBackgroundArray[randomIndex].id;
   console.log({ randomBackground });
   backgroundContainer.style.backgroundImage = `url(${randomBackground})`;
   backgroundContainerBig.style.backgroundImage = `url(${randomBackground})`;
-  backgroundContainer.setAttribute("data-backgroundId", `${backgroundId}`);
+  backgroundContainer.dataset.id = backgroundId;
   backgroundLink.href = `${randomBackgroundArray[randomIndex].source}`;
   console.log({ backgroundLink });
 }
@@ -204,7 +204,7 @@ function getBackgroundSpringSummer(description) {
         "url(assets/backgrounds/summer-spring/sun/1e4fe3db756c83c5c3f7ed904e002436.jpg)";
       backgroundContainerBig.style.backgroundImage =
         "url(assets/backgrounds/summer-spring/sun/1e4fe3db756c83c5c3f7ed904e002436.jpg)";
-      backgroundContainer.setAttribute("data-backgroundId", "ss60");
+      backgroundContainer.dataset.id = "ss60";
       backgroundLink.href = "https://www.pinterest.fr/pin/238479742764135468/";
   }
 }
@@ -234,7 +234,7 @@ function getBackgroundAutumnWinter(description) {
         "url(/assets/backgrounds/autumn-winter/sun/2e22f614e218b2d8e9b6ad04a74db87f.jpg)";
       backgroundContainerBig.style.backgroundImage =
         "url(/assets/backgrounds/autumn-winter/sun/2e22f614e218b2d8e9b6ad04a74db87f.jpg)";
-      backgroundContainer.setAttribute("data-backgroundId", "ah92");
+      backgroundContainer.dataset.id = "ah92";
       backgroundLink.href = "https://www.pinterest.fr/pin/238479742764225963/";
   }
 }
@@ -248,7 +248,7 @@ const favoritesBackgroundsAll = document.querySelectorAll(
 const favoritesBackgroundsArray = Array.from(favoritesBackgroundsAll);
 
 function isBgLiked() {
-  const dataBgId = backgroundContainer.getAttribute("data-backgroundId");
+  const dataBgId = backgroundContainer.dataset.id;
   console.log({ dataBgId });
 
   const bgToFind = favoritesBackgroundsArray.find(
@@ -266,11 +266,7 @@ function isBgLiked() {
 heartBtn.addEventListener("click", () => {
   if (heartIcon.getAttribute("src") == "assets/icons/hearts.png") {
     heartIcon.setAttribute("src", "assets/icons/empty-heart.svg");
-    const dataBgId = backgroundContainer.getAttribute("data-backgroundId");
-    const cardToFind = favoritesBackgroundsArray.find(
-      (card) => card.id === `${dataBgId}`
-    );
-    cardToFind.classList.add("display-none");
+    matchWithIdCardToRemove(backgroundContainer, favoritesBackgroundsArray);
   } else {
     heartIcon.setAttribute("src", "assets/icons/hearts.png");
     placeInCollectionBackground();
@@ -295,42 +291,7 @@ let backgroundsSpringSummerCardsArray = Array.from(
   backgroundsSpringSummerCards
 );
 
-/*Generals functions*/
-function switchIcon(icon) {
-  const currentSrc = icon.getAttribute("src");
-  const nextSrc = icon.getAttribute("data-icon");
-  icon.setAttribute("src", nextSrc);
-  icon.setAttribute("data-icon", currentSrc);
-}
-
-function getEmptyButtons(buttonsArray) {
-  return buttonsArray.filter(function (button) {
-    return button.textContent === "";
-  });
-}
-
-function getEmptyCards(cardsArray) {
-  return cardsArray.filter(function (card) {
-    return card.id === "";
-  });
-}
-
-function matchWithIdCardToRemove(button) {
-  const idToFind = button.dataset.id;
-  const cardToFind = favoritesBackgroundsArray.find(
-    (card) => card.id === `${idToFind}`
-  );
-  cardToFind.remove();
-}
-
-function matchWithSrcCardToDisplay(button) {
-  const bgToDisplay = button.getAttribute("data-src");
-  backgroundContainer.style.backgroundImage = `url(${bgToDisplay})`;
-  backgroundContainerBig.style.backgroundImage = `url(${bgToDisplay})`;
-}
-
-/*Card gestion functions*/
-function createNewCardIfNecessary(arrayOfEmptyCard, section) {
+function createNewBackgroundCardIfNecessary(arrayOfEmptyCard, section) {
   if (arrayOfEmptyCard.length === 0) {
     const newCard = document.createElement("div");
     section.append(newCard);
@@ -391,7 +352,8 @@ function createNewCardIfNecessary(arrayOfEmptyCard, section) {
       matchWithSrcCardToDisplay(button);
     });
     newGarbageButton.addEventListener("click", () => {
-      matchWithIdCardToRemove(newGarbageButton);
+      matchWithIdCardToRemove(newGarbageButton, favoritesBackgroundsArray);
+      isBgLiked();
     });
   }
 }
@@ -406,7 +368,7 @@ function placeInCollectionBackground() {
         const emptyBackgroundsAutumnWinterCards = getEmptyCards(
           backgroundsAutumnWinterCardsArray
         );
-        createNewCardIfNecessary(
+        createNewBackgroundCardIfNecessary(
           emptyBackgroundsAutumnWinterCards,
           autumnWinterSection
         );
@@ -420,7 +382,7 @@ function placeInCollectionBackground() {
         const emptyBackgroundsSpringSummerCards = getEmptyCards(
           backgroundsSpringSummerCardsArray
         );
-        createNewCardIfNecessary(
+        createNewBackgroundCardIfNecessary(
           emptyBackgroundsSpringSummerCards,
           springSummerSection
         );
@@ -443,7 +405,7 @@ function placeInCollectionBackground() {
   };
   console.log({ miniBackgroundCard });
   miniBackgroundCard.putAwayInSubCollection();
-  favoritesBackgroundsArray.push(miniBackgroundCard);
+  /*favoritesBackgroundsArray.push(miniBackgroundCard);*/
 }
 
 visibilityButton.forEach(function (button) {
@@ -454,9 +416,48 @@ visibilityButton.forEach(function (button) {
 
 garbageButton.forEach(function (button) {
   button.addEventListener("click", () => {
-    matchWithIdCardToRemove(button);
+    matchWithIdCardToRemove(button, favoritesBackgroundsArray);
   });
 });
+
+/*Generals functions*/
+function switchIcon(icon) {
+  const currentSrc = icon.getAttribute("src");
+  const nextSrc = icon.getAttribute("data-icon");
+  icon.setAttribute("src", nextSrc);
+  icon.setAttribute("data-icon", currentSrc);
+}
+
+function getEmptyButtons(buttonsArray) {
+  return buttonsArray.filter(function (button) {
+    return button.textContent === "";
+  });
+}
+
+function getEmptyCards(cardsArray) {
+  return cardsArray.filter(function (card) {
+    return card.id === "";
+  });
+}
+
+async function matchWithIdCardToRemove(element, array) {
+  const idToFind = element.dataset.id;
+  const cardToFind = array.find((card) => card.id === `${idToFind}`);
+  console.log({ cardToFind });
+  cardToFind.remove();
+  const index = array.indexOf(cardToFind);
+  console.log({ index });
+  array.splice(index, 1);
+
+  console.log({ favoritesBackgroundsArray });
+  isBgLiked();
+}
+
+function matchWithSrcCardToDisplay(button) {
+  const bgToDisplay = button.getAttribute("data-src");
+  backgroundContainer.style.backgroundImage = `url(${bgToDisplay})`;
+  backgroundContainerBig.style.backgroundImage = `url(${bgToDisplay})`;
+}
 
 /******DROPDOWN MENU*******/
 const menuBtn = document.querySelector("#menuBtn");
@@ -501,7 +502,7 @@ async function recoverTown(town) {
     console.log({ datas });
     idTownSearched = datas.id;
     console.log({ idTownSearched });
-    tempSearched = datas.main.temp;
+    tempSearched = Math.round(datas.main.temp);
     console.log({ tempSearched });
     descriptionSearched = datas.weather[0].main;
     console.log({ descriptionSearched });
@@ -533,7 +534,7 @@ function fillCityCard(town, temp, iconWeather, description) {
     townText.textContent = `${town}`;
   });
   document.querySelectorAll(".temperature").forEach(function (tempText) {
-    tempText.textContent = `${temp} °C`;
+    tempText.textContent = `${temp}°C`;
   });
   document.querySelectorAll(".iconWeather").forEach(function (icon) {
     icon.src = `https://openweathermap.org/img/wn/${iconWeather}@2x.png`;
@@ -562,6 +563,7 @@ addCityBtn.addEventListener("click", () => {
 /******CITIES COLLECTION GESTION */
 const favoritesCitiesCardsAll = document.querySelectorAll(".favoriteCityCard");
 let favoriteCityCardArray = Array.from(favoritesCitiesCardsAll);
+/*garbageBigCityCard*/
 
 async function generateCityObject(value) {
   const newCity = value;
@@ -607,19 +609,41 @@ async function generateCityObject(value) {
         ).textContent = `${miniCityCard.cityName}`;
         cardToFill.querySelector(
           ".miniCardTemp"
-        ).textContent = `${miniCityCard.temperature} °C`;
+        ).textContent = `${miniCityCard.temperature}°C`;
         cardToFill.querySelector(
           ".miniCardIconWeather"
         ).src = `https://openweathermap.org/img/wn/${miniCityCard.icon}@2x.png`;
         cardToFill.querySelector(
           ".miniCardDescription"
         ).textContent = `${miniCityCard.descriptionWeather}`;
+        cardToFill.querySelector(
+          ".garbageCityBtn"
+        ).dataset.id = `${miniCityCard.id}`;
+        cardToFill.querySelector(
+          ".visibilityCityBtn"
+        ).dataset.id = `${miniCityCard.id}`;
       }
     },
   };
   miniCityCard.generateCityButton();
   miniCityCard.fillMiniCityCard();
   console.log({ miniCityCard });
+}
+
+/*garbageButton*/
+/*addedCityAfterResearchViaQuickOptionsOrTheMenu => change icon between garbage and add.*/
+const garbageCityBtn = document.querySelectorAll(".garbageCityBtn");
+const visibilityCityBtn = document.querySelectorAll(".visibilityCityBtn");
+
+garbageCityBtn.forEach(function (btn) {
+  btn.addEventListener("click", () => {
+    matchWithIdCardToRemove(btn, favoriteCityCardArray);
+  });
+});
+
+/*function matchAndRemoveMiniCityCard() {
+  const textContentToFind = card.cityName;
+  const 
 }
 
 /******SEARCHING A TOWN VIA QUICKOPTIONS*/
