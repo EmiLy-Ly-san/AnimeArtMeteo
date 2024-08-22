@@ -2,6 +2,7 @@ import { backgroundsData } from "./backgrounds.js";
 
 /*******GEOLOCALISE ME */
 let townGeo;
+let idGeo;
 let urlGeo;
 let tempGeo;
 let descriptionGeo;
@@ -29,7 +30,7 @@ function geolocaliseMe() {
         console.log(urlGeo);
 
         await recoverGeolocTown();
-        fillCityCard(townGeo, tempGeo, iconWeatherGeo, descriptionGeo);
+        fillCityCard(townGeo, idGeo, tempGeo, iconWeatherGeo, descriptionGeo);
         setSeasonBackground(descriptionGeo);
         isBgLiked();
       },
@@ -42,6 +43,7 @@ function geolocaliseMe() {
       await recoverTown(townGeo);
       fillCityCard(
         townGeo,
+        idGeo,
         tempSearched,
         descriptionSearched,
         iconWeatherSearched
@@ -55,6 +57,7 @@ function geolocaliseMe() {
     recoverTown(townGeo);
     fillCityCard(
       townGeo,
+      idGeo,
       tempSearched,
       descriptionSearched,
       iconWeatherSearched
@@ -75,6 +78,8 @@ async function recoverGeolocTown() {
     console.log({ datas });
     townGeo = datas.name;
     console.log({ townGeo });
+    idGeo = datas.id;
+    console.log(idGeo);
     tempGeo = Math.round(datas.main.temp);
     console.log({ tempGeo });
     descriptionGeo = datas.weather[0].main;
@@ -420,7 +425,7 @@ garbageButton.forEach(function (button) {
   });
 });
 
-/*Generals functions*/
+/*********GENERALS FUNCTIONS********/
 function switchIcon(icon) {
   const currentSrc = icon.getAttribute("src");
   const nextSrc = icon.getAttribute("data-icon");
@@ -440,7 +445,18 @@ function getEmptyCards(cardsArray) {
   });
 }
 
-async function matchWithIdCardToRemove(element, array) {
+let hasAlreadyLoadedTheCurrentCity;
+function isTownLoaded(array, city) {
+  const filledElements = array.filter((element) => {
+    // double negation veut dire "n'est pas , n'est pas" et revient donc a dire ici "a un text.content"
+    return !!element.textContent;
+  });
+  hasAlreadyLoadedTheCurrentCity = filledElements.some(
+    (btn) => btn.textContent === city
+  );
+}
+
+function matchWithIdCardToRemove(element, array) {
   const idToFind = element.dataset.id;
   const cardToFind = array.find((card) => card.id === `${idToFind}`);
   console.log({ cardToFind });
@@ -448,9 +464,22 @@ async function matchWithIdCardToRemove(element, array) {
   const index = array.indexOf(cardToFind);
   console.log({ index });
   array.splice(index, 1);
-
-  console.log({ favoritesBackgroundsArray });
   isBgLiked();
+}
+
+const bigCityCardTitle = document.querySelector(".bigCityCardTitle");
+function matchWithTextButtonToRemove(element, array) {
+  const textToFind = element.textContent;
+  console.log(buttonsCityNavArray);
+  const buttonToFind = array.find((btn) => btn.textContent === `${textToFind}`);
+  console.log({ buttonToFind });
+  buttonToFind.textContent = "";
+  buttonToFind.disabled = true;
+  buttonToFind.classList.add("btn-primary", "opacity-75");
+  buttonToFind.classList.remove("border-secondary");
+  buttonToFind.dataset.id = "";
+  const buttonToMove = array.shift();
+  array.push(buttonToMove);
 }
 
 function matchWithSrcCardToDisplay(button) {
@@ -529,10 +558,15 @@ for await (const button of buttonsCityNavArray.slice(0, 4)) {
 console.log({ buttonsCityNavArray });
 
 /***Big CityCard */
-function fillCityCard(town, temp, iconWeather, description) {
-  document.querySelectorAll(".cityCardTitle").forEach(function (townText) {
-    townText.textContent = `${town}`;
+const garbageCardCityBtn = document.querySelector(".garbageCardCityBtn");
+const addCardCityBtn = document.querySelector(".addCardCityBtn");
+const bigCityCard = document.getElementById("cityCardModal");
+
+function fillCityCard(town, id, temp, iconWeather, description) {
+  document.querySelectorAll(".cityCardTitle").forEach(function (title) {
+    title.textContent = `${town}`;
   });
+  bigCityCard.setAttribute("data-id", `${id}`);
   document.querySelectorAll(".temperature").forEach(function (tempText) {
     tempText.textContent = `${temp}°C`;
   });
@@ -548,7 +582,27 @@ function fillCityCard(town, temp, iconWeather, description) {
   document.querySelector(".currentTime").textContent +
     `${currentDate.getHours()}` +
     ` ${currentDate.getMinutes()}`;
+  isTownLoaded(buttonsCityNavArray, town);
+  if (!hasAlreadyLoadedTheCurrentCity) {
+    addCardCityBtn.classList.remove("display-none");
+    garbageCardCityBtn.classList.add("display-none");
+    addCardCityBtn.dataset.id = `${id}`;
+  } else {
+    addCardCityBtn.classList.add("display-none");
+    garbageCardCityBtn.classList.remove("display-none");
+    garbageCardCityBtn.dataset.id = `${id}`;
+  }
 }
+
+garbageCardCityBtn.addEventListener("click", () => {
+  matchWithIdCardToRemove(garbageCardCityBtn, favoriteCityCardArray);
+  matchWithTextButtonToRemove(bigCityCardTitle, buttonsCityNavArray);
+});
+
+addCardCityBtn.addEventListener("click", () => {
+  generateCityObject(bigCityCardTitle.textContent);
+});
+/*generateCityObject(bigCityCardTitle.textContent);*/
 
 /****ADDING A NEW CITY */
 
@@ -563,7 +617,6 @@ addCityBtn.addEventListener("click", () => {
 /******CITIES COLLECTION GESTION */
 const favoritesCitiesCardsAll = document.querySelectorAll(".favoriteCityCard");
 let favoriteCityCardArray = Array.from(favoritesCitiesCardsAll);
-/*garbageBigCityCard*/
 
 async function generateCityObject(value) {
   const newCity = value;
@@ -575,32 +628,23 @@ async function generateCityObject(value) {
     icon: iconWeatherSearched,
     descriptionWeather: descriptionSearched,
     generateCityButton: function () {
-      const filledButtons = buttonsCityNavArray.filter((btn) => {
-        // double negation veut dire "n'est pas , n'est pas" et revient donc a dire ici "a un text.content"
-        return !!btn.textContent;
-      });
-      const hasAlreadyLoadedTheCurrentCity = filledButtons.some(
-        (btn) => btn.textContent === newCity
-      );
+      isTownLoaded(buttonsCityNavArray, newCity);
       if (!hasAlreadyLoadedTheCurrentCity) {
         const emptyButtons = getEmptyButtons(buttonsCityNavArray);
         emptyButtons[0].textContent = newCity;
         emptyButtons[0].disabled = false;
         emptyButtons[0].classList.remove("btn-primary", "opacity-75");
         emptyButtons[0].classList.add("border-secondary");
+        emptyButtons[0].dataset.id = miniCityCard.id;
+        console.log(buttonsCityNavArray);
       } else {
         const emptyButtons = getEmptyButtons(buttonsCityNavArray);
         emptyButtons[0].disabled = true;
       }
     },
     fillMiniCityCard: function () {
-      const filledCards = favoriteCityCardArray.filter((card) => {
-        return !!card.id;
-      });
-      const hasAlreadyLoadedTheCurrentCardCity = filledCards.some(
-        (btn) => btn.id === idTownSearched
-      );
-      if (!hasAlreadyLoadedTheCurrentCardCity) {
+      isTownLoaded(favoriteCityCardArray, idTownSearched);
+      if (!hasAlreadyLoadedTheCurrentCity) {
         const emptyCards = getEmptyCards(favoriteCityCardArray);
         emptyCards[0].id = idTownSearched;
         const cardToFill = document.getElementById(`${idTownSearched}`);
@@ -621,17 +665,16 @@ async function generateCityObject(value) {
         ).dataset.id = `${miniCityCard.id}`;
         cardToFill.querySelector(
           ".visibilityCityBtn"
-        ).dataset.id = `${miniCityCard.id}`;
+        ).dataset.cityName = `${miniCityCard.cityName}`;
       }
     },
   };
   miniCityCard.generateCityButton();
   miniCityCard.fillMiniCityCard();
   console.log({ miniCityCard });
+  console.log({ buttonsCityNavArray });
 }
 
-/*garbageButton*/
-/*addedCityAfterResearchViaQuickOptionsOrTheMenu => change icon between garbage and add.*/
 const garbageCityBtn = document.querySelectorAll(".garbageCityBtn");
 const visibilityCityBtn = document.querySelectorAll(".visibilityCityBtn");
 
@@ -641,10 +684,23 @@ garbageCityBtn.forEach(function (btn) {
   });
 });
 
-/*function matchAndRemoveMiniCityCard() {
-  const textContentToFind = card.cityName;
-  const 
-}
+visibilityCityBtn.forEach(function (btn) {
+  btn.addEventListener("click", async () => {
+    const cityToFind = btn.dataset.cityName;
+    console.log({ cityToFind });
+
+    await recoverTown(cityToFind);
+    fillCityCard(
+      cityToFind,
+      idTownSearched,
+      tempSearched,
+      iconWeatherSearched,
+      descriptionSearched
+    );
+    setSeasonBackground(descriptionSearched);
+    isBgLiked();
+  });
+});
 
 /******SEARCHING A TOWN VIA QUICKOPTIONS*/
 const inputCityUser = document.querySelectorAll(".inputCityUser");
@@ -657,6 +713,7 @@ searchBtn.forEach(function (eachSearchBtn) {
     await recoverTown(inputCityUserValue);
     fillCityCard(
       inputCityUserValue,
+      idTownSearched,
       tempSearched,
       iconWeatherSearched,
       descriptionSearched
@@ -676,11 +733,31 @@ buttonsCityNav.forEach(function (cityBtn) {
     isBgLiked();
     fillCityCard(
       townSearched,
+      idTownSearched,
       tempSearched,
       iconWeatherSearched,
       descriptionSearched
     );
   });
+});
+
+const reducedCardvisibilityBtn = document.querySelector(
+  ".reducedCardvisibilityBtn"
+);
+const cityCardTitle = document.querySelector(".cityCardTitle");
+
+reducedCardvisibilityBtn.addEventListener("click", async () => {
+  townSearched = cityCardTitle.textContent;
+  await recoverTown(townSearched);
+  setSeasonBackground(descriptionSearched);
+  isBgLiked();
+  fillCityCard(
+    townSearched,
+    idTownSearched,
+    tempSearched,
+    iconWeatherSearched,
+    descriptionSearched
+  );
 });
 
 (async function runApplication() {

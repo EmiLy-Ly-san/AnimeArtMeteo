@@ -212,7 +212,7 @@
                     <img class="icon26 iconWeather" src="assets/icons/sunny.png" alt="sun icon">
                 </div>
                 <div class="enlarge-container bg-secondary ">
-                    <button type="button" class=" visibilityBtn btn w-100 btn-secondary d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#cityCardModal" title="Enlarge the city informations" ><img class="icon26" src="assets/icons/visibility-white.svg" alt="visibility icon to enlarge th city card"></button>
+                    <button type="button" class=" reducedCardvisibilityBtn btn w-100 btn-secondary d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#cityCardModal" title="Enlarge the city informations" ><img class="icon26" src="assets/icons/visibility-white.svg" alt="visibility icon to enlarge th city card"></button>
                 </div>
             </div>
         </div>
@@ -233,7 +233,7 @@
                         </div>
                     </div>
                     <div class="modal-body  d-flex flex-column justify-content-center align-items-center gap-3 text-secondary">
-                        <h3 class="cityCardTitle modal-title border-bottom border-secondary"> Nantes</h3>
+                        <h3 class="bigCityCardTitle cityCardTitle modal-title border-bottom border-secondary"> Nantes</h3>
                         <div class="tempContainer d-flex align-items-center justify-content-center gap-3">
                             <h2 class="temperature card-subtitle">20°C</h2>
                             <img class="w-25 iconWeather" src="assets/icons/sunny.png" alt="sun icon">
@@ -248,7 +248,8 @@
                     </div>
                     <div class="modal-footer d-flex  justify-content-end align-items-center p-0">
                         <div class=" w-25">
-                            <button type="button" title="Remove this city from my cities collection" class="btn  w-100 rounded-0"><img class="icon26" src="assets/icons/garbage-blue.svg" alt="icon to remove this city from your cities collection"></button>
+                            <button type="button" title="Remove this city from my cities collection" class="garbageCardCityBtn display-none btn  w-100 rounded-0" data-bs-dismiss="modal"><img class=" icon26" src="assets/icons/garbage-blue.svg"></button>
+                            <button type="button" title="Remove this city from my cities collection" class="addCardCityBtn btn display-none w-100 rounded-0" data-bs-dismiss="modal"><img class=" icon26" src="assets/icons/add-in-collection-blue.svg" ></button>
                         </div>
                     </div>
                 </div>
@@ -307,7 +308,7 @@
                                 </div>
                                 <div class="card-text p-4 h-50 d-flex flex-column justify-content-center align-items-center">
                                     <div class="d-flex  justify-content-center align-items-center gap-3">
-                                        <h3 class="miniCardTemp">°C</h3>
+                                        <h3 class="miniCardTemp"></h3>
                                         <img class=" miniCardIconWeather"></img>
                                     </div>
                                     <p class="miniCardDescription"></p>
@@ -323,7 +324,7 @@
                                 </div>
                                 <div class="card-text p-4 h-50 d-flex flex-column justify-content-center align-items-center">
                                     <div class="d-flex  justify-content-center align-items-center gap-3">
-                                        <h3 class="miniCardTemp">°C</h3>
+                                        <h3 class="miniCardTemp"></h3>
                                         <img class=" miniCardIconWeather"></img>
                                     </div>
                                     <p class="miniCardDescription"></p>
@@ -339,7 +340,7 @@
                                 </div>
                                 <div class="card-text p-4 h-50 d-flex flex-column justify-content-center align-items-center">
                                     <div class="d-flex  justify-content-center align-items-center gap-3">
-                                        <h3 class="miniCardTemp">°C</h3>
+                                        <h3 class="miniCardTemp"></h3>
                                         <img class=" miniCardIconWeather"></img>
                                     </div>
                                     <p class="miniCardDescription"></p>
@@ -355,7 +356,7 @@
                                 </div>
                                 <div class="card-text p-4 h-50 d-flex flex-column justify-content-center align-items-center">
                                     <div class="d-flex  justify-content-center align-items-center gap-3">
-                                        <h3 class="miniCardTemp">°C</h3>
+                                        <h3 class="miniCardTemp"></h3>
                                         <img class=" miniCardIconWeather"></img>
                                     </div>
                                     <p class="miniCardDescription"></p>
@@ -371,7 +372,7 @@
                                 </div>
                                 <div class="card-text p-4 h-50 d-flex flex-column justify-content-center align-items-center">
                                     <div class="d-flex  justify-content-center align-items-center gap-3">
-                                        <h3 class="miniCardTemp">°C</h3>
+                                        <h3 class="miniCardTemp"></h3>
                                         <img class=" miniCardIconWeather"></img>
                                     </div>
                                     <p class="miniCardDescription"></p>
@@ -387,7 +388,7 @@
                                 </div>
                                 <div class="card-text p-4 h-50 d-flex flex-column justify-content-center align-items-center">
                                     <div class="d-flex  justify-content-center align-items-center gap-3">
-                                        <h3 class="miniCardTemp">°C</h3>
+                                        <h3 class="miniCardTemp"></h3>
                                         <img class=" miniCardIconWeather"></img>
                                     </div>
                                     <p class="miniCardDescription"></p>
@@ -403,7 +404,7 @@
                                 </div>
                                 <div class="card-text p-4 h-50 d-flex flex-column justify-content-center align-items-center">
                                     <div class="d-flex  justify-content-center align-items-center gap-3">
-                                        <h3 class="miniCardTemp">°C</h3>
+                                        <h3 class="miniCardTemp"></h3>
                                         <img class=" miniCardIconWeather"></img>
                                     </div>
                                     <p class="miniCardDescription"></p>
@@ -419,7 +420,7 @@
                                 </div>
                                 <div class="card-text p-4 h-50 d-flex flex-column justify-content-center align-items-center">
                                     <div class="d-flex  justify-content-center align-items-center gap-3">
-                                        <h3 class="miniCardTemp">°C</h3>
+                                        <h3 class="miniCardTemp"></h3>
                                         <img class=" miniCardIconWeather"></img>
                                     </div>
                                     <p class="miniCardDescription"></p>
@@ -435,7 +436,7 @@
                                 </div>
                                 <div class="card-text p-4 h-50 d-flex flex-column justify-content-center align-items-center">
                                     <div class="d-flex  justify-content-center align-items-center gap-3">
-                                        <h3 class="miniCardTemp">°C</h3>
+                                        <h3 class="miniCardTemp"></h3>
                                         <img class=" miniCardIconWeather"></img>
                                     </div>
                                     <p class="miniCardDescription"></p>
@@ -451,7 +452,7 @@
                                 </div>
                                 <div class="card-text p-4 h-50 d-flex flex-column justify-content-center align-items-center">
                                     <div class="d-flex  justify-content-center align-items-center gap-3">
-                                        <h3 class="miniCardTemp">°C</h3>
+                                        <h3 class="miniCardTemp"></h3>
                                         <img class=" miniCardIconWeather"></img>
                                     </div>
                                     <p class="miniCardDescription"></p>
@@ -467,7 +468,7 @@
                                 </div>
                                 <div class="card-text p-4 h-50 d-flex flex-column justify-content-center align-items-center">
                                     <div class="d-flex  justify-content-center align-items-center gap-3">
-                                        <h3 class="miniCardTemp">°C</h3>
+                                        <h3 class="miniCardTemp"></h3>
                                         <img class=" miniCardIconWeather"></img>
                                     </div>
                                     <p class="miniCardDescription"></p>
@@ -483,7 +484,7 @@
                                 </div>
                                 <div class="card-text p-4 h-50 d-flex flex-column justify-content-center align-items-center">
                                     <div class="d-flex  justify-content-center align-items-center gap-3">
-                                        <h3 class="miniCardTemp">°C</h3>
+                                        <h3 class="miniCardTemp"></h3>
                                         <img class=" miniCardIconWeather"></img>
                                     </div>
                                     <p class="miniCardDescription"></p>
@@ -499,7 +500,7 @@
                                 </div>
                                 <div class="card-text p-4 h-50 d-flex flex-column justify-content-center align-items-center">
                                     <div class="d-flex  justify-content-center align-items-center gap-3">
-                                        <h3 class="miniCardTemp">°C</h3>
+                                        <h3 class="miniCardTemp"></h3>
                                         <img class=" miniCardIconWeather"></img>
                                     </div>
                                     <p class="miniCardDescription"></p>
@@ -515,7 +516,7 @@
                                 </div>
                                 <div class="card-text p-4 h-50 d-flex flex-column justify-content-center align-items-center">
                                     <div class="d-flex  justify-content-center align-items-center gap-3">
-                                        <h3 class="miniCardTemp">°C</h3>
+                                        <h3 class="miniCardTemp"></h3>
                                         <img class=" miniCardIconWeather"></img>
                                     </div>
                                     <p class="miniCardDescription"></p>
@@ -531,7 +532,7 @@
                                 </div>
                                 <div class="card-text p-4 h-50 d-flex flex-column justify-content-center align-items-center">
                                     <div class="d-flex  justify-content-center align-items-center gap-3">
-                                        <h3 class="miniCardTemp">°C</h3>
+                                        <h3 class="miniCardTemp"></h3>
                                         <img class=" miniCardIconWeather"></img>
                                     </div>
                                     <p class="miniCardDescription"></p>
@@ -547,7 +548,7 @@
                                 </div>
                                 <div class="card-text p-4 h-50 d-flex flex-column justify-content-center align-items-center">
                                     <div class="d-flex  justify-content-center align-items-center gap-3">
-                                        <h3 class="miniCardTemp">°C</h3>
+                                        <h3 class="miniCardTemp"></h3>
                                         <img class=" miniCardIconWeather"></img>
                                     </div>
                                     <p class="miniCardDescription"></p>
