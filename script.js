@@ -1,104 +1,44 @@
 import { backgroundsData } from "./backgrounds.js";
 
-/*******GEOLOCALISE ME */
-let townGeo;
-let idGeo;
-let urlGeo;
-let tempGeo;
-let descriptionGeo;
-let iconWeatherGeo;
+/*******************************************************************GLOBAL SCOPE VARIABLES */
+/*********BUTTONS NAV VARIABLES*/
+const menuBtn = document.querySelector("#menuBtn");
+const unrolledMenuContainer = document.querySelector(".unrolledMenuContainer");
+const menuIcon = document.getElementById("menuIcon");
+const mainNav = document.querySelector(".mainNav");
+const secondNav = document.querySelector(".secondNav");
+const extensionNav =
+  document.querySelector(".navExtension"); /*DOUBLON AVEC CELUI D'AU DESSUS ??*/
+let buttonsCityNav = document.querySelectorAll(".citiesBtn");
+let buttonsCityNavArray = Array.from(buttonsCityNav);
+buttonsCityNavArray[0].textContent = "Tokyo";
+buttonsCityNavArray[1].textContent = "Paris";
+buttonsCityNavArray[2].textContent = "Montreal";
+buttonsCityNavArray[3].textContent = "Singapour";
+for await (const button of buttonsCityNavArray.slice(0, 4)) {
+  console.log(button.textContent);
+  generateCityObject(button.textContent);
+}
+let emptyButtonsArray;
+const expandBtn = document.querySelector(".expandBtn");
+const expandIcon = document.getElementById("expandIcon");
+
+/*********RESEARCHING TOWN VARIABLES */
 const geolocaliseMeBtn = document.querySelector(".geolocaliseMeBtn");
-geolocaliseMeBtn.addEventListener("click", geolocaliseMe);
+/*Seraching via menu*/
+const inputAddCity = document.getElementById("addCity");
+const addCityBtn = document.querySelector(".addCityBtn");
+/*Searching via quick options*/
+const inputCityUser = document.querySelectorAll(".inputCityUser");
+let inputCityUserValue;
+const searchBtn = document.querySelectorAll(".searchBtn");
 
-function geolocaliseMe() {
-  if ("geolocation" in navigator) {
-    let options = {
-      getHigheAccuracy: true,
-    };
-    //Finding the current user position with api openweather
-    let watch = navigator.geolocation.watchPosition(
-      async (position) => {
-        navigator.geolocation.clearWatch(watch);
-        console.log(position.coords.latitude);
-        console.log(position.coords.longitude);
-        urlGeo =
-          "https://api.openweathermap.org/data/2.5/weather?lon=" +
-          position.coords.longitude +
-          "&lat=" +
-          position.coords.latitude +
-          "&appid=075e3c803b57e9d25a7e50c00e33a2ff&units=metric";
-        console.log(urlGeo);
-
-        await recoverGeolocTown();
-        fillCityCard(townGeo, idGeo, tempGeo, iconWeatherGeo, descriptionGeo);
-        setSeasonBackground(descriptionGeo);
-        isBgLiked();
-      },
-      error,
-      options
-    );
-    async function error() {
-      alert("Vous avez refuse la geolocalisation.");
-      townGeo = "Paris";
-      await recoverTown(townGeo);
-      fillCityCard(
-        townGeo,
-        idGeo,
-        tempSearched,
-        descriptionSearched,
-        iconWeatherSearched
-      );
-      setSeasonBackground(descriptionSearched);
-      isBgLiked();
-    }
-  } else {
-    alert("La geolocalisation ne peut pas etre utilisee.");
-    townGeo = "Paris";
-    recoverTown(townGeo);
-    fillCityCard(
-      townGeo,
-      idGeo,
-      tempSearched,
-      descriptionSearched,
-      iconWeatherSearched
-    );
-    setSeasonBackground(descriptionSearched);
-    isBgLiked();
-  }
-}
-
-async function recoverGeolocTown() {
-  const request = await fetch(urlGeo, {
-    method: "GET",
-  });
-  if (!request.ok) {
-    alert("Un probleme est survenu");
-  } else {
-    let datas = await request.json();
-    console.log({ datas });
-    townGeo = datas.name;
-    console.log({ townGeo });
-    idGeo = datas.id;
-    console.log(idGeo);
-    tempGeo = Math.round(datas.main.temp);
-    console.log({ tempGeo });
-    descriptionGeo = datas.weather[0].main;
-    console.log({ descriptionGeo });
-    iconWeatherGeo = datas.weather[0].icon;
-    console.log({ iconWeatherGeo });
-  }
-}
-
-/********BACKGROUND DISPLAY */
-/*const response = fetch("backgrounds.json");
-const backgrounds = response.json();*/
+/*********BACKGROUNDS VARIABLES */
 let backgroundContainer = document.querySelector(".background-container");
 let backgroundContainerBig = document.querySelector(
   ".background-container-big"
 );
 let backgroundSeason;
-
-console.log({ backgroundsData });
 //AUTUMNWINTER BACKGROUNDS
 const backgroundsAutumnWinterSun = backgroundsData.autumnWinter.filter(
   function (background) {
@@ -147,7 +87,285 @@ const backgroundsSpringSummerThunderstorm = backgroundsData.springSummer.filter(
     return background.weather === "thunderstorm";
   }
 );
+let randomIndex;
+let randomBackgroundArray;
+let randomBackground;
+let backgroundId;
+let backgroundLink = document.querySelector(".backgroundLink");
 
+/*********CITY INFORMATIONS AND API VARIABLES */
+let townSearched;
+let idTownSearched;
+let tempSearched;
+let iconWeatherSearched;
+let descriptionSearched;
+let datas;
+let townGeo;
+let idGeo;
+let urlGeo;
+let tempGeo;
+let descriptionGeo;
+let iconWeatherGeo;
+let hasAlreadyLoadedTheCurrentCity;
+
+/*********BACKGROUND CARD VARIABLES */
+const autumnWinterSection = document.querySelector(".autumnWinterSection");
+const springSummerSection = document.querySelector(".springSummerSection");
+const backgroundsAutumnWinterCards =
+  document.querySelectorAll(".autumnWinterCard");
+let backgroundsAutumnWinterCardsArray = Array.from(
+  backgroundsAutumnWinterCards
+);
+const backgroundsSpringSummerCards =
+  document.querySelectorAll(".springSummerCard");
+let backgroundsSpringSummerCardsArray = Array.from(
+  backgroundsSpringSummerCards
+);
+const favoritesBackgroundsAll = document.querySelectorAll(
+  ".favoriteBackgroundCard"
+);
+const favoritesBackgroundsArray = Array.from(favoritesBackgroundsAll);
+const GarbageButtonBackgroundCard = document.querySelectorAll(".garbageButton");
+const VisibilityButtonBackgroundCard =
+  document.querySelectorAll(".visibilityButton");
+const heartBtn = document.querySelector(".heart-button");
+const heartIcon = document.getElementById("heartIcon");
+
+/*********CITY CARD VARIABLES */
+const bigCityCardTitle = document.querySelector(".bigCityCardTitle");
+const garbageCityBtn = document.querySelector(".garbageCityBtn");
+const addCardCityBtn = document.querySelector(".addCardCityBtn");
+const bigCityCard = document.getElementById("cityCardModal");
+const visibilityCityBtn = document.querySelectorAll(".visibilityCityBtn");
+let cardTitle; /*DOUBLON AVEC LE PREMIER ??*/
+const reducedCardvisibilityBtn = document.querySelector(
+  ".reducedCardvisibilityBtn"
+);
+const favoritesCitiesCardsAll = document.querySelectorAll(".favoriteCityCard");
+let favoriteCityCardArray = Array.from(favoritesCitiesCardsAll);
+const cityCardTitle =
+  document.querySelector(".cityCardTitle"); /*clarifier par minicitycard ?
+
+/*******************************************************************GENERALS FONCTIONS */
+function switchIcon(icon) {
+  const currentSrc = icon.getAttribute("src");
+  const nextSrc = icon.getAttribute("data-icon");
+  icon.setAttribute("src", nextSrc);
+  icon.setAttribute("data-icon", currentSrc);
+}
+
+function getEmptyButtons(buttonsArray) {
+  return buttonsArray.filter(function (button) {
+    return button.textContent === "";
+  });
+}
+
+function getEmptyButtonsMainNav(buttonsArray) {
+  return buttonsArray.filter(function (btn) {
+    return btn.classList.contains("citiesBtnMainNav");
+  });
+}
+
+function getEmptyButtonsSecondNav(buttonsArray) {
+  return buttonsArray.filter(function (btn) {
+    return btn.classList.contains("citiesBtnSecondNav");
+  });
+}
+
+function getEmptyCards(cardsArray) {
+  return cardsArray.filter(function (card) {
+    return card.id === "";
+  });
+}
+
+function isTownLoaded(array, city) {
+  const filledElements = array.filter((element) => {
+    // double negation veut dire "n'est pas , n'est pas" et revient donc a dire ici "a un text.content"
+    return !!element.textContent;
+  });
+  hasAlreadyLoadedTheCurrentCity = filledElements.some(
+    (btn) => btn.textContent === city
+  );
+}
+
+function matchWithIdCardToRemove(element, array) {
+  const idToFind = element.dataset.id;
+  const cardToFind = array.find((card) => card.id === `${idToFind}`);
+  console.log({ cardToFind });
+  cardToFind.remove();
+  const index = array.indexOf(cardToFind);
+  console.log({ index });
+  array.splice(index, 1);
+  isBgLiked();
+}
+
+/*function resetBigCityCard()!!! -> supprimer le grosse carte de chaque bouton/ville supprimer*/
+
+function matchWithTextButtonToRemove(element) {
+  const textToFind = element.textContent;
+  console.log(buttonsCityNavArray);
+  const buttonToFind = buttonsCityNavArray.find(
+    (btn) => btn.textContent === `${textToFind}`
+  );
+  console.log({ buttonToFind });
+  buttonToFind.textContent = "";
+  const newButtonLi = document.createElement("li");
+  newButtonLi.classList.add("nav-item", "citiesNavigation");
+  const newEmptyButton = document.createElement("button");
+  newEmptyButton.classList.add(
+    "citiesBtn",
+    "btn",
+    "btn-primary",
+    "opacity-75",
+    "rounded-pill",
+    "text-secondary",
+    "fw-bold"
+  );
+  newButtonLi.append(newEmptyButton);
+  newEmptyButton.textContent = "";
+  newEmptyButton.dataset.id = "";
+  newEmptyButton.disabled = true;
+  newEmptyButton.setAttribute("data-bs-toggle", "modal");
+  newEmptyButton.setAttribute("data-bs-target", "#cityCardModal");
+  if (mainNav.contains(buttonToFind) === true) {
+    mainNav.append(newButtonLi);
+    newButtonLi.append(newEmptyButton);
+    newEmptyButton.classList.add("citiesBtnMainNav");
+    buttonsCityNavArray.push(newEmptyButton);
+  } else {
+    secondNav.append(newButtonLi);
+    newButtonLi.append(newEmptyButton);
+    newEmptyButton.classList.add("citiesBtnSecondNav");
+    buttonsCityNavArray.push(newEmptyButton);
+  }
+  const buttonToFindLi = buttonToFind.closest("li");
+  buttonToFindLi.remove();
+  buttonToFind.remove();
+  buttonsCityNavArray = buttonsCityNavArray.filter(
+    (btn) => btn !== buttonToFind
+  );
+
+  console.log(
+    "J ai fini ! buttonsCityNavArray",
+    buttonsCityNavArray.map((btn) => btn.textContent)
+  );
+}
+
+function matchWithSrcCardToDisplay(button) {
+  const bgToDisplay = button.getAttribute("data-src");
+  backgroundContainer.style.backgroundImage = `url(${bgToDisplay})`;
+  backgroundContainerBig.style.backgroundImage = `url(${bgToDisplay})`;
+}
+
+/*******************************************************************RUNNING FUNCTIONS */
+/*********GEOLOCALISATION */
+function geolocaliseMe() {
+  if ("geolocation" in navigator) {
+    let options = {
+      getHigheAccuracy: true,
+    };
+    //Finding the current user position with api openweather
+    let watch = navigator.geolocation.watchPosition(
+      async (position) => {
+        navigator.geolocation.clearWatch(watch);
+        console.log(position.coords.latitude);
+        console.log(position.coords.longitude);
+        urlGeo =
+          "https://api.openweathermap.org/data/2.5/weather?lon=" +
+          position.coords.longitude +
+          "&lat=" +
+          position.coords.latitude +
+          "&appid=075e3c803b57e9d25a7e50c00e33a2ff&units=metric";
+        console.log(urlGeo);
+
+        await recoverGeolocTown();
+        fillCityCard(townGeo, idGeo, tempGeo, iconWeatherGeo, descriptionGeo);
+        setSeasonBackground(descriptionGeo);
+        isBgLiked();
+      },
+      error,
+      options
+    );
+    async function error() {
+      alert("You have refused geolocation.");
+      townGeo = "Paris";
+      await recoverTown(townGeo);
+      fillCityCard(
+        townGeo,
+        idGeo,
+        tempSearched,
+        descriptionSearched,
+        iconWeatherSearched
+      );
+      setSeasonBackground(descriptionSearched);
+      isBgLiked();
+    }
+  } else {
+    alert("Geolocation cannot be used.");
+    townGeo = "Paris";
+    recoverTown(townGeo);
+    fillCityCard(
+      townGeo,
+      idGeo,
+      tempSearched,
+      descriptionSearched,
+      iconWeatherSearched
+    );
+    setSeasonBackground(descriptionSearched);
+    isBgLiked();
+  }
+}
+
+async function recoverGeolocTown() {
+  const request = await fetch(urlGeo, {
+    method: "GET",
+  });
+  if (!request.ok) {
+    alert("Sorry, a problem has occurred");
+  } else {
+    let datas = await request.json();
+    console.log({ datas });
+    townGeo = datas.name;
+    console.log({ townGeo });
+    idGeo = datas.id;
+    console.log(idGeo);
+    tempGeo = Math.round(datas.main.temp);
+    console.log({ tempGeo });
+    descriptionGeo = datas.weather[0].main;
+    console.log({ descriptionGeo });
+    iconWeatherGeo = datas.weather[0].icon;
+    console.log({ iconWeatherGeo });
+  }
+}
+
+/*******RECOVER A NEW MANUAL SEARCHING TOWN */
+async function recoverTown(town) {
+  const urlforSearching =
+    "https://api.openweathermap.org/data/2.5/weather?q=" +
+    town +
+    "&appid=075e3c803b57e9d25a7e50c00e33a2ff&units=metric";
+  const request = await fetch(urlforSearching, {
+    method: "GET",
+  });
+  if (!request.ok) {
+    alert(
+      "Please, write your city with the correct spelling.\nWARNING! Hyphens are not accepted. For example in New-York, write New York instead."
+    );
+  } else {
+    datas = await request.json();
+    console.log({ datas });
+    idTownSearched = datas.id;
+    console.log({ idTownSearched });
+    tempSearched = Math.round(datas.main.temp);
+    console.log({ tempSearched });
+    descriptionSearched = datas.weather[0].main;
+    console.log({ descriptionSearched });
+    iconWeatherSearched = datas.weather[0].icon;
+    console.log({ iconWeatherSearched });
+  }
+}
+
+/*********GENERATE BACKGROUND */
 function setSeasonBackground(description) {
   let currentDate = new Date();
   let month = currentDate.getMonth();
@@ -166,12 +384,6 @@ function setSeasonBackground(description) {
 function indexGenerator(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
-
-let randomIndex;
-let randomBackgroundArray;
-let randomBackground;
-let backgroundId;
-let backgroundLink = document.querySelector(".backgroundLink");
 
 function setBackgroundProperties(seasonBackgroundArray) {
   randomIndex = indexGenerator(seasonBackgroundArray.length);
@@ -244,58 +456,7 @@ function getBackgroundAutumnWinter(description) {
   }
 }
 
-/******LIKED BACKGROUND HEART***** */
-const heartBtn = document.querySelector(".heart-button");
-const heartIcon = document.getElementById("heartIcon");
-const favoritesBackgroundsAll = document.querySelectorAll(
-  ".favoriteBackgroundCard"
-);
-const favoritesBackgroundsArray = Array.from(favoritesBackgroundsAll);
-
-function isBgLiked() {
-  const dataBgId = backgroundContainer.dataset.id;
-  console.log({ dataBgId });
-
-  const bgToFind = favoritesBackgroundsArray.find(
-    (bg) => bg.id === `${dataBgId}`
-  );
-  console.log({ favoritesBackgroundsArray });
-  console.log({ bgToFind });
-  if (bgToFind) {
-    heartIcon.setAttribute("src", "assets/icons/hearts.png");
-  } else {
-    heartIcon.setAttribute("src", "assets/icons/empty-heart.svg");
-  }
-}
-
-heartBtn.addEventListener("click", () => {
-  if (heartIcon.getAttribute("src") == "assets/icons/hearts.png") {
-    heartIcon.setAttribute("src", "assets/icons/empty-heart.svg");
-    matchWithIdCardToRemove(backgroundContainer, favoritesBackgroundsArray);
-  } else {
-    heartIcon.setAttribute("src", "assets/icons/hearts.png");
-    placeInCollectionBackground();
-  }
-});
-
-/******COLLECTION BACKGROUND ***** */
-const visibilityButton = document.querySelectorAll(".visibilityButton");
-
-const garbageButton = document.querySelectorAll(".garbageButton");
-
-const autumnWinterSection = document.querySelector(".autumnWinterSection");
-const springSummerSection = document.querySelector(".springSummerSection");
-const backgroundsAutumnWinterCards =
-  document.querySelectorAll(".autumnWinterCard");
-let backgroundsAutumnWinterCardsArray = Array.from(
-  backgroundsAutumnWinterCards
-);
-const backgroundsSpringSummerCards =
-  document.querySelectorAll(".springSummerCard");
-let backgroundsSpringSummerCardsArray = Array.from(
-  backgroundsSpringSummerCards
-);
-
+/*********COLLECTION BACKGROUND */
 function createNewBackgroundCardIfNecessary(arrayOfEmptyCard, section) {
   if (arrayOfEmptyCard.length === 0) {
     const newCard = document.createElement("div");
@@ -410,281 +571,23 @@ function placeInCollectionBackground() {
   };
   console.log({ miniBackgroundCard });
   miniBackgroundCard.putAwayInSubCollection();
-  /*favoritesBackgroundsArray.push(miniBackgroundCard);*/
 }
 
-visibilityButton.forEach(function (button) {
-  button.addEventListener("click", () => {
-    matchWithSrcCardToDisplay(button);
-  });
-});
+function isBgLiked() {
+  const dataBgId = backgroundContainer.dataset.id;
+  console.log({ dataBgId });
 
-garbageButton.forEach(function (button) {
-  button.addEventListener("click", () => {
-    matchWithIdCardToRemove(button, favoritesBackgroundsArray);
-  });
-});
-
-/*********GENERALS FUNCTIONS********/
-function switchIcon(icon) {
-  const currentSrc = icon.getAttribute("src");
-  const nextSrc = icon.getAttribute("data-icon");
-  icon.setAttribute("src", nextSrc);
-  icon.setAttribute("data-icon", currentSrc);
-}
-
-function getEmptyButtons(buttonsArray) {
-  return buttonsArray.filter(function (button) {
-    return button.textContent === "";
-  });
-}
-
-function getEmptyButtonsMainNav(buttonsArray) {
-  return buttonsArray.filter(function (btn) {
-    return btn.classList.contains("citiesBtnMainNav");
-  });
-}
-
-function getEmptyButtonsSecondNav(buttonsArray) {
-  return buttonsArray.filter(function (btn) {
-    return btn.classList.contains("citiesBtnSecondNav");
-  });
-}
-
-function getEmptyCards(cardsArray) {
-  return cardsArray.filter(function (card) {
-    return card.id === "";
-  });
-}
-
-let hasAlreadyLoadedTheCurrentCity;
-function isTownLoaded(array, city) {
-  const filledElements = array.filter((element) => {
-    // double negation veut dire "n'est pas , n'est pas" et revient donc a dire ici "a un text.content"
-    return !!element.textContent;
-  });
-  hasAlreadyLoadedTheCurrentCity = filledElements.some(
-    (btn) => btn.textContent === city
+  const bgToFind = favoritesBackgroundsArray.find(
+    (bg) => bg.id === `${dataBgId}`
   );
-}
-
-function matchWithIdCardToRemove(element, array) {
-  const idToFind = element.dataset.id;
-  const cardToFind = array.find((card) => card.id === `${idToFind}`);
-  console.log({ cardToFind });
-  cardToFind.remove();
-  const index = array.indexOf(cardToFind);
-  console.log({ index });
-  array.splice(index, 1);
-  isBgLiked();
-}
-
-/*function resetBigCityCard()!!! -> supprimer le grosse carte de chaque bouton/ville supprimer*/
-
-const bigCityCardTitle = document.querySelector(".bigCityCardTitle");
-const mainNav = document.querySelector(".mainNav");
-const secondNav = document.querySelector(".secondNav");
-
-function matchWithTextButtonToRemove(element) {
-  const textToFind = element.textContent;
-  console.log(buttonsCityNavArray);
-  const buttonToFind = buttonsCityNavArray.find(
-    (btn) => btn.textContent === `${textToFind}`
-  );
-  console.log({ buttonToFind });
-  buttonToFind.textContent = "";
-  const newButtonLi = document.createElement("li");
-  newButtonLi.classList.add("nav-item", "citiesNavigation");
-  const newEmptyButton = document.createElement("button");
-  newEmptyButton.classList.add(
-    "citiesBtn",
-    "btn",
-    "btn-primary",
-    "opacity-75",
-    "rounded-pill",
-    "text-secondary",
-    "fw-bold"
-  );
-  newButtonLi.append(newEmptyButton);
-  newEmptyButton.textContent = "";
-  newEmptyButton.dataset.id = "";
-  newEmptyButton.disabled = true;
-  newEmptyButton.setAttribute("data-bs-toggle", "modal");
-  newEmptyButton.setAttribute("data-bs-target", "#cityCardModal");
-  if (mainNav.contains(buttonToFind) === true) {
-    mainNav.append(newButtonLi);
-    newButtonLi.append(newEmptyButton);
-    newEmptyButton.classList.add("citiesBtnMainNav");
-    buttonsCityNavArray.push(newEmptyButton);
+  console.log({ favoritesBackgroundsArray });
+  console.log({ bgToFind });
+  if (bgToFind) {
+    heartIcon.setAttribute("src", "assets/icons/hearts.png");
   } else {
-    secondNav.append(newButtonLi);
-    newButtonLi.append(newEmptyButton);
-    newEmptyButton.classList.add("citiesBtnSecondNav");
-    buttonsCityNavArray.push(newEmptyButton);
-  }
-  const buttonToFindLi = buttonToFind.closest("li");
-  buttonToFindLi.remove();
-  buttonToFind.remove();
-  buttonsCityNavArray = buttonsCityNavArray.filter(
-    (btn) => btn !== buttonToFind
-  );
-
-  console.log(
-    "J ai fini ! buttonsCityNavArray",
-    buttonsCityNavArray.map((btn) => btn.textContent)
-  );
-}
-
-function matchWithSrcCardToDisplay(button) {
-  const bgToDisplay = button.getAttribute("data-src");
-  backgroundContainer.style.backgroundImage = `url(${bgToDisplay})`;
-  backgroundContainerBig.style.backgroundImage = `url(${bgToDisplay})`;
-}
-
-/******DROPDOWN MENU*******/
-const menuBtn = document.querySelector("#menuBtn");
-const unrolledMenuContainer = document.querySelector(".unrolledMenuContainer");
-const menuIcon = document.getElementById("menuIcon");
-
-menuBtn.addEventListener("click", () => {
-  unrolledMenuContainer.classList.toggle("hidden");
-  switchIcon(menuIcon);
-});
-
-/*******NAVBAR EXTENSION***** */
-const expandBtn = document.querySelector(".expandBtn");
-const extensionNav = document.querySelector(".navExtension");
-const expandIcon = document.getElementById("expandIcon");
-
-expandBtn.addEventListener("click", () => {
-  extensionNav.classList.toggle("display-none");
-  switchIcon(expandIcon);
-});
-
-/*******RECOVER A NEW TOWN WITH API */
-let townSearched;
-let idTownSearched;
-let tempSearched;
-let iconWeatherSearched;
-let descriptionSearched;
-let datas;
-
-async function recoverTown(town) {
-  const urlforSearching =
-    "https://api.openweathermap.org/data/2.5/weather?q=" +
-    town +
-    "&appid=075e3c803b57e9d25a7e50c00e33a2ff&units=metric";
-  const request = await fetch(urlforSearching, {
-    method: "GET",
-  });
-  if (!request.ok) {
-    alert("Un probleme est survenu");
-  } else {
-    datas = await request.json();
-    console.log({ datas });
-    idTownSearched = datas.id;
-    console.log({ idTownSearched });
-    tempSearched = Math.round(datas.main.temp);
-    console.log({ tempSearched });
-    descriptionSearched = datas.weather[0].main;
-    console.log({ descriptionSearched });
-    iconWeatherSearched = datas.weather[0].icon;
-    console.log({ iconWeatherSearched });
+    heartIcon.setAttribute("src", "assets/icons/empty-heart.svg");
   }
 }
-
-/****PRESELECTED CITIES */
-
-let buttonsCityNav = document.querySelectorAll(".citiesBtn");
-let buttonsCityNavArray = Array.from(buttonsCityNav);
-
-buttonsCityNavArray[0].textContent = "Tokyo";
-buttonsCityNavArray[1].textContent = "Paris";
-buttonsCityNavArray[2].textContent = "Montreal";
-buttonsCityNavArray[3].textContent = "Singapour";
-
-for await (const button of buttonsCityNavArray.slice(0, 4)) {
-  console.log(button.textContent);
-  generateCityObject(button.textContent);
-}
-
-console.log({ buttonsCityNavArray });
-
-/***Big CityCard */
-const garbageCardCityBtn = document.querySelector(".garbageCardCityBtn");
-const addCardCityBtn = document.querySelector(".addCardCityBtn");
-const bigCityCard = document.getElementById("cityCardModal");
-let cardTitle;
-
-function fillCityCard(town, id, temp, iconWeather, description) {
-  cardTitle = document.querySelector(
-    ".bigCityCardTitle"
-  ).textContent = `${town}`;
-
-  bigCityCard.setAttribute("data-id", `${id}`);
-  document.querySelectorAll(".temperature").forEach(function (tempText) {
-    tempText.textContent = `${temp}°C`;
-  });
-  document.querySelectorAll(".iconWeather").forEach(function (icon) {
-    icon.src = `https://openweathermap.org/img/wn/${iconWeather}@2x.png`;
-  });
-  document.querySelector(".descriptionText").textContent = `${description}`;
-  let currentDate = new Date();
-  document.querySelector(".currentDate").textContent =
-    `${currentDate.getFullYear()}` +
-    `/${currentDate.getMonth()}` +
-    `/${currentDate.getDate()}`;
-  document.querySelector(".currentTime").textContent +
-    `${currentDate.getHours()}` +
-    ` ${currentDate.getMinutes()}`;
-
-  isTownLoaded(buttonsCityNavArray, cardTitle);
-  if (!hasAlreadyLoadedTheCurrentCity) {
-    addCardCityBtn.classList.remove("display-none");
-    garbageCardCityBtn.classList.add("display-none");
-    addCardCityBtn.dataset.cityName = cardTitle;
-  } else {
-    addCardCityBtn.classList.add("display-none");
-    garbageCardCityBtn.classList.remove("display-none");
-    garbageCardCityBtn.dataset.id = `${id}`;
-  }
-}
-
-garbageCardCityBtn.addEventListener("click", () => {
-  matchWithIdCardToRemove(garbageCardCityBtn, favoriteCityCardArray);
-  matchWithTextButtonToRemove(bigCityCardTitle);
-  /*function resetBigCityCard()!!! -> supprimer le grosse carte de chaque bouton/ville supprimer*/
-});
-
-addCardCityBtn.addEventListener("click", async () => {
-  townSearched = addCardCityBtn.dataset.cityName;
-  await recoverTown(townSearched);
-  setSeasonBackground(descriptionSearched);
-  isBgLiked();
-  fillCityCard(
-    townSearched,
-    idTownSearched,
-    tempSearched,
-    iconWeatherSearched,
-    descriptionSearched
-  );
-  generateCityObject(townSearched);
-});
-
-/****ADDING A NEW CITY */
-
-// console.log({ emptyButtons });
-const inputAddCity = document.getElementById("addCity");
-const addCityBtn = document.querySelector(".addCityBtn");
-
-addCityBtn.addEventListener("click", () => {
-  generateCityObject(inputAddCity.value);
-});
-
-/******CITIES COLLECTION GESTION */
-const favoritesCitiesCardsAll = document.querySelectorAll(".favoriteCityCard");
-let favoriteCityCardArray = Array.from(favoritesCitiesCardsAll);
-let emptyButtonsArray;
 
 async function generateCityObject(value) {
   const newCity = value;
@@ -756,45 +659,68 @@ async function generateCityObject(value) {
   console.log({ buttonsCityNavArray });
 }
 
-const garbageCityBtn = document.querySelectorAll(".garbageCityBtn");
-const visibilityCityBtn = document.querySelectorAll(".visibilityCityBtn");
-
-garbageCityBtn.forEach(function (btn) {
-  btn.addEventListener("click", () => {
-    const findTheminiCityCardForTheseGarbage = favoriteCityCardArray.find(
-      (card) => card.id === `${btn.dataset.id}`
-    );
-    console.log({ findTheminiCityCardForTheseGarbage });
-    const miniCityCardTitleForTheseGarbage =
-      findTheminiCityCardForTheseGarbage.querySelector(".miniCardTown");
-    matchWithTextButtonToRemove(miniCityCardTitleForTheseGarbage);
-    matchWithIdCardToRemove(btn, favoriteCityCardArray);
-    /*function resetBigCityCard()!!! -> supprimer le grosse carte de chaque bouton/ville supprimer*/
+/*********BIG CITY CARD FUNCTIONS */
+function fillCityCard(town, id, temp, iconWeather, description) {
+  cardTitle = document.querySelector(
+    ".bigCityCardTitle"
+  ).textContent = `${town}`;
+  bigCityCard.setAttribute("data-id", `${id}`);
+  document.querySelectorAll(".temperature").forEach(function (tempText) {
+    tempText.textContent = `${temp}°C`;
   });
-});
+  document.querySelectorAll(".iconWeather").forEach(function (icon) {
+    icon.src = `https://openweathermap.org/img/wn/${iconWeather}@2x.png`;
+  });
+  document.querySelector(".descriptionText").textContent = `${description}`;
+  let currentDate = new Date();
+  document.querySelector(".currentDate").textContent =
+    `${currentDate.getFullYear()}` +
+    `/${currentDate.getMonth()}` +
+    `/${currentDate.getDate()}`;
+  document.querySelector(".currentTime").textContent +
+    `${currentDate.getHours()}` +
+    ` ${currentDate.getMinutes()}`;
+  isTownLoaded(buttonsCityNavArray, cardTitle);
+  if (!hasAlreadyLoadedTheCurrentCity) {
+    addCardCityBtn.classList.remove("display-none");
+    garbageCityBtn.classList.add("display-none");
+    addCardCityBtn.dataset.cityName = cardTitle;
+  } else {
+    addCardCityBtn.classList.add("display-none");
+    garbageCityBtn.classList.remove("display-none");
+    garbageCityBtn.dataset.id = `${id}`;
+  }
+}
 
-visibilityCityBtn.forEach(function (btn) {
-  btn.addEventListener("click", async () => {
-    const cityToFind = btn.dataset.cityName;
-    console.log({ cityToFind });
+/*******************************************************************EVENTS */
+geolocaliseMeBtn.addEventListener("click", geolocaliseMe);
 
-    await recoverTown(cityToFind);
+buttonsCityNav.forEach(function (cityBtn) {
+  cityBtn.addEventListener("click", async () => {
+    townSearched = cityBtn.textContent;
+    await recoverTown(townSearched);
+    setSeasonBackground(descriptionSearched);
+    isBgLiked();
     fillCityCard(
-      cityToFind,
+      townSearched,
       idTownSearched,
       tempSearched,
       iconWeatherSearched,
       descriptionSearched
     );
-    setSeasonBackground(descriptionSearched);
-    isBgLiked();
   });
 });
 
-/******SEARCHING A TOWN VIA QUICKOPTIONS*/
-const inputCityUser = document.querySelectorAll(".inputCityUser");
-let inputCityUserValue;
-const searchBtn = document.querySelectorAll(".searchBtn");
+menuBtn.addEventListener("click", () => {
+  unrolledMenuContainer.classList.toggle("hidden");
+  switchIcon(menuIcon);
+});
+
+expandBtn.addEventListener("click", () => {
+  extensionNav.classList.toggle("display-none");
+  switchIcon(expandIcon);
+});
+
 searchBtn.forEach(function (eachSearchBtn) {
   eachSearchBtn.addEventListener("click", async () => {
     inputCityUserValue = inputCityUser[eachSearchBtn.id].value;
@@ -812,28 +738,6 @@ searchBtn.forEach(function (eachSearchBtn) {
   });
 });
 
-/*******CITY CARD ENLARGED AND REDUCED******/
-buttonsCityNav.forEach(function (cityBtn) {
-  cityBtn.addEventListener("click", async () => {
-    townSearched = cityBtn.textContent;
-    await recoverTown(townSearched);
-    setSeasonBackground(descriptionSearched);
-    isBgLiked();
-    fillCityCard(
-      townSearched,
-      idTownSearched,
-      tempSearched,
-      iconWeatherSearched,
-      descriptionSearched
-    );
-  });
-});
-
-const reducedCardvisibilityBtn = document.querySelector(
-  ".reducedCardvisibilityBtn"
-);
-const cityCardTitle = document.querySelector(".cityCardTitle");
-
 reducedCardvisibilityBtn.addEventListener("click", async () => {
   townSearched = cityCardTitle.textContent;
   await recoverTown(townSearched);
@@ -848,6 +752,82 @@ reducedCardvisibilityBtn.addEventListener("click", async () => {
   );
 });
 
+heartBtn.addEventListener("click", () => {
+  if (heartIcon.getAttribute("src") == "assets/icons/hearts.png") {
+    heartIcon.setAttribute("src", "assets/icons/empty-heart.svg");
+    matchWithIdCardToRemove(backgroundContainer, favoritesBackgroundsArray);
+  } else {
+    heartIcon.setAttribute("src", "assets/icons/hearts.png");
+    placeInCollectionBackground();
+  }
+});
+
+VisibilityButtonBackgroundCard.forEach(function (button) {
+  button.addEventListener("click", () => {
+    matchWithSrcCardToDisplay(button);
+  });
+});
+
+GarbageButtonBackgroundCard.forEach(function (button) {
+  button.addEventListener("click", () => {
+    matchWithIdCardToRemove(button, favoritesBackgroundsArray);
+  });
+});
+
+garbageCityBtn.addEventListener("click", () => {
+  matchWithIdCardToRemove(garbageCityBtn, favoriteCityCardArray);
+  matchWithTextButtonToRemove(bigCityCardTitle);
+  /*function resetBigCityCard()!!! -> supprimer le grosse carte de chaque bouton/ville supprimer*/
+});
+
+addCardCityBtn.addEventListener("click", async () => {
+  townSearched = addCardCityBtn.dataset.cityName;
+  await recoverTown(townSearched);
+  setSeasonBackground(descriptionSearched);
+  isBgLiked();
+  fillCityCard(
+    townSearched,
+    idTownSearched,
+    tempSearched,
+    iconWeatherSearched,
+    descriptionSearched
+  );
+  generateCityObject(townSearched);
+});
+
+addCityBtn.addEventListener("click", async () => {
+  townSearched = inputAddCity.value;
+  await recoverTown(townSearched);
+  setSeasonBackground(descriptionSearched);
+  isBgLiked();
+  fillCityCard(
+    townSearched,
+    idTownSearched,
+    tempSearched,
+    iconWeatherSearched,
+    descriptionSearched
+  );
+  generateCityObject(townSearched);
+});
+
+visibilityCityBtn.forEach(function (btn) {
+  btn.addEventListener("click", async () => {
+    const cityToFind = btn.dataset.cityName;
+    console.log({ cityToFind });
+    await recoverTown(cityToFind);
+    fillCityCard(
+      cityToFind,
+      idTownSearched,
+      tempSearched,
+      iconWeatherSearched,
+      descriptionSearched
+    );
+    setSeasonBackground(descriptionSearched);
+    isBgLiked();
+  });
+});
+
+/*******************************************************************LET APPLICATION */
 (async function runApplication() {
   await geolocaliseMe();
 })(); //immediatly invoked function IIF*/
