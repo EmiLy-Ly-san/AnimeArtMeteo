@@ -479,14 +479,18 @@ function matchWithIdCardToRemove(element, array) {
   isBgLiked();
 }
 
+/*function resetBigCityCard()!!! -> supprimer le grosse carte de chaque bouton/ville supprimer*/
+
 const bigCityCardTitle = document.querySelector(".bigCityCardTitle");
 const mainNav = document.querySelector(".mainNav");
 const secondNav = document.querySelector(".secondNav");
 
-function matchWithTextButtonToRemove(element, array) {
+function matchWithTextButtonToRemove(element) {
   const textToFind = element.textContent;
   console.log(buttonsCityNavArray);
-  const buttonToFind = array.find((btn) => btn.textContent === `${textToFind}`);
+  const buttonToFind = buttonsCityNavArray.find(
+    (btn) => btn.textContent === `${textToFind}`
+  );
   console.log({ buttonToFind });
   buttonToFind.textContent = "";
   const newButtonLi = document.createElement("li");
@@ -521,6 +525,14 @@ function matchWithTextButtonToRemove(element, array) {
   const buttonToFindLi = buttonToFind.closest("li");
   buttonToFindLi.remove();
   buttonToFind.remove();
+  buttonsCityNavArray = buttonsCityNavArray.filter(
+    (btn) => btn !== buttonToFind
+  );
+
+  console.log(
+    "J ai fini ! buttonsCityNavArray",
+    buttonsCityNavArray.map((btn) => btn.textContent)
+  );
 }
 
 function matchWithSrcCardToDisplay(button) {
@@ -584,7 +596,7 @@ async function recoverTown(town) {
 /****PRESELECTED CITIES */
 
 let buttonsCityNav = document.querySelectorAll(".citiesBtn");
-const buttonsCityNavArray = Array.from(buttonsCityNav);
+let buttonsCityNavArray = Array.from(buttonsCityNav);
 
 buttonsCityNavArray[0].textContent = "Tokyo";
 buttonsCityNavArray[1].textContent = "Paris";
@@ -640,7 +652,8 @@ function fillCityCard(town, id, temp, iconWeather, description) {
 
 garbageCardCityBtn.addEventListener("click", () => {
   matchWithIdCardToRemove(garbageCardCityBtn, favoriteCityCardArray);
-  matchWithTextButtonToRemove(bigCityCardTitle, buttonsCityNavArray);
+  matchWithTextButtonToRemove(bigCityCardTitle);
+  /*function resetBigCityCard()!!! -> supprimer le grosse carte de chaque bouton/ville supprimer*/
 });
 
 addCardCityBtn.addEventListener("click", async () => {
@@ -685,7 +698,7 @@ async function generateCityObject(value) {
     descriptionWeather: descriptionSearched,
     generateCityButton: function () {
       isTownLoaded(buttonsCityNavArray, newCity);
-      debugger;
+
       if (!hasAlreadyLoadedTheCurrentCity) {
         emptyButtonsArray = getEmptyButtons(buttonsCityNavArray);
         const emptyButtonsMainNav = getEmptyButtonsMainNav(emptyButtonsArray);
@@ -706,6 +719,7 @@ async function generateCityObject(value) {
           );
           emptyButtonsSecondNav[0].classList.add("border-secondary");
           emptyButtonsSecondNav[0].dataset.id = miniCityCard.id;
+          console.log({ myButton: emptyButtonsSecondNav[0] });
         }
       }
     },
@@ -753,11 +767,9 @@ garbageCityBtn.forEach(function (btn) {
     console.log({ findTheminiCityCardForTheseGarbage });
     const miniCityCardTitleForTheseGarbage =
       findTheminiCityCardForTheseGarbage.querySelector(".miniCardTown");
-    matchWithTextButtonToRemove(
-      miniCityCardTitleForTheseGarbage,
-      buttonsCityNavArray
-    );
+    matchWithTextButtonToRemove(miniCityCardTitleForTheseGarbage);
     matchWithIdCardToRemove(btn, favoriteCityCardArray);
+    /*function resetBigCityCard()!!! -> supprimer le grosse carte de chaque bouton/ville supprimer*/
   });
 });
 
