@@ -9,8 +9,8 @@ const mainNav = document.querySelector(".mainNav");
 const secondNav = document.querySelector(".secondNav");
 const extensionNav =
   document.querySelector(".navExtension"); /*DOUBLON AVEC CELUI D'AU DESSUS ??*/
-let buttonsCityNav = document.querySelectorAll(".citiesBtn");
-let buttonsCityNavArray = Array.from(buttonsCityNav);
+let getButtonsCityNav = () => document.querySelectorAll(".citiesBtn");
+let buttonsCityNavArray = Array.from(getButtonsCityNav());
 buttonsCityNavArray[0].textContent = "Tokyo";
 buttonsCityNavArray[1].textContent = "Paris";
 buttonsCityNavArray[2].textContent = "Montreal";
@@ -132,12 +132,12 @@ const heartBtn = document.querySelector(".heart-button");
 const heartIcon = document.getElementById("heartIcon");
 
 /*********CITY CARD VARIABLES */
-const bigCityCardTitle = document.querySelector(".bigCityCardTitle");
+const getBigCityCardTitle = () => document.querySelector(".bigCityCardTitle");
 const garbageCityBtn = document.querySelector(".garbageCityBtn");
 const addCardCityBtn = document.querySelector(".addCardCityBtn");
+const garbageCardCityBtn = document.querySelector(".garbageCardCityBtn");
 const bigCityCard = document.getElementById("cityCardModal");
 const visibilityCityBtn = document.querySelectorAll(".visibilityCityBtn");
-let cardTitle; /*DOUBLON AVEC LE PREMIER ??*/
 const reducedCardvisibilityBtn = document.querySelector(
   ".reducedCardvisibilityBtn"
 );
@@ -161,15 +161,39 @@ function getEmptyButtons(buttonsArray) {
 }
 
 function getEmptyButtonsMainNav(buttonsArray) {
-  return buttonsArray.filter(function (btn) {
-    return btn.classList.contains("citiesBtnMainNav");
-  });
+  return buttonsArray
+    .filter(function (btn) {
+      return btn.classList.contains("citiesBtnMainNav");
+    })
+    .filter(function (btn) {
+      return btn.textContent == "";
+    });
 }
 
 function getEmptyButtonsSecondNav(buttonsArray) {
   return buttonsArray.filter(function (btn) {
     return btn.classList.contains("citiesBtnSecondNav");
   });
+}
+
+function getFilledButtonsMainNav(buttonsArray) {
+  return buttonsArray
+    .filter(function (btn) {
+      return btn.classList.contains("citiesBtnMainNav");
+    })
+    .filter(function (btn) {
+      return btn.textContent != "";
+    });
+}
+
+function getFilledButtonsSecondNav(buttonsArray) {
+  return buttonsArray
+    .filter(function (btn) {
+      return btn.classList.contains("citiesBtnSecondNav");
+    })
+    .filter(function (btn) {
+      return btn.textContent != "";
+    });
 }
 
 function getEmptyCards(cardsArray) {
@@ -202,13 +226,15 @@ function matchWithIdCardToRemove(element, array) {
 /*function resetBigCityCard()!!! -> supprimer le grosse carte de chaque bouton/ville supprimer*/
 
 function matchWithTextButtonToRemove(element) {
+  // Find the button nav who have the city to delete
   const textToFind = element.textContent;
-  console.log(buttonsCityNavArray);
+
   const buttonToFind = buttonsCityNavArray.find(
     (btn) => btn.textContent === `${textToFind}`
   );
   console.log({ buttonToFind });
   buttonToFind.textContent = "";
+  // Create a new empty button to replace the button deleted in the nav
   const newButtonLi = document.createElement("li");
   newButtonLi.classList.add("nav-item", "citiesNavigation");
   const newEmptyButton = document.createElement("button");
@@ -227,17 +253,21 @@ function matchWithTextButtonToRemove(element) {
   newEmptyButton.disabled = true;
   newEmptyButton.setAttribute("data-bs-toggle", "modal");
   newEmptyButton.setAttribute("data-bs-target", "#cityCardModal");
+  // find the good nav to place the new empty button
   if (mainNav.contains(buttonToFind) === true) {
     mainNav.append(newButtonLi);
     newButtonLi.append(newEmptyButton);
     newEmptyButton.classList.add("citiesBtnMainNav");
     buttonsCityNavArray.push(newEmptyButton);
+    attachListenersToBtnCityNavButtons();
   } else {
     secondNav.append(newButtonLi);
     newButtonLi.append(newEmptyButton);
     newEmptyButton.classList.add("citiesBtnSecondNav");
     buttonsCityNavArray.push(newEmptyButton);
+    attachListenersToBtnCityNavButtons();
   }
+  // finally, remove the button to delete
   const buttonToFindLi = buttonToFind.closest("li");
   buttonToFindLi.remove();
   buttonToFind.remove();
@@ -249,6 +279,87 @@ function matchWithTextButtonToRemove(element) {
     "J ai fini ! buttonsCityNavArray",
     buttonsCityNavArray.map((btn) => btn.textContent)
   );
+  //Give the new organisation of the button Nav because of the deletion of a button
+  //Get th empty and filled buttons into the two navs
+  const emptyButtonsMainNav = getEmptyButtonsMainNav(buttonsCityNavArray);
+  console.log({ emptyButtonsMainNav });
+  const emptyButtonsSecondNav = getEmptyButtonsSecondNav(buttonsCityNavArray);
+  const filledButtonsSecondNav = getFilledButtonsSecondNav(buttonsCityNavArray);
+
+  const filledButtonsMainNav = getFilledButtonsMainNav(buttonsCityNavArray);
+  //verify if there is an empty button in the main nav
+  if (emptyButtonsMainNav && emptyButtonsMainNav.length > 0) {
+    //If yes, Find the first filled button from the second nav to push/upgrade in the main nav
+    const buttonToUpgrade = filledButtonsSecondNav[0];
+
+    if (buttonToUpgrade) {
+      //Fill the last empty button in the main nav with the values of the first filled button from the second nav
+      emptyButtonsMainNav[emptyButtonsMainNav.length - 1].textContent =
+        buttonToUpgrade.textContent;
+
+      //Fill the ex first filled button from the second nav the values and the style of an empty button nav
+      buttonToUpgrade.textContent = "";
+      buttonToUpgrade.classList.add(
+        "citiesBtn",
+        "btn",
+        "btn-primary",
+        "opacity-75",
+        "rounded-pill",
+        "text-secondary",
+        "fw-bold"
+      );
+      buttonToUpgrade.classList.remove("border-secondary");
+      //Remove the ex first filled button from the second nav of the filledButtonsSecondNav array
+      buttonToUpgrade.remove();
+      attachListenersToBtnCityNavButtons();
+    }
+    emptyButtonsMainNav[emptyButtonsMainNav.length - 1].dataset.id = "";
+    emptyButtonsMainNav[emptyButtonsMainNav.length - 1].disabled = true;
+    emptyButtonsMainNav[0].disabled = false;
+    //Give him the style for a filled button
+    emptyButtonsMainNav[0].classList.remove(
+      "btn-primary",
+      "opacity-75",
+      "border-secondary"
+    );
+    emptyButtonsMainNav[0].classList.add("border-secondary");
+
+    /*Create a new empty button at the end of the second nav to maintain the nav with squelettons (for 16 buttonsCityNav in
+     total)*/
+    const newEmptyButtonSecondNav = document.createElement("button");
+    newEmptyButtonSecondNav.classList.add(
+      "citiesBtn",
+      "btn",
+      "btn-primary",
+      "opacity-75",
+      "rounded-pill",
+      "text-secondary",
+      "fw-bold"
+    );
+    newEmptyButtonSecondNav.textContent = "";
+    newEmptyButtonSecondNav.dataset.id = "";
+    newEmptyButtonSecondNav.disabled = true;
+    newEmptyButtonSecondNav.setAttribute("data-bs-toggle", "modal");
+    newEmptyButtonSecondNav.setAttribute("data-bs-target", "#cityCardModal");
+    secondNav.append(newEmptyButtonSecondNav);
+  }
+
+  attachListenersToBtnCityNavButtons();
+}
+
+function resetBigCityCard() {
+  const bigCityCardTitle = getBigCityCardTitle();
+  bigCityCardTitle.textContent = "";
+  bigCityCard.setAttribute("data-id", "");
+  document.querySelectorAll(".temperature").forEach(function (tempText) {
+    tempText.textContent = "";
+  });
+  document.querySelectorAll(".iconWeather").forEach(function (icon) {
+    icon.src = "";
+  });
+  document.querySelector(".descriptionText").textContent = "";
+  document.querySelector(".currentDate").textContent = "";
+  document.querySelector(".currentTime").textContent = "";
 }
 
 function matchWithSrcCardToDisplay(button) {
@@ -303,16 +414,18 @@ function geolocaliseMe() {
   } else {
     alert("Geolocation cannot be used.");
     townGeo = "Paris";
-    recoverTown(townGeo);
-    fillCityCard(
-      townGeo,
-      idGeo,
-      tempSearched,
-      descriptionSearched,
-      iconWeatherSearched
-    );
-    setSeasonBackground(descriptionSearched);
-    isBgLiked();
+    (async function getFallbackCity() {
+      await recoverTown(townGeo);
+      fillCityCard(
+        townGeo,
+        idGeo,
+        tempSearched,
+        descriptionSearched,
+        iconWeatherSearched
+      );
+      setSeasonBackground(descriptionSearched);
+      isBgLiked();
+    })();
   }
 }
 
@@ -417,7 +530,7 @@ function getBackgroundSpringSummer(description) {
       setBackgroundProperties(backgroundsSpringSummerThunderstorm);
       break;
     default:
-      backgroundContainer =
+      backgroundContainer.style.backgroundImage =
         "url(assets/backgrounds/summer-spring/sun/1e4fe3db756c83c5c3f7ed904e002436.jpg)";
       backgroundContainerBig.style.backgroundImage =
         "url(assets/backgrounds/summer-spring/sun/1e4fe3db756c83c5c3f7ed904e002436.jpg)";
@@ -604,7 +717,7 @@ async function generateCityObject(value) {
 
       if (!hasAlreadyLoadedTheCurrentCity) {
         emptyButtonsArray = getEmptyButtons(buttonsCityNavArray);
-        const emptyButtonsMainNav = getEmptyButtonsMainNav(emptyButtonsArray);
+        let emptyButtonsMainNav = getEmptyButtonsMainNav(buttonsCityNavArray);
         const emptyButtonsSecondNav =
           getEmptyButtonsSecondNav(emptyButtonsArray);
         if (emptyButtonsMainNav.length !== 0) {
@@ -613,6 +726,13 @@ async function generateCityObject(value) {
           emptyButtonsMainNav[0].classList.remove("btn-primary", "opacity-75");
           emptyButtonsMainNav[0].classList.add("border-secondary");
           emptyButtonsMainNav[0].dataset.id = miniCityCard.id;
+          emptyButtonsMainNav = getEmptyButtonsMainNav(buttonsCityNavArray);
+          while (emptyButtonsMainNav.length !== 0) {
+            emptyButtonsSecondNav.forEach(function (btn) {
+              emptyButtonsMainNav.push(btn);
+              emptyButtonsSecondNav.shift(btn);
+            });
+          }
         } else {
           emptyButtonsSecondNav[0].textContent = newCity;
           emptyButtonsSecondNav[0].disabled = false;
@@ -661,9 +781,7 @@ async function generateCityObject(value) {
 
 /*********BIG CITY CARD FUNCTIONS */
 function fillCityCard(town, id, temp, iconWeather, description) {
-  cardTitle = document.querySelector(
-    ".bigCityCardTitle"
-  ).textContent = `${town}`;
+  document.querySelector(".bigCityCardTitle").textContent = `${town}`;
   bigCityCard.setAttribute("data-id", `${id}`);
   document.querySelectorAll(".temperature").forEach(function (tempText) {
     tempText.textContent = `${temp}°C`;
@@ -680,36 +798,46 @@ function fillCityCard(town, id, temp, iconWeather, description) {
   document.querySelector(".currentTime").textContent +
     `${currentDate.getHours()}` +
     ` ${currentDate.getMinutes()}`;
-  isTownLoaded(buttonsCityNavArray, cardTitle);
+  isTownLoaded(buttonsCityNavArray, town);
   if (!hasAlreadyLoadedTheCurrentCity) {
     addCardCityBtn.classList.remove("display-none");
-    garbageCityBtn.classList.add("display-none");
-    addCardCityBtn.dataset.cityName = cardTitle;
+    garbageCardCityBtn.classList.add("display-none");
+    addCardCityBtn.dataset.cityName = town;
   } else {
     addCardCityBtn.classList.add("display-none");
-    garbageCityBtn.classList.remove("display-none");
-    garbageCityBtn.dataset.id = `${id}`;
+    garbageCardCityBtn.classList.remove("display-none");
+    garbageCardCityBtn.dataset.id = `${id}`;
   }
 }
 
 /*******************************************************************EVENTS */
 geolocaliseMeBtn.addEventListener("click", geolocaliseMe);
 
-buttonsCityNav.forEach(function (cityBtn) {
-  cityBtn.addEventListener("click", async () => {
-    townSearched = cityBtn.textContent;
-    await recoverTown(townSearched);
-    setSeasonBackground(descriptionSearched);
-    isBgLiked();
-    fillCityCard(
-      townSearched,
-      idTownSearched,
-      tempSearched,
-      iconWeatherSearched,
-      descriptionSearched
-    );
+function attachListenersToBtnCityNavButtons() {
+  const buttonsCityNav = getButtonsCityNav();
+  buttonsCityNav.forEach(function (cityBtn) {
+    cityBtn.addEventListener("click", async () => {
+      console.log(
+        "Je commence ! buttonsCityNavArray",
+        buttonsCityNavArray.map((btn) => btn.textContent)
+      );
+      townSearched = cityBtn.textContent;
+      console.log({ townSearched });
+      await recoverTown(townSearched);
+
+      setSeasonBackground(descriptionSearched);
+      isBgLiked();
+      fillCityCard(
+        townSearched,
+        idTownSearched,
+        tempSearched,
+        iconWeatherSearched,
+        descriptionSearched
+      );
+    });
   });
-});
+}
+attachListenersToBtnCityNavButtons();
 
 menuBtn.addEventListener("click", () => {
   unrolledMenuContainer.classList.toggle("hidden");
@@ -776,8 +904,14 @@ GarbageButtonBackgroundCard.forEach(function (button) {
 
 garbageCityBtn.addEventListener("click", () => {
   matchWithIdCardToRemove(garbageCityBtn, favoriteCityCardArray);
-  matchWithTextButtonToRemove(bigCityCardTitle);
-  /*function resetBigCityCard()!!! -> supprimer le grosse carte de chaque bouton/ville supprimer*/
+  matchWithTextButtonToRemove(getBigCityCardTitle());
+});
+
+garbageCardCityBtn.addEventListener("click", () => {
+  matchWithTextButtonToRemove(getBigCityCardTitle());
+
+  matchWithIdCardToRemove(garbageCardCityBtn, favoriteCityCardArray);
+  resetBigCityCard();
 });
 
 addCardCityBtn.addEventListener("click", async () => {
@@ -825,6 +959,11 @@ visibilityCityBtn.forEach(function (btn) {
     setSeasonBackground(descriptionSearched);
     isBgLiked();
   });
+});
+
+const btnCloseBigCityCard = document.querySelector(".btnCloseBigCityCard");
+btnCloseBigCityCard.addEventListener("click", () => {
+  resetBigCityCard();
 });
 
 /*******************************************************************LET APPLICATION */
