@@ -223,21 +223,35 @@ function matchWithIdCardToRemove(element, array) {
   isBgLiked();
 }
 
-/*function resetBigCityCard()!!! -> supprimer le grosse carte de chaque bouton/ville supprimer*/
+//REMOVE CITY BUTTON NAV
+let textToFind;
+let buttonToFind;
 
-function matchWithTextButtonToRemove(element) {
-  // Find the button nav who have the city to delete
-  const textToFind = element.textContent;
+function removeCityBtn(elementWithCityNameInTextContent) {
+  //in listener garbageCard
+  textToFind = elementWithCityNameInTextContent.textContent;
+  findTheButtonNavToDelete(textToFind);
+  replaceBtnNavToDeleteByNewEmptyButton();
+  removeButtonFromTheNav();
+}
 
-  const buttonToFind = buttonsCityNavArray.find(
+function findTheButtonNavToDelete(textToFind) {
+  buttonToFind = buttonsCityNavArray.find(
     (btn) => btn.textContent === `${textToFind}`
   );
-  console.log({ buttonToFind });
-  buttonToFind.textContent = "";
-  // Create a new empty button to replace the button deleted in the nav
-  const newButtonLi = document.createElement("li");
+}
+
+let newButtonLi;
+let newEmptyButton;
+function replaceBtnNavToDeleteByNewEmptyButton() {
+  createNewEmptyButton();
+  placeInTheGoodNav();
+}
+
+function createNewEmptyButton() {
+  newButtonLi = document.createElement("li");
   newButtonLi.classList.add("nav-item", "citiesNavigation");
-  const newEmptyButton = document.createElement("button");
+  newEmptyButton = document.createElement("button");
   newEmptyButton.classList.add(
     "citiesBtn",
     "btn",
@@ -253,7 +267,9 @@ function matchWithTextButtonToRemove(element) {
   newEmptyButton.disabled = true;
   newEmptyButton.setAttribute("data-bs-toggle", "modal");
   newEmptyButton.setAttribute("data-bs-target", "#cityCardModal");
-  // find the good nav to place the new empty button
+}
+
+function placeInTheGoodNav() {
   if (mainNav.contains(buttonToFind) === true) {
     mainNav.append(newButtonLi);
     newButtonLi.append(newEmptyButton);
@@ -267,67 +283,55 @@ function matchWithTextButtonToRemove(element) {
     buttonsCityNavArray.push(newEmptyButton);
     attachListenersToBtnCityNavButtons();
   }
-  // finally, remove the button to delete
+}
+
+function removeButtonFromTheNav() {
   const buttonToFindLi = buttonToFind.closest("li");
   buttonToFindLi.remove();
   buttonToFind.remove();
   buttonsCityNavArray = buttonsCityNavArray.filter(
     (btn) => btn !== buttonToFind
   );
-
   console.log(
     "J ai fini ! buttonsCityNavArray",
     buttonsCityNavArray.map((btn) => btn.textContent)
   );
-  //Give the new organisation of the button Nav because of the deletion of a button
-  //Get th empty and filled buttons into the two navs
-  const emptyButtonsMainNav = getEmptyButtonsMainNav(buttonsCityNavArray);
+}
+
+//REORGANIZE NAV
+let emptyButtonsMainNav = getEmptyButtonsMainNav(buttonsCityNavArray);
+let emptyButtonsSecondNav = getEmptyButtonsSecondNav(buttonsCityNavArray);
+let filledButtonsSecondNav = getFilledButtonsSecondNav(buttonsCityNavArray);
+let filledButtonsMainNav = getFilledButtonsMainNav(buttonsCityNavArray);
+let buttonToUpgrade;
+
+function reorganizeNavifNecessary() {
+  //in listener garbageCard
+  /*getButtonsCityNav();*/
+  findIfBtnToUpgradeIsInSecondNav();
+  if (buttonToUpgrade === filledButtonsSecondNav[0]) {
+    switchFirstEmptyBtnMainNavWithBtnToUpgradeSecondNav();
+    createNewEmptyButtonInSecondNav();
+  }
+}
+
+function findIfBtnToUpgradeIsInSecondNav() {
+  emptyButtonsMainNav = getEmptyButtonsMainNav(buttonsCityNavArray);
   console.log({ emptyButtonsMainNav });
-  const emptyButtonsSecondNav = getEmptyButtonsSecondNav(buttonsCityNavArray);
-  const filledButtonsSecondNav = getFilledButtonsSecondNav(buttonsCityNavArray);
-
-  const filledButtonsMainNav = getFilledButtonsMainNav(buttonsCityNavArray);
-  //verify if there is an empty button in the main nav
+  emptyButtonsSecondNav = getEmptyButtonsSecondNav(buttonsCityNavArray);
+  filledButtonsSecondNav = getFilledButtonsSecondNav(buttonsCityNavArray);
+  filledButtonsMainNav = getFilledButtonsMainNav(buttonsCityNavArray);
   if (emptyButtonsMainNav && emptyButtonsMainNav.length > 0) {
-    //If yes, Find the first filled button from the second nav to push/upgrade in the main nav
-    const buttonToUpgrade = filledButtonsSecondNav[0];
+    buttonToUpgrade = filledButtonsSecondNav[0];
+  }
+}
 
-    if (buttonToUpgrade) {
-      //Fill the last empty button in the main nav with the values of the first filled button from the second nav
-      emptyButtonsMainNav[emptyButtonsMainNav.length - 1].textContent =
-        buttonToUpgrade.textContent;
-
-      //Fill the ex first filled button from the second nav the values and the style of an empty button nav
-      buttonToUpgrade.textContent = "";
-      buttonToUpgrade.classList.add(
-        "citiesBtn",
-        "btn",
-        "btn-primary",
-        "opacity-75",
-        "rounded-pill",
-        "text-secondary",
-        "fw-bold"
-      );
-      buttonToUpgrade.classList.remove("border-secondary");
-      //Remove the ex first filled button from the second nav of the filledButtonsSecondNav array
-      buttonToUpgrade.remove();
-      attachListenersToBtnCityNavButtons();
-    }
-    emptyButtonsMainNav[emptyButtonsMainNav.length - 1].dataset.id = "";
-    emptyButtonsMainNav[emptyButtonsMainNav.length - 1].disabled = true;
-    emptyButtonsMainNav[0].disabled = false;
-    //Give him the style for a filled button
-    emptyButtonsMainNav[0].classList.remove(
-      "btn-primary",
-      "opacity-75",
-      "border-secondary"
-    );
-    emptyButtonsMainNav[0].classList.add("border-secondary");
-
-    /*Create a new empty button at the end of the second nav to maintain the nav with squelettons (for 16 buttonsCityNav in
-     total)*/
-    const newEmptyButtonSecondNav = document.createElement("button");
-    newEmptyButtonSecondNav.classList.add(
+function switchFirstEmptyBtnMainNavWithBtnToUpgradeSecondNav() {
+  if (buttonToUpgrade) {
+    emptyButtonsMainNav[emptyButtonsMainNav.length - 1].textContent =
+      buttonToUpgrade.textContent;
+    buttonToUpgrade.textContent = "";
+    buttonToUpgrade.classList.add(
       "citiesBtn",
       "btn",
       "btn-primary",
@@ -336,14 +340,38 @@ function matchWithTextButtonToRemove(element) {
       "text-secondary",
       "fw-bold"
     );
-    newEmptyButtonSecondNav.textContent = "";
-    newEmptyButtonSecondNav.dataset.id = "";
-    newEmptyButtonSecondNav.disabled = true;
-    newEmptyButtonSecondNav.setAttribute("data-bs-toggle", "modal");
-    newEmptyButtonSecondNav.setAttribute("data-bs-target", "#cityCardModal");
-    secondNav.append(newEmptyButtonSecondNav);
+    buttonToUpgrade.classList.remove("border-secondary");
+    buttonToUpgrade.remove();
+    attachListenersToBtnCityNavButtons();
   }
+  emptyButtonsMainNav[emptyButtonsMainNav.length - 1].dataset.id = "";
+  emptyButtonsMainNav[emptyButtonsMainNav.length - 1].disabled = true;
+  emptyButtonsMainNav[0].disabled = false;
+  emptyButtonsMainNav[0].classList.remove(
+    "btn-primary",
+    "opacity-75",
+    "border-secondary"
+  );
+  emptyButtonsMainNav[0].classList.add("border-secondary");
+}
 
+function createNewEmptyButtonInSecondNav() {
+  const newEmptyButtonSecondNav = document.createElement("button");
+  newEmptyButtonSecondNav.classList.add(
+    "citiesBtn",
+    "btn",
+    "btn-primary",
+    "opacity-75",
+    "rounded-pill",
+    "text-secondary",
+    "fw-bold"
+  );
+  newEmptyButtonSecondNav.textContent = "";
+  newEmptyButtonSecondNav.dataset.id = "";
+  newEmptyButtonSecondNav.disabled = true;
+  newEmptyButtonSecondNav.setAttribute("data-bs-toggle", "modal");
+  newEmptyButtonSecondNav.setAttribute("data-bs-target", "#cityCardModal");
+  secondNav.append(newEmptyButtonSecondNav);
   attachListenersToBtnCityNavButtons();
 }
 
@@ -520,6 +548,7 @@ function getBackgroundSpringSummer(description) {
     case "Drizzle":
     case "Rain":
     case "Mist":
+    case "Haze":
       setBackgroundProperties(backgroundsSpringSummerRain);
       break;
     case "Clouds":
@@ -547,6 +576,7 @@ function getBackgroundAutumnWinter(description) {
     case "Drizzle":
     case "Rain":
     case "Mist":
+    case "Haze":
       setBackgroundProperties(backgroundsAutumnWinterRain);
       break;
     case "Clouds":
@@ -560,7 +590,7 @@ function getBackgroundAutumnWinter(description) {
       setBackgroundProperties(backgroundsAutumnWinterThunderstorm);
       break;
     default:
-      backgroundContainer =
+      backgroundContainer.style.backgroundImage =
         "url(/assets/backgrounds/autumn-winter/sun/2e22f614e218b2d8e9b6ad04a74db87f.jpg)";
       backgroundContainerBig.style.backgroundImage =
         "url(/assets/backgrounds/autumn-winter/sun/2e22f614e218b2d8e9b6ad04a74db87f.jpg)";
@@ -813,6 +843,14 @@ function fillCityCard(town, id, temp, iconWeather, description) {
 /*******************************************************************EVENTS */
 geolocaliseMeBtn.addEventListener("click", geolocaliseMe);
 
+/*const newBtnNavFoundEvent = new CustomEvent("newBtnNavFound", {
+  detail: getButtonsCityNav.createElement("button"),
+});
+document.addEventListener("newBtnNavFound", (e) =>
+  e.attachListenersToCityNavButtons()
+);
+document.dispatchEvent(newBtnNavFoundEvent);*/
+
 function attachListenersToBtnCityNavButtons() {
   const buttonsCityNav = getButtonsCityNav();
   buttonsCityNav.forEach(function (cityBtn) {
@@ -908,7 +946,9 @@ garbageCityBtn.addEventListener("click", () => {
 });
 
 garbageCardCityBtn.addEventListener("click", () => {
-  matchWithTextButtonToRemove(getBigCityCardTitle());
+  removeCityBtn(getBigCityCardTitle());
+  reorganizeNavifNecessary();
+  /*matchWithTextButtonToRemove(getBigCityCardTitle());*/
 
   matchWithIdCardToRemove(garbageCardCityBtn, favoriteCityCardArray);
   resetBigCityCard();
