@@ -548,6 +548,7 @@ function getBackgroundSpringSummer(description) {
     case "Drizzle":
     case "Rain":
     case "Mist":
+    case "Haze":
       setBackgroundProperties(backgroundsSpringSummerRain);
       break;
     case "Clouds":
@@ -575,6 +576,7 @@ function getBackgroundAutumnWinter(description) {
     case "Drizzle":
     case "Rain":
     case "Mist":
+    case "Haze":
       setBackgroundProperties(backgroundsAutumnWinterRain);
       break;
     case "Clouds":
@@ -588,7 +590,7 @@ function getBackgroundAutumnWinter(description) {
       setBackgroundProperties(backgroundsAutumnWinterThunderstorm);
       break;
     default:
-      backgroundContainer =
+      backgroundContainer.style.backgroundImage =
         "url(/assets/backgrounds/autumn-winter/sun/2e22f614e218b2d8e9b6ad04a74db87f.jpg)";
       backgroundContainerBig.style.backgroundImage =
         "url(/assets/backgrounds/autumn-winter/sun/2e22f614e218b2d8e9b6ad04a74db87f.jpg)";
