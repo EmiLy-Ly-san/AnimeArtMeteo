@@ -2,7 +2,7 @@ import { backgroundsData } from "./backgrounds.js";
 
 /*******************************************************************GLOBAL SCOPE VARIABLES */
 /*********BUTTONS NAV VARIABLES*/
-const menuBtn = document.querySelector("#menuBtn");
+const menuBtn = document.querySelectorAll(".menuBtn");
 const unrolledMenuContainer = document.querySelector(".unrolledMenuContainer");
 const menuIcon = document.getElementById("menuIcon");
 const mainNav = document.querySelector(".mainNav");
@@ -143,8 +143,6 @@ const reducedCardvisibilityBtn = document.querySelector(
 );
 const favoritesCitiesCardsAll = document.querySelectorAll(".favoriteCityCard");
 let favoriteCityCardArray = Array.from(favoritesCitiesCardsAll);
-const cityCardTitle =
-  document.querySelector(".cityCardTitle"); /*clarifier par minicitycard ?
 
 /*******************************************************************GENERALS FONCTIONS */
 function switchIcon(icon) {
@@ -419,6 +417,7 @@ function geolocaliseMe() {
 
         await recoverGeolocTown();
         fillCityCard(townGeo, idGeo, tempGeo, iconWeatherGeo, descriptionGeo);
+        fillReducedCityCard(townGeo, tempGeo, iconWeatherGeo);
         setSeasonBackground(descriptionGeo);
         isBgLiked();
       },
@@ -436,6 +435,7 @@ function geolocaliseMe() {
         descriptionSearched,
         iconWeatherSearched
       );
+      fillReducedCityCard(townGeo, tempGeo, iconWeatherGeo);
       setSeasonBackground(descriptionSearched);
       isBgLiked();
     }
@@ -444,6 +444,7 @@ function geolocaliseMe() {
     townGeo = "Paris";
     (async function getFallbackCity() {
       await recoverTown(townGeo);
+      fillReducedCityCard(townGeo, tempGeo, iconWeatherGeo);
       fillCityCard(
         townGeo,
         idGeo,
@@ -840,6 +841,16 @@ function fillCityCard(town, id, temp, iconWeather, description) {
   }
 }
 
+function fillReducedCityCard(town, temp, iconWeather) {
+  document.querySelector(".reducedCardTitle").textContent = `${town}`;
+  document.querySelectorAll(".tempReducedCard").forEach(function (tempText) {
+    tempText.textContent = `${temp}°C`;
+  });
+  document.querySelectorAll(".iconWeatherReducedCard").forEach(function (icon) {
+    icon.src = `https://openweathermap.org/img/wn/${iconWeather}@2x.png`;
+  });
+}
+
 /*******************************************************************EVENTS */
 geolocaliseMeBtn.addEventListener("click", geolocaliseMe);
 
@@ -859,10 +870,10 @@ function attachListenersToBtnCityNavButtons() {
         "Je commence ! buttonsCityNavArray",
         buttonsCityNavArray.map((btn) => btn.textContent)
       );
+      resetBigCityCard();
       townSearched = cityBtn.textContent;
       console.log({ townSearched });
       await recoverTown(townSearched);
-
       setSeasonBackground(descriptionSearched);
       isBgLiked();
       fillCityCard(
@@ -872,14 +883,17 @@ function attachListenersToBtnCityNavButtons() {
         iconWeatherSearched,
         descriptionSearched
       );
+      fillReducedCityCard(townSearched, tempSearched, iconWeatherSearched);
     });
   });
 }
 attachListenersToBtnCityNavButtons();
 
-menuBtn.addEventListener("click", () => {
-  unrolledMenuContainer.classList.toggle("hidden");
-  switchIcon(menuIcon);
+menuBtn.forEach(function (btn) {
+  btn.addEventListener("click", () => {
+    unrolledMenuContainer.classList.toggle("hidden");
+    switchIcon(menuIcon);
+  });
 });
 
 expandBtn.addEventListener("click", () => {
@@ -898,6 +912,7 @@ searchBtn.forEach(function (eachSearchBtn) {
       iconWeatherSearched,
       descriptionSearched
     );
+    fillReducedCityCard(inputCityUserValue, tempSearched, iconWeatherSearched);
     inputCityUser.forEach(function (input) {
       input.value = "";
     });
@@ -981,6 +996,7 @@ addCityBtn.addEventListener("click", async () => {
     iconWeatherSearched,
     descriptionSearched
   );
+  fillReducedCityCard(townSearched, tempSearched, iconWeatherSearched);
   generateCityObject(townSearched);
 });
 
@@ -1001,10 +1017,10 @@ visibilityCityBtn.forEach(function (btn) {
   });
 });
 
-const btnCloseBigCityCard = document.querySelector(".btnCloseBigCityCard");
+/*const btnCloseBigCityCard = document.querySelector(".btnCloseBigCityCard");
 btnCloseBigCityCard.addEventListener("click", () => {
   resetBigCityCard();
-});
+});*/
 
 /*******************************************************************LET APPLICATION */
 (async function runApplication() {
