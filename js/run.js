@@ -1,5 +1,21 @@
-import { geolocaliseMe, geolocaliseMeBtn } from "./geolocalisation";
-import { heartBtn, heartIcon } from "./backgroundsCollection";
+import {
+  geolocaliseMe,
+  geolocaliseMeBtn,
+  townGeo,
+  idGeo,
+  tempGeo,
+  iconWeatherGeo,
+  descriptionGeo,
+} from "./geolocalisation";
+import {
+  heartBtn,
+  heartIcon,
+  favoritesBackgroundsArray,
+  placeInCollectionBackground,
+} from "./backgroundsCollection";
+import { fillCityCard } from "./cityCard.js";
+import { backgroundContainer } from "./backgroundRandom.js";
+import { matchWithIdCardToRemove } from "./utilities.js";
 
 (async function runApplication() {
   await geolocaliseMe();

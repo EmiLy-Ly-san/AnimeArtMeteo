@@ -35,7 +35,9 @@ let backgroundsSpringSummerCardsArray = Array.from(
 );
 const getFavoritesBackgroundsAll = () =>
   document.querySelectorAll(".favoriteBackgroundCard");
-const favoritesBackgroundsArray = Array.from(getFavoritesBackgroundsAll());
+export const favoritesBackgroundsArray = Array.from(
+  getFavoritesBackgroundsAll()
+);
 const GarbageButtonBackgroundCard = document.querySelectorAll(".garbageButton");
 const VisibilityButtonBackgroundCard =
   document.querySelectorAll(".visibilityButton");
@@ -102,7 +104,7 @@ const createNewBackgroundCard = (section) => {
 };
 
 /***3.Place the background liked by the user in his collection */
-function placeInCollectionBackground() {
+export function placeInCollectionBackground() {
   const miniBackgroundCard = {
     id: backgroundId,
     file: randomBackground,

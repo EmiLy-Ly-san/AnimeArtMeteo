@@ -1,7 +1,9 @@
 import { backgroundsData } from "./backgrounds.js";
 
 /********BACKGROUND HTML CONTAINERS */
-let backgroundContainer = document.querySelector(".background-container");
+export let backgroundContainer = document.querySelector(
+  ".background-container"
+);
 let backgroundContainerBig = document.querySelector(
   ".background-container-big"
 );
