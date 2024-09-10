@@ -12,18 +12,11 @@ import {
   fillReducedCityCard,
 } from "./cityCards";
 import { setSeasonBackground } from "./backgroundRandom";
-import { isBgLiked } from "./backgroundsCollection";
+import { isBgLiked } from "./backgroundsUserCollection";
 
-const menuBtn = document.querySelectorAll(".menuBtn");
-const unrolledMenuContainer = document.querySelector(".unrolledMenuContainer");
-const menuIcon = document.getElementById("menuIcon");
 const mainNav = document.querySelector(".mainNav");
 const secondNav = document.querySelector(".secondNav");
-const extensionNav =
-  document.querySelector(".navExtension"); /*DOUBLON AVEC CELUI D'AU DESSUS ??*/
-let emptyButtonsArray;
-const expandBtn = document.querySelector(".expandBtn");
-const expandIcon = document.getElementById("expandIcon");
+/*DOUBLON AVEC CELUI D'AU DESSUS ??*/
 
 let getButtonsCityNav = () => document.querySelectorAll(".citiesBtn");
 export let buttonsCityNavArray = Array.from(getButtonsCityNav());

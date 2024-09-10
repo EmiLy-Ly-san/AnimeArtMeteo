@@ -75,3 +75,9 @@ export function matchWithIdCardToRemove(element, array) {
   array.splice(index, 1);
   isBgLiked();
 }
+
+export function matchWithSrcCardToDisplay(button) {
+  const bgToDisplay = button.getAttribute("data-src");
+  backgroundContainer.style.backgroundImage = `url(${bgToDisplay})`;
+  backgroundContainerBig.style.backgroundImage = `url(${bgToDisplay})`;
+}

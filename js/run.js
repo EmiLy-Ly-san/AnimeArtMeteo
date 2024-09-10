@@ -1,26 +1,17 @@
 import {
   geolocaliseMe,
-  geolocaliseMeBtn,
   townGeo,
   idGeo,
   tempGeo,
   iconWeatherGeo,
   descriptionGeo,
 } from "./geolocalisation";
+import { fillCityCard, generateCityObject } from "./cityCard.js";
 import {
-  heartBtn,
-  heartIcon,
-  favoritesBackgroundsArray,
-  placeInCollectionBackground,
-} from "./backgroundsCollection";
-import {
-  fillCityCard,
-  generateCityObject,
   buttonsCityNavArray,
-} from "./cityCard.js";
-import { backgroundContainer } from "./backgroundRandom.js";
-import { matchWithIdCardToRemove } from "./utilities.js";
-import { attachListenersToBtnCityNavButtons } from "./cityNav.js";
+  attachListenersToBtnCityNavButtons,
+} from "./navigation.js";
+import { runEvents } from "./events.js";
 
 /****RUN APPLICATION */
 (async function runApplication() {
@@ -50,15 +41,5 @@ for await (const button of buttonsCityNavArray.slice(0, 4)) {
 }
 attachListenersToBtnCityNavButtons();
 
-/****EVENTS */
-heartBtn.addEventListener("click", () => {
-  if (heartIcon.getAttribute("src") == "assets/icons/hearts.png") {
-    heartIcon.setAttribute("src", "assets/icons/empty-heart.svg");
-    matchWithIdCardToRemove(backgroundContainer, favoritesBackgroundsArray);
-  } else {
-    heartIcon.setAttribute("src", "assets/icons/hearts.png");
-    placeInCollectionBackground();
-  }
-});
-
-geolocaliseMeBtn.addEventListener("click", geolocaliseMe);
+/****RUN EVENTS */
+runEvents();

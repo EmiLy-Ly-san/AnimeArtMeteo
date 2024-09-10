@@ -9,7 +9,7 @@ let backgroundContainerBig = document.querySelector(
 );
 
 /*********GENERATE RANDOM BACKGROUND DEPENDING ON THE SEASON*/
-/****1.set the season of the day */
+/****1.set the season */
 let backgroundSeason;
 export const setSeasonBackground = (description) => {
   let currentDate = new Date();

@@ -1,6 +1,5 @@
 /*********COLLECTION BACKGROUND */
 /***1.Verify is current background is Liked*/
-export const heartBtn = document.querySelector(".heart-button");
 export const heartIcon = document.getElementById("heartIcon");
 
 export const isBgLiked = () => {
@@ -38,9 +37,6 @@ const getFavoritesBackgroundsAll = () =>
 export const favoritesBackgroundsArray = Array.from(
   getFavoritesBackgroundsAll()
 );
-const GarbageButtonBackgroundCard = document.querySelectorAll(".garbageButton");
-const VisibilityButtonBackgroundCard =
-  document.querySelectorAll(".visibilityButton");
 
 const createNewBackgroundCard = (section) => {
   const newCard = document.createElement("div");
@@ -131,3 +127,29 @@ export function placeInCollectionBackground() {
   console.log({ miniBackgroundCard });
   miniBackgroundCard.putAwayInSubCollection();
 }
+
+/***Loading message no background yet */
+export const giveMsgOfNoBg = () => {
+  const GetLikedBackgroundsAutumnWinter = () =>
+    autumnWinterSection.querySelectorAll(".favoriteBackgroundCard");
+  const likedBackgroundsAutumnWinter = Array.from(
+    GetLikedBackgroundsAutumnWinter()
+  );
+  const GetLikedBackgroundsSpringSummer = () =>
+    springSummerSection.querySelectorAll(".favoriteBackgroundCard");
+  const likedBackgroundsSpringSummer = Array.from(
+    GetLikedBackgroundsSpringSummer()
+  );
+  if (likedBackgroundsAutumnWinter.length === 0) {
+    const message = document.createElement("p");
+    message.classList.add("text-dark", "text-start", "fst-italic");
+    message.textContent = "You don't like any Autumn-Winter backgrounds yet.";
+    autumnWinterSection.append(message);
+  }
+  if (likedBackgroundsSpringSummer.length === 0) {
+    const message = document.createElement("p");
+    message.classList.add("text-dark", "text-start", "fst-italic");
+    message.textContent = "You don't like any Spring-Summer backgrounds yet.";
+    springSummerSection.append(message);
+  }
+};

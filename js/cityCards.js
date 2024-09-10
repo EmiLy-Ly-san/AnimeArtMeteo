@@ -5,19 +5,17 @@ import {
   getEmptyButtonsMainNav,
   getEmptyButtonsSecondNav,
 } from "./utilities.js";
-import { buttonsCityNavArray } from "./cityNav.js";
+import { buttonsCityNavArray } from "./navigation.js";
 import { idTownSearched } from "./recoverTown.js";
 
 /******CITY CARDS VARIABLES */
-const getBigCityCardTitle = () => document.querySelector(".bigCityCardTitle");
-const garbageCityBtn = document.querySelectorAll(".garbageCityBtn");
-const addCardCityBtn = document.querySelector(".addCardCityBtn");
-const garbageCardCityBtn = document.querySelector(".garbageCardCityBtn");
+export const getBigCityCardTitle = () =>
+  document.querySelector(".bigCityCardTitle");
+
+export const addCardCityBtn = document.querySelector(".addCardCityBtn");
+export const garbageCardCityBtn = document.querySelector(".garbageCardCityBtn");
 const bigCityCard = document.getElementById("cityCardModal");
-const visibilityCityBtn = document.querySelectorAll(".visibilityCityBtn");
-const reducedCardvisibilityBtn = document.querySelector(
-  ".reducedCardvisibilityBtn"
-);
+
 const getMiniCityCardTitle = () => document.querySelector(".miniCardTown");
 const favoritesCitiesCardsAll = document.querySelectorAll(".favoriteCityCard");
 let favoriteCityCardArray = Array.from(favoritesCitiesCardsAll);

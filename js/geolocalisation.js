@@ -1,6 +1,6 @@
 import { fillCityCard, fillReducedCityCard } from "./cityCard.js";
 import { setSeasonBackground } from "./backgroundRandom.js";
-import { isBgLiked } from "./backgroundsCollection.js";
+import { isBgLiked } from "./backgroundsUserCollection.js";
 import {
   tempSearched,
   descriptionSearched,
@@ -99,5 +99,3 @@ async function recoverGeolocTown() {
     console.log({ iconWeatherGeo });
   }
 }
-
-export const geolocaliseMeBtn = document.querySelector(".geolocaliseMeBtn");
