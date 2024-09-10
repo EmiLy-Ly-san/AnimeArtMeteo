@@ -804,7 +804,6 @@ async function generateCityObject(value) {
       }
     },
   };
-  localStorage.setItem("newCityUser", newCity);
   miniCityCard.generateCityButton();
   miniCityCard.fillMiniCityCard();
   console.log({ miniCityCard });
@@ -1061,5 +1060,4 @@ backgroundCollectionButton.forEach(function (button) {
   document.onreadystatechange = function () {
     myModal.show();
   };
-  localStorage.getItem("newCityUser");
 })(); //immediatly invoked function IIF*/
