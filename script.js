@@ -12,9 +12,14 @@ const extensionNav =
 let getButtonsCityNav = () => document.querySelectorAll(".citiesBtn");
 let buttonsCityNavArray = Array.from(getButtonsCityNav());
 buttonsCityNavArray[0].textContent = "Tokyo";
+buttonsCityNavArray[0].dataset.id = "1850144";
 buttonsCityNavArray[1].textContent = "Paris";
+buttonsCityNavArray[1].dataset.id = "2988507";
 buttonsCityNavArray[2].textContent = "Montreal";
+buttonsCityNavArray[2].dataset.id = "6077243";
 buttonsCityNavArray[3].textContent = "Singapour";
+buttonsCityNavArray[3].dataset.id = "1880252";
+
 for await (const button of buttonsCityNavArray.slice(0, 4)) {
   console.log(button.textContent);
   generateCityObject(button.textContent);
@@ -121,10 +126,9 @@ const backgroundsSpringSummerCards =
 let backgroundsSpringSummerCardsArray = Array.from(
   backgroundsSpringSummerCards
 );
-const favoritesBackgroundsAll = document.querySelectorAll(
-  ".favoriteBackgroundCard"
-);
-const favoritesBackgroundsArray = Array.from(favoritesBackgroundsAll);
+const getFavoritesBackgroundsAll = () =>
+  document.querySelectorAll(".favoriteBackgroundCard");
+const favoritesBackgroundsArray = Array.from(getFavoritesBackgroundsAll());
 const GarbageButtonBackgroundCard = document.querySelectorAll(".garbageButton");
 const VisibilityButtonBackgroundCard =
   document.querySelectorAll(".visibilityButton");
@@ -133,7 +137,7 @@ const heartIcon = document.getElementById("heartIcon");
 
 /*********CITY CARD VARIABLES */
 const getBigCityCardTitle = () => document.querySelector(".bigCityCardTitle");
-const garbageCityBtn = document.querySelector(".garbageCityBtn");
+const garbageCityBtn = document.querySelectorAll(".garbageCityBtn");
 const addCardCityBtn = document.querySelector(".addCardCityBtn");
 const garbageCardCityBtn = document.querySelector(".garbageCardCityBtn");
 const bigCityCard = document.getElementById("cityCardModal");
@@ -141,6 +145,7 @@ const visibilityCityBtn = document.querySelectorAll(".visibilityCityBtn");
 const reducedCardvisibilityBtn = document.querySelector(
   ".reducedCardvisibilityBtn"
 );
+const getMiniCityCardTitle = () => document.querySelector(".miniCardTown");
 const favoritesCitiesCardsAll = document.querySelectorAll(".favoriteCityCard");
 let favoriteCityCardArray = Array.from(favoritesCitiesCardsAll);
 
@@ -230,7 +235,7 @@ function removeCityBtn(elementWithCityNameInTextContent) {
   textToFind = elementWithCityNameInTextContent.textContent;
   findTheButtonNavToDelete(textToFind);
   replaceBtnNavToDeleteByNewEmptyButton();
-  removeButtonFromTheNav();
+  /*removeButtonFromTheNav();*/
 }
 
 function findTheButtonNavToDelete(textToFind) {
@@ -274,16 +279,28 @@ function placeInTheGoodNav() {
     newEmptyButton.classList.add("citiesBtnMainNav");
     buttonsCityNavArray.push(newEmptyButton);
     attachListenersToBtnCityNavButtons();
+    const buttonToFindLi = buttonToFind.closest("li");
+    buttonToFindLi.remove();
+    buttonToFind.remove();
+    buttonsCityNavArray = buttonsCityNavArray.filter(
+      (btn) => btn !== buttonToFind
+    );
   } else {
     secondNav.append(newButtonLi);
     newButtonLi.append(newEmptyButton);
     newEmptyButton.classList.add("citiesBtnSecondNav");
     buttonsCityNavArray.push(newEmptyButton);
     attachListenersToBtnCityNavButtons();
+    const buttonToFindLi = buttonToFind.closest("li");
+    buttonToFindLi.remove();
+    buttonToFind.remove();
+    buttonsCityNavArray = buttonsCityNavArray.filter(
+      (btn) => btn !== buttonToFind
+    );
   }
 }
 
-function removeButtonFromTheNav() {
+/*function removeButtonFromTheNav() {
   const buttonToFindLi = buttonToFind.closest("li");
   buttonToFindLi.remove();
   buttonToFind.remove();
@@ -294,7 +311,7 @@ function removeButtonFromTheNav() {
     "J ai fini ! buttonsCityNavArray",
     buttonsCityNavArray.map((btn) => btn.textContent)
   );
-}
+}*/
 
 //REORGANIZE NAV
 let emptyButtonsMainNav = getEmptyButtonsMainNav(buttonsCityNavArray);
@@ -307,7 +324,7 @@ function reorganizeNavifNecessary() {
   //in listener garbageCard
   /*getButtonsCityNav();*/
   findIfBtnToUpgradeIsInSecondNav();
-  if (buttonToUpgrade === filledButtonsSecondNav[0]) {
+  if (buttonToUpgrade && buttonToUpgrade === filledButtonsSecondNav[0]) {
     switchFirstEmptyBtnMainNavWithBtnToUpgradeSecondNav();
     createNewEmptyButtonInSecondNav();
   }
@@ -371,21 +388,6 @@ function createNewEmptyButtonInSecondNav() {
   newEmptyButtonSecondNav.setAttribute("data-bs-target", "#cityCardModal");
   secondNav.append(newEmptyButtonSecondNav);
   attachListenersToBtnCityNavButtons();
-}
-
-function resetBigCityCard() {
-  const bigCityCardTitle = getBigCityCardTitle();
-  bigCityCardTitle.textContent = "";
-  bigCityCard.setAttribute("data-id", "");
-  document.querySelectorAll(".temperature").forEach(function (tempText) {
-    tempText.textContent = "";
-  });
-  document.querySelectorAll(".iconWeather").forEach(function (icon) {
-    icon.src = "";
-  });
-  document.querySelector(".descriptionText").textContent = "";
-  document.querySelector(".currentDate").textContent = "";
-  document.querySelector(".currentTime").textContent = "";
 }
 
 function matchWithSrcCardToDisplay(button) {
@@ -601,116 +603,89 @@ function getBackgroundAutumnWinter(description) {
 }
 
 /*********COLLECTION BACKGROUND */
-function createNewBackgroundCardIfNecessary(arrayOfEmptyCard, section) {
-  if (arrayOfEmptyCard.length === 0) {
-    const newCard = document.createElement("div");
-    section.append(newCard);
-    newCard.classList.add(
-      "card",
-      "favoriteBackgroundCard",
-      "springSummerCard",
-      "shadow-sm",
-      "overflow-hidden",
-      "bg-primary",
-      "rounded-40"
-    );
-    newCard.setAttribute("id", `${backgroundId}`);
-    favoritesBackgroundsArray.push(newCard);
-    const newBackgroundContainer = document.createElement("div");
-    newCard.append(newBackgroundContainer);
-    newBackgroundContainer.classList.add(
-      "container-img-background",
-      "m-4",
-      "rounded-40",
-      "overflow-hidden",
-      "m-4"
-    );
-    const newCardFooter = document.createElement("div");
-    newCard.append(newCardFooter);
-    newCardFooter.classList.add(
-      "card-footer",
-      "d-flex",
-      "justify-content-center",
-      "bg-primary",
-      "m-4",
-      "p-4"
-    );
-    const newGarbageButton = document.createElement("button");
-    newCardFooter.append(newGarbageButton);
-    newGarbageButton.classList.add("garbageButton", "btn", "w-25");
-    const newGarbageIcon = document.createElement("img");
-    newGarbageButton.append(newGarbageIcon);
-    newGarbageIcon.setAttribute("src", "assets/icons/garbage-blue.svg");
-    newGarbageIcon.setAttribute(
-      "alt",
-      "icon to delete this city from your favorite"
-    );
-    newGarbageButton.dataset.id = newCard.id;
-    const newVisibilityButton = document.createElement("button");
-    newCardFooter.append(newVisibilityButton);
-    newVisibilityButton.classList.add("visibilityButton", "btn", "w-25");
-    newVisibilityButton.setAttribute("type", "button");
-    const newVisibilityIcon = document.createElement("img");
-    newVisibilityButton.append(newVisibilityIcon);
-    newVisibilityIcon.setAttribute("src", "assets/icons/visibility-blue.svg");
-    newVisibilityIcon.setAttribute(
-      "alt",
-      "icon to select and enlarge this city"
-    );
-    arrayOfEmptyCard.push(newCard);
-    newVisibilityButton.addEventListener("click", () => {
-      matchWithSrcCardToDisplay(button);
-    });
-    newGarbageButton.addEventListener("click", () => {
-      matchWithIdCardToRemove(newGarbageButton, favoritesBackgroundsArray);
-      isBgLiked();
-    });
-  }
-}
+const createNewBackgroundCard = (section) => {
+  const newCard = document.createElement("div");
+  section.append(newCard);
+  newCard.classList.add(
+    "card",
+    "favoriteBackgroundCard",
+    "springSummerCard",
+    "shadow-sm",
+    "overflow-hidden",
+    "bg-primary",
+    "rounded-40"
+  );
+  newCard.setAttribute("id", `${backgroundId}`);
+  favoritesBackgroundsArray.push(newCard);
+  const newBackgroundContainer = document.createElement("div");
+  newCard.append(newBackgroundContainer);
+  newBackgroundContainer.classList.add(
+    "container-img-background",
+    "m-4",
+    "rounded-40",
+    "overflow-hidden",
+    "m-4"
+  );
+  const newCardFooter = document.createElement("div");
+  newCard.append(newCardFooter);
+  newCardFooter.classList.add(
+    "card-footer",
+    "d-flex",
+    "justify-content-center",
+    "bg-primary",
+    "m-4",
+    "p-4"
+  );
+  const newGarbageButton = document.createElement("button");
+  newCardFooter.append(newGarbageButton);
+  newGarbageButton.classList.add("garbageButton", "btn", "w-25");
+  const newGarbageIcon = document.createElement("img");
+  newGarbageButton.append(newGarbageIcon);
+  newGarbageIcon.setAttribute("src", "assets/icons/garbage-blue.svg");
+  newGarbageIcon.setAttribute(
+    "alt",
+    "icon to delete this city from your favorite"
+  );
+  newGarbageButton.dataset.id = newCard.id;
+  const newVisibilityButton = document.createElement("button");
+  newCardFooter.append(newVisibilityButton);
+  newVisibilityButton.classList.add("visibilityButton", "btn", "w-25");
+  newVisibilityButton.setAttribute("type", "button");
+  const newVisibilityIcon = document.createElement("img");
+  newVisibilityButton.append(newVisibilityIcon);
+  newVisibilityIcon.setAttribute("src", "assets/icons/visibility-blue.svg");
+  newVisibilityIcon.setAttribute("alt", "icon to select and enlarge this city");
+  newVisibilityButton.addEventListener("click", () => {
+    matchWithSrcCardToDisplay(newVisibilityButton);
+  });
+  newGarbageButton.addEventListener("click", () => {
+    matchWithIdCardToRemove(newGarbageButton, favoritesBackgroundsArray);
+    isBgLiked();
+  });
+};
 
 function placeInCollectionBackground() {
   const miniBackgroundCard = {
-    id: randomBackgroundArray[randomIndex].id,
-    file: randomBackgroundArray[randomIndex].file,
-    season: randomBackgroundArray[randomIndex].season,
+    id: backgroundId,
+    file: randomBackground,
+    season: backgroundSeason,
     putAwayInSubCollection: function () {
       if (miniBackgroundCard.season === "autumnWinter") {
-        const emptyBackgroundsAutumnWinterCards = getEmptyCards(
-          backgroundsAutumnWinterCardsArray
-        );
-        createNewBackgroundCardIfNecessary(
-          emptyBackgroundsAutumnWinterCards,
-          autumnWinterSection
-        );
-        emptyBackgroundsAutumnWinterCards[0].id = miniBackgroundCard.id;
-        const cardToFill = document.getElementById(`${miniBackgroundCard.id}`);
-        cardToFill.querySelector(
-          ".container-img-background"
-        ).style.backgroundImage = `url(${miniBackgroundCard.file})`;
-        cardToFill.setAttribute("id", `${miniBackgroundCard.id}`);
+        createNewBackgroundCard(autumnWinterSection);
       } else {
-        const emptyBackgroundsSpringSummerCards = getEmptyCards(
-          backgroundsSpringSummerCardsArray
-        );
-        createNewBackgroundCardIfNecessary(
-          emptyBackgroundsSpringSummerCards,
-          springSummerSection
-        );
-        console.log({ emptyBackgroundsSpringSummerCards });
-        emptyBackgroundsSpringSummerCards[0].id = miniBackgroundCard.id;
-        const cardToFill = document.getElementById(`${miniBackgroundCard.id}`);
-        cardToFill.querySelector(
-          ".container-img-background"
-        ).style.backgroundImage = `url(${miniBackgroundCard.file})`;
-        cardToFill.querySelector(
-          ".visibilityButton"
-        ).dataset.src = `${miniBackgroundCard.file}`;
-        console.log({ cardToFill });
-        cardToFill.querySelector(
-          ".garbageButton"
-        ).dataset.id = `${miniBackgroundCard.id}`;
-        console.log({ cardToFill });
+        createNewBackgroundCard(springSummerSection);
       }
+      const cardToFill = document.getElementById(`${miniBackgroundCard.id}`);
+      cardToFill.querySelector(
+        ".container-img-background"
+      ).style.backgroundImage = `url(${miniBackgroundCard.file})`;
+      cardToFill.querySelector(
+        ".visibilityButton"
+      ).dataset.src = `${miniBackgroundCard.file}`;
+      console.log({ cardToFill });
+      cardToFill.querySelector(
+        ".garbageButton"
+      ).dataset.id = `${miniBackgroundCard.id}`;
     },
   };
   console.log({ miniBackgroundCard });
@@ -732,6 +707,33 @@ function isBgLiked() {
     heartIcon.setAttribute("src", "assets/icons/empty-heart.svg");
   }
 }
+
+const giveMsgOfNoBg = () => {
+  const GetLikedBackgroundsAutumnWinter = () =>
+    autumnWinterSection.querySelectorAll(".favoriteBackgroundCard");
+  const likedBackgroundsAutumnWinter = Array.from(
+    GetLikedBackgroundsAutumnWinter()
+  );
+  const GetLikedBackgroundsSpringSummer = () =>
+    springSummerSection.querySelectorAll(".favoriteBackgroundCard");
+  const likedBackgroundsSpringSummer = Array.from(
+    GetLikedBackgroundsSpringSummer()
+  );
+  if (likedBackgroundsAutumnWinter.length === 0) {
+    const message = document.createElement("p");
+    message.classList.add("text-dark", "text-start", "fst-italic");
+    message.textContent = "You don't like any Autumn-Winter backgrounds yet.";
+    autumnWinterSection.append(message);
+  }
+  if (likedBackgroundsSpringSummer.length === 0) {
+    const message = document.createElement("p");
+    message.classList.add("text-dark", "text-start", "fst-italic");
+    message.textContent = "You don't like any Spring-Summer backgrounds yet.";
+    springSummerSection.append(message);
+  }
+};
+
+/***************CITY COLLECTION */
 
 async function generateCityObject(value) {
   const newCity = value;
@@ -756,7 +758,7 @@ async function generateCityObject(value) {
           emptyButtonsMainNav[0].disabled = false;
           emptyButtonsMainNav[0].classList.remove("btn-primary", "opacity-75");
           emptyButtonsMainNav[0].classList.add("border-secondary");
-          emptyButtonsMainNav[0].dataset.id = miniCityCard.id;
+          emptyButtonsMainNav[0].dataset.id = idTownSearched;
           emptyButtonsMainNav = getEmptyButtonsMainNav(buttonsCityNavArray);
           while (emptyButtonsMainNav.length !== 0) {
             emptyButtonsSecondNav.forEach(function (btn) {
@@ -772,7 +774,7 @@ async function generateCityObject(value) {
             "opacity-75"
           );
           emptyButtonsSecondNav[0].classList.add("border-secondary");
-          emptyButtonsSecondNav[0].dataset.id = miniCityCard.id;
+          emptyButtonsSecondNav[0].dataset.id = idTownSearched;
           console.log({ myButton: emptyButtonsSecondNav[0] });
         }
       }
@@ -795,15 +797,14 @@ async function generateCityObject(value) {
         cardToFill.querySelector(
           ".miniCardDescription"
         ).textContent = `${miniCityCard.descriptionWeather}`;
-        cardToFill.querySelector(
-          ".garbageCityBtn"
-        ).dataset.id = `${miniCityCard.id}`;
+        cardToFill.querySelector(".garbageCityBtn").dataset.id = idTownSearched;
         cardToFill.querySelector(
           ".visibilityCityBtn"
         ).dataset.cityName = `${miniCityCard.cityName}`;
       }
     },
   };
+  localStorage.setItem("newCityUser", newCity);
   miniCityCard.generateCityButton();
   miniCityCard.fillMiniCityCard();
   console.log({ miniCityCard });
@@ -839,6 +840,21 @@ function fillCityCard(town, id, temp, iconWeather, description) {
     garbageCardCityBtn.classList.remove("display-none");
     garbageCardCityBtn.dataset.id = `${id}`;
   }
+}
+
+function resetBigCityCard() {
+  const bigCityCardTitle = getBigCityCardTitle();
+  bigCityCardTitle.textContent = "";
+  bigCityCard.setAttribute("data-id", "");
+  document.querySelectorAll(".temperature").forEach(function (tempText) {
+    tempText.textContent = "";
+  });
+  document.querySelectorAll(".iconWeather").forEach(function (icon) {
+    icon.src = "";
+  });
+  document.querySelector(".descriptionText").textContent = "";
+  document.querySelector(".currentDate").textContent = "";
+  document.querySelector(".currentTime").textContent = "";
 }
 
 function fillReducedCityCard(town, temp, iconWeather) {
@@ -955,9 +971,17 @@ GarbageButtonBackgroundCard.forEach(function (button) {
   });
 });
 
-garbageCityBtn.addEventListener("click", () => {
-  matchWithIdCardToRemove(garbageCityBtn, favoriteCityCardArray);
-  matchWithTextButtonToRemove(getBigCityCardTitle());
+garbageCityBtn.forEach(function (button) {
+  button.addEventListener("click", () => {
+    const idToFind = button.dataset.id;
+    const cardToFind = favoriteCityCardArray.find(
+      (card) => card.id === `${idToFind}`
+    );
+    const currentMiniCityCardTitle = cardToFind.querySelector(".miniCardTown");
+    removeCityBtn(currentMiniCityCardTitle);
+    matchWithIdCardToRemove(button, favoriteCityCardArray);
+    reorganizeNavifNecessary();
+  });
 });
 
 garbageCardCityBtn.addEventListener("click", () => {
@@ -1017,12 +1041,25 @@ visibilityCityBtn.forEach(function (btn) {
   });
 });
 
-/*const btnCloseBigCityCard = document.querySelector(".btnCloseBigCityCard");
-btnCloseBigCityCard.addEventListener("click", () => {
-  resetBigCityCard();
-});*/
+const backgroundCollectionButton = document.querySelectorAll(
+  ".backgroundCollectionButton"
+);
+backgroundCollectionButton.forEach(function (button) {
+  button.addEventListener("click", () => {
+    giveMsgOfNoBg();
+  });
+});
 
 /*******************************************************************LET APPLICATION */
 (async function runApplication() {
   await geolocaliseMe();
+  fillCityCard(townGeo, idGeo, tempGeo, iconWeatherGeo, descriptionGeo);
+  var myModal = new bootstrap.Modal(
+    document.getElementById("cityCardModal"),
+    {}
+  );
+  document.onreadystatechange = function () {
+    myModal.show();
+  };
+  localStorage.getItem("newCityUser");
 })(); //immediatly invoked function IIF*/
