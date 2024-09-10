@@ -1,7 +1,12 @@
 import { fillCityCard, fillReducedCityCard } from "./cityCard.js";
-//import setSeasonBackground(), isBgLiked(),
-//import recoverTown(),
-//import variables town, url, api and townInfo ?,(searched + Geo ? )
+import { setSeasonBackground } from "./backgroundRandom.js";
+import { isBgLiked } from "./backgroundsCollection.js";
+import {
+  tempSearched,
+  descriptionSearched,
+  iconWeatherSearched,
+  recoverTown,
+} from "./recoverTown.js";
 
 /*********GEOLOCALISATION */
 let townGeo;
@@ -95,5 +100,4 @@ async function recoverGeolocTown() {
   }
 }
 
-const geolocaliseMeBtn = document.querySelector(".geolocaliseMeBtn");
-geolocaliseMeBtn.addEventListener("click", geolocaliseMe);
+export const geolocaliseMeBtn = document.querySelector(".geolocaliseMeBtn");
