@@ -54,6 +54,7 @@ export function getEmptyCards(cardsArray) {
   });
 }
 
+export let hasAlreadyLoadedTheCurrentCity;
 export function isTownLoaded(array, city) {
   const filledElements = array.filter((element) => {
     // double negation veut dire "n'est pas , n'est pas" et revient donc a dire ici "a un text.content"
