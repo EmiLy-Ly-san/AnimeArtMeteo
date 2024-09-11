@@ -34,13 +34,13 @@ export function attachListenersToBtnCityNavButtons() {
       setSeasonBackground(descriptionSearched);
       isBgLiked();
       fillCityCard(
-        townSearched,
+        townButton,
         idTownSearched,
         tempSearched,
         iconWeatherSearched,
         descriptionSearched
       );
-      fillReducedCityCard(townSearched, tempSearched, iconWeatherSearched);
+      fillReducedCityCard(townButton, tempSearched, iconWeatherSearched);
     });
   });
 }

@@ -17,9 +17,11 @@ export function removeCityBtn(elementWithCityNameInTextContent) {
 }
 
 function findTheButtonNavToDelete(textToFind) {
+  newButtonsCityNavArray = Array.from(newGetButtonsCityNav());
   buttonToFind = newButtonsCityNavArray.find(
     (btn) => btn.textContent === `${textToFind}`
   );
+  console.log({ buttonToFind: buttonToFind });
 }
 
 function replaceBtnNavToDeleteByNewEmptyButton() {
@@ -59,8 +61,8 @@ function placeInTheGoodNav() {
     newEmptyButton.classList.add("citiesBtnMainNav");
     /*newButtonsCityNavArray.push(newEmptyButton);*/
     attachListenersToBtnCityNavButtons();
-    const buttonToFindLi = buttonToFind.closest("li");
-    buttonToFindLi.remove();
+    /*const buttonToFindLi = buttonToFind.closest("li");
+    buttonToFindLi.remove();*/
     buttonToFind.remove();
     buttonToFind.textContent = "";
     buttonToFind.classList.remove("citiesBtn"); //So this button won't be count in buttonsCituNavArray when this array will be called
@@ -70,8 +72,8 @@ function placeInTheGoodNav() {
     newEmptyButton.classList.add("citiesBtnSecondNav");
     /*newButtonsCityNavArray.push(newEmptyButton);*/
     attachListenersToBtnCityNavButtons();
-    const buttonToFindLi = buttonToFind.closest("li");
-    buttonToFindLi.remove();
+    /*const buttonToFindLi = buttonToFind.closest("li");
+    buttonToFindLi.remove();*/
     buttonToFind.remove();
     buttonToFind.textContent = "";
     buttonToFind.classList.remove(

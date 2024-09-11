@@ -100,12 +100,13 @@ export function runEvents() {
     ".reducedCardvisibilityBtn"
   );
   reducedCardvisibilityBtn.addEventListener("click", async () => {
-    townSearched = document.querySelector(".bigCityCardTitle").textContent;
-    await recoverTown(townSearched);
+    const townToEnlarged =
+      document.querySelector(".bigCityCardTitle").textContent;
+    await recoverTown(townToEnlarged);
     setSeasonBackground(descriptionSearched);
     isBgLiked();
     fillCityCard(
-      townSearched,
+      townToEnlarged,
       idTownSearched,
       tempSearched,
       iconWeatherSearched,
@@ -172,19 +173,19 @@ export function runEvents() {
   const addCityBtn = document.querySelector(".addCityBtn");
   const inputAddCity = document.getElementById("addCity");
   addCityBtn.addEventListener("click", async () => {
-    townSearched = inputAddCity.value;
-    await recoverTown(townSearched);
+    const townUser = inputAddCity.value;
+    await recoverTown(townUser);
     setSeasonBackground(descriptionSearched);
     isBgLiked();
     fillCityCard(
-      townSearched,
+      townUser,
       idTownSearched,
       tempSearched,
       iconWeatherSearched,
       descriptionSearched
     );
-    fillReducedCityCard(townSearched, tempSearched, iconWeatherSearched);
-    generateCityObject(townSearched);
+    fillReducedCityCard(townUser, tempSearched, iconWeatherSearched);
+    generateCityObject(townUser);
   });
 
   const visibilityCityBtn = document.querySelectorAll(".visibilityCityBtn");

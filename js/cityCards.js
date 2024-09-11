@@ -71,12 +71,11 @@ export async function generateCityObject(value) {
           emptyButtonsMainNav[0].classList.add("border-secondary");
           emptyButtonsMainNav[0].dataset.id = idTownSearched;
           emptyButtonsMainNav = getEmptyButtonsMainNav(buttonsCityNavArray);
-          while (emptyButtonsMainNav.length !== 0) {
-            emptyButtonsSecondNav.forEach(function (btn) {
-              emptyButtonsMainNav.push(btn);
-              emptyButtonsSecondNav.shift(btn);
-            });
-          }
+
+          emptyButtonsSecondNav.forEach(function (btn) {
+            emptyButtonsMainNav.push(btn);
+            emptyButtonsSecondNav.shift(btn);
+          });
         } else {
           emptyButtonsSecondNav[0].textContent = newCity;
           emptyButtonsSecondNav[0].disabled = false;
