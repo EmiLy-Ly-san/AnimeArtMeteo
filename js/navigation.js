@@ -20,7 +20,7 @@ export let getButtonsCityNav = () => document.querySelectorAll(".citiesBtn");
 export let buttonsCityNavArray = Array.from(getButtonsCityNav());
 
 export function attachListenersToBtnCityNavButtons() {
-  let buttonsCityNav = getButtonsCityNav();
+  const buttonsCityNav = getButtonsCityNav();
   buttonsCityNav.forEach(function (cityBtn) {
     cityBtn.addEventListener("click", async () => {
       console.log(

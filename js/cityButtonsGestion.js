@@ -1,7 +1,4 @@
-import {
-  buttonsCityNavArray,
-  attachListenersToBtnCityNavButtons,
-} from "./navigation.js";
+import { attachListenersToBtnCityNavButtons } from "./navigation.js";
 import {
   getEmptyButtonsMainNav,
   getEmptyButtonsSecondNav,
@@ -20,7 +17,7 @@ export function removeCityBtn(elementWithCityNameInTextContent) {
 }
 
 function findTheButtonNavToDelete(textToFind) {
-  buttonToFind = buttonsCityNavArray.find(
+  buttonToFind = newButtonsCityNavArray.find(
     (btn) => btn.textContent === `${textToFind}`
   );
 }
@@ -60,7 +57,7 @@ function placeInTheGoodNav() {
     mainNav.append(newButtonLi);
     newButtonLi.append(newEmptyButton);
     newEmptyButton.classList.add("citiesBtnMainNav");
-    buttonsCityNavArray.push(newEmptyButton);
+    /*newButtonsCityNavArray.push(newEmptyButton);*/
     attachListenersToBtnCityNavButtons();
     const buttonToFindLi = buttonToFind.closest("li");
     buttonToFindLi.remove();
@@ -71,7 +68,7 @@ function placeInTheGoodNav() {
     secondNav.append(newButtonLi);
     newButtonLi.append(newEmptyButton);
     newEmptyButton.classList.add("citiesBtnSecondNav");
-    buttonsCityNavArray.push(newEmptyButton);
+    /*newButtonsCityNavArray.push(newEmptyButton);*/
     attachListenersToBtnCityNavButtons();
     const buttonToFindLi = buttonToFind.closest("li");
     buttonToFindLi.remove();
@@ -87,10 +84,12 @@ function placeInTheGoodNav() {
 }
 
 //REORGANIZE NAV
-let emptyButtonsMainNav = getEmptyButtonsMainNav(buttonsCityNavArray);
-let emptyButtonsSecondNav = getEmptyButtonsSecondNav(buttonsCityNavArray);
-let filledButtonsSecondNav = getFilledButtonsSecondNav(buttonsCityNavArray);
-let filledButtonsMainNav = getFilledButtonsMainNav(buttonsCityNavArray);
+let newGetButtonsCityNav = () => document.querySelectorAll(".citiesBtn");
+let newButtonsCityNavArray = Array.from(newGetButtonsCityNav());
+let emptyButtonsMainNav = getEmptyButtonsMainNav(newButtonsCityNavArray);
+let emptyButtonsSecondNav = getEmptyButtonsSecondNav(newButtonsCityNavArray);
+let filledButtonsSecondNav = getFilledButtonsSecondNav(newButtonsCityNavArray);
+let filledButtonsMainNav = getFilledButtonsMainNav(newButtonsCityNavArray);
 let buttonToUpgrade;
 
 export function reorganizeNavifNecessary() {
@@ -102,11 +101,11 @@ export function reorganizeNavifNecessary() {
 }
 
 function findIfBtnToUpgradeIsInSecondNav() {
-  emptyButtonsMainNav = getEmptyButtonsMainNav(buttonsCityNavArray);
+  emptyButtonsMainNav = getEmptyButtonsMainNav(newButtonsCityNavArray);
   console.log({ emptyButtonsMainNav });
-  emptyButtonsSecondNav = getEmptyButtonsSecondNav(buttonsCityNavArray);
-  filledButtonsSecondNav = getFilledButtonsSecondNav(buttonsCityNavArray);
-  filledButtonsMainNav = getFilledButtonsMainNav(buttonsCityNavArray);
+  emptyButtonsSecondNav = getEmptyButtonsSecondNav(newButtonsCityNavArray);
+  filledButtonsSecondNav = getFilledButtonsSecondNav(newButtonsCityNavArray);
+  filledButtonsMainNav = getFilledButtonsMainNav(newButtonsCityNavArray);
   if (emptyButtonsMainNav && emptyButtonsMainNav.length > 0) {
     buttonToUpgrade = filledButtonsSecondNav[0];
   }

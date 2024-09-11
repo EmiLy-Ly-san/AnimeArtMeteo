@@ -8,18 +8,42 @@ import {
 import {
   isTownLoaded,
   hasAlreadyLoadedTheCurrentCity,
-  getEmptyButtons,
-  getEmptyButtonsMainNav,
-  getEmptyButtonsSecondNav,
   getEmptyCards,
 } from "./utilities.js";
-import { buttonsCityNavArray } from "./navigation.js";
 
 /***1.GENERATE CITY OBJECT */
 const getMiniCityCardTitle = () => document.querySelector(".miniCardTown");
 const favoritesCitiesCardsAll = document.querySelectorAll(".favoriteCityCard");
 export let favoriteCityCardArray = Array.from(favoritesCitiesCardsAll);
 let emptyButtonsArray;
+
+function getEmptyButtons() {
+  let getButtonsCityNav = () => document.querySelectorAll(".citiesBtn");
+  let buttonsCityNavArray = Array.from(getButtonsCityNav());
+  return buttonsCityNavArray.filter(function (button) {
+    return button.textContent === "";
+  });
+}
+
+function getEmptyButtonsMainNav() {
+  let getButtonsCityNav = () => document.querySelectorAll(".citiesBtn");
+  let buttonsCityNavArray = Array.from(getButtonsCityNav());
+  return buttonsCityNavArray
+    .filter(function (btn) {
+      return btn.classList.contains("citiesBtnMainNav");
+    })
+    .filter(function (btn) {
+      return btn.textContent == "";
+    });
+}
+
+function getEmptyButtonsSecondNav() {
+  let getButtonsCityNav = () => document.querySelectorAll(".citiesBtn");
+  let buttonsCityNavArray = Array.from(getButtonsCityNav());
+  return buttonsCityNavArray.filter(function (btn) {
+    return btn.classList.contains("citiesBtnSecondNav");
+  });
+}
 
 export async function generateCityObject(value) {
   const newCity = value;
@@ -32,20 +56,22 @@ export async function generateCityObject(value) {
     icon: iconWeatherSearched,
     descriptionWeather: descriptionSearched,
     generateCityButton: function () {
+      let getButtonsCityNav = () => document.querySelectorAll(".citiesBtn");
+      let buttonsCityNavArray = Array.from(getButtonsCityNav());
       isTownLoaded(buttonsCityNavArray, newCity);
       if (!hasAlreadyLoadedTheCurrentCity) {
-        emptyButtonsArray = getEmptyButtons(buttonsCityNavArray);
-        let emptyButtonsMainNav = getEmptyButtonsMainNav(buttonsCityNavArray);
-        const emptyButtonsSecondNav =
-          getEmptyButtonsSecondNav(emptyButtonsArray);
-        if (emptyButtonsMainNav.length > 0) {
+        emptyButtonsArray = getEmptyButtons();
+        let emptyButtonsMainNav = getEmptyButtonsMainNav();
+        const emptyButtonsSecondNav = getEmptyButtonsSecondNav();
+        console.log({ emptybuttonsmain: emptyButtonsMainNav.length });
+        if (emptyButtonsMainNav.length !== 0) {
           emptyButtonsMainNav[0].textContent = newCity;
           emptyButtonsMainNav[0].disabled = false;
           emptyButtonsMainNav[0].classList.remove("btn-primary", "opacity-75");
           emptyButtonsMainNav[0].classList.add("border-secondary");
           emptyButtonsMainNav[0].dataset.id = idTownSearched;
           emptyButtonsMainNav = getEmptyButtonsMainNav(buttonsCityNavArray);
-          while (emptyButtonsMainNav.length > 0) {
+          while (emptyButtonsMainNav.length !== 0) {
             emptyButtonsSecondNav.forEach(function (btn) {
               emptyButtonsMainNav.push(btn);
               emptyButtonsSecondNav.shift(btn);
@@ -92,7 +118,6 @@ export async function generateCityObject(value) {
   miniCityCard.generateCityButton();
   miniCityCard.fillMiniCityCard();
   console.log({ miniCityCard });
-  console.log({ buttonsCityNavArray });
 }
 
 /***2. RESET AND Fill BIG CITY CARD*/
@@ -121,6 +146,8 @@ export const fillCityCard = (town, id, temp, iconWeather, description) => {
   document.querySelector(".currentTime").textContent +
     `${currentDate.getHours()}` +
     ` ${currentDate.getMinutes()}`;
+  let getButtonsCityNav = () => document.querySelectorAll(".citiesBtn");
+  let buttonsCityNavArray = Array.from(getButtonsCityNav());
   isTownLoaded(buttonsCityNavArray, town);
   if (!hasAlreadyLoadedTheCurrentCity) {
     addCardCityBtn.classList.remove("display-none");
