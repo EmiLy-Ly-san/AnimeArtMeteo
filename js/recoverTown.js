@@ -20,6 +20,8 @@ export async function recoverTown(town) {
   } else {
     let datas = await request.json();
     console.log({ datas });
+    townSearched = datas.name;
+    console.log({ townSearched });
     idTownSearched = datas.id;
     console.log({ idTownSearched });
     tempSearched = Math.round(datas.main.temp);

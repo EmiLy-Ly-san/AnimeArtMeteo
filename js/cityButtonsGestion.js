@@ -1,13 +1,22 @@
+import {
+  buttonsCityNavArray,
+  attachListenersToBtnCityNavButtons,
+} from "./navigation.js";
+import {
+  getEmptyButtonsMainNav,
+  getEmptyButtonsSecondNav,
+  getFilledButtonsSecondNav,
+  getFilledButtonsMainNav,
+} from "./utilities.js";
+
 //REMOVE CITY BUTTON NAV
 let textToFind;
 let buttonToFind;
 
 export function removeCityBtn(elementWithCityNameInTextContent) {
-  //in listener garbageCard
   textToFind = elementWithCityNameInTextContent.textContent;
   findTheButtonNavToDelete(textToFind);
   replaceBtnNavToDeleteByNewEmptyButton();
-  /*removeButtonFromTheNav();*/
 }
 
 function findTheButtonNavToDelete(textToFind) {
@@ -16,13 +25,13 @@ function findTheButtonNavToDelete(textToFind) {
   );
 }
 
-let newButtonLi;
-let newEmptyButton;
 function replaceBtnNavToDeleteByNewEmptyButton() {
   createNewEmptyButton();
   placeInTheGoodNav();
 }
 
+let newButtonLi;
+let newEmptyButton;
 function createNewEmptyButton() {
   newButtonLi = document.createElement("li");
   newButtonLi.classList.add("nav-item", "citiesNavigation");
@@ -44,6 +53,8 @@ function createNewEmptyButton() {
   newEmptyButton.setAttribute("data-bs-target", "#cityCardModal");
 }
 
+const mainNav = document.querySelector(".mainNav");
+const secondNav = document.querySelector(".secondNav");
 function placeInTheGoodNav() {
   if (mainNav.contains(buttonToFind) === true) {
     mainNav.append(newButtonLi);
@@ -54,9 +65,8 @@ function placeInTheGoodNav() {
     const buttonToFindLi = buttonToFind.closest("li");
     buttonToFindLi.remove();
     buttonToFind.remove();
-    buttonsCityNavArray = buttonsCityNavArray.filter(
-      (btn) => btn !== buttonToFind
-    );
+    buttonToFind.textContent = "";
+    buttonToFind.classList.remove("citiesBtn"); //So this button won't be count in buttonsCituNavArray when this array will be called
   } else {
     secondNav.append(newButtonLi);
     newButtonLi.append(newEmptyButton);
@@ -66,24 +76,15 @@ function placeInTheGoodNav() {
     const buttonToFindLi = buttonToFind.closest("li");
     buttonToFindLi.remove();
     buttonToFind.remove();
-    buttonsCityNavArray = buttonsCityNavArray.filter(
+    buttonToFind.textContent = "";
+    buttonToFind.classList.remove(
+      "citiesBtn"
+    ); /*So this button won't be count in buttonsCituNavArray when this array will be called. Instead of  
+      buttonsCityNavArray = buttonsCityNavArray.filter(
       (btn) => btn !== buttonToFind
-    );
+    ); Indeed that modify the global variable buttonsCityNavArray in her origin file. But her, she is imported. And when a global is imported, she began a const variable in the file where she is imported*/
   }
 }
-
-/*function removeButtonFromTheNav() {
-  const buttonToFindLi = buttonToFind.closest("li");
-  buttonToFindLi.remove();
-  buttonToFind.remove();
-  buttonsCityNavArray = buttonsCityNavArray.filter(
-    (btn) => btn !== buttonToFind
-  );
-  console.log(
-    "J ai fini ! buttonsCityNavArray",
-    buttonsCityNavArray.map((btn) => btn.textContent)
-  );
-}*/
 
 //REORGANIZE NAV
 let emptyButtonsMainNav = getEmptyButtonsMainNav(buttonsCityNavArray);
@@ -93,8 +94,6 @@ let filledButtonsMainNav = getFilledButtonsMainNav(buttonsCityNavArray);
 let buttonToUpgrade;
 
 export function reorganizeNavifNecessary() {
-  //in listener garbageCard
-  /*getButtonsCityNav();*/
   findIfBtnToUpgradeIsInSecondNav();
   if (buttonToUpgrade && buttonToUpgrade === filledButtonsSecondNav[0]) {
     switchFirstEmptyBtnMainNavWithBtnToUpgradeSecondNav();

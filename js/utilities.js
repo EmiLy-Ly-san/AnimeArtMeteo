@@ -1,3 +1,9 @@
+import {
+  backgroundContainer,
+  backgroundContainerBig,
+} from "./backgroundRandom.js";
+import { isBgLiked } from "./backgroundsUserCollection.js";
+
 /***GENERALS FUNCTIONS */
 export function switchIcon(icon) {
   const currentSrc = icon.getAttribute("src");

@@ -14,7 +14,7 @@ import {
   switchIcon,
   matchWithSrcCardToDisplay,
 } from "./utilities.js";
-import { geolocaliseMe } from "./geolocalisation";
+import { geolocaliseMe } from "./geolocation.js";
 import {
   townSearched,
   idTownSearched,
@@ -25,13 +25,13 @@ import {
 } from "./recoverTown.js";
 import {
   fillCityCard,
-  favoriteCityCardArray,
   garbageCardCityBtn,
   addCardCityBtn,
   getBigCityCardTitle,
   resetBigCityCard,
   generateCityObject,
   fillReducedCityCard,
+  favoriteCityCardArray,
 } from "./cityCards.js";
 import {
   removeCityBtn,
@@ -155,18 +155,18 @@ export function runEvents() {
   });
 
   addCardCityBtn.addEventListener("click", async () => {
-    townSearched = addCardCityBtn.dataset.cityName;
-    await recoverTown(townSearched);
+    const townToAdd = addCardCityBtn.dataset.cityName;
+    await recoverTown(townToAdd);
     setSeasonBackground(descriptionSearched);
     isBgLiked();
     fillCityCard(
-      townSearched,
+      townToAdd,
       idTownSearched,
       tempSearched,
       iconWeatherSearched,
       descriptionSearched
     );
-    generateCityObject(townSearched);
+    generateCityObject(townToAdd);
   });
 
   const addCityBtn = document.querySelector(".addCityBtn");

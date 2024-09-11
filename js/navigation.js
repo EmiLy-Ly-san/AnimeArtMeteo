@@ -5,23 +5,22 @@ import {
   iconWeatherSearched,
   descriptionSearched,
   recoverTown,
-} from "./recoverTown";
+} from "./recoverTown.js";
 import {
   resetBigCityCard,
   fillCityCard,
   fillReducedCityCard,
-} from "./cityCards";
-import { setSeasonBackground } from "./backgroundRandom";
-import { isBgLiked } from "./backgroundsUserCollection";
+} from "./cityCards.js";
+import { setSeasonBackground } from "./backgroundRandom.js";
+import { isBgLiked } from "./backgroundsUserCollection.js";
 
-const mainNav = document.querySelector(".mainNav");
-const secondNav = document.querySelector(".secondNav");
 /*DOUBLON AVEC CELUI D'AU DESSUS ??*/
 
-let getButtonsCityNav = () => document.querySelectorAll(".citiesBtn");
+export let getButtonsCityNav = () => document.querySelectorAll(".citiesBtn");
 export let buttonsCityNavArray = Array.from(getButtonsCityNav());
+
 export function attachListenersToBtnCityNavButtons() {
-  const buttonsCityNav = getButtonsCityNav();
+  let buttonsCityNav = getButtonsCityNav();
   buttonsCityNav.forEach(function (cityBtn) {
     cityBtn.addEventListener("click", async () => {
       console.log(
@@ -29,9 +28,9 @@ export function attachListenersToBtnCityNavButtons() {
         buttonsCityNavArray.map((btn) => btn.textContent)
       );
       resetBigCityCard();
-      townSearched = cityBtn.textContent;
-      console.log({ townSearched });
-      await recoverTown(townSearched);
+      let townButton = cityBtn.textContent;
+      console.log({ townButton });
+      await recoverTown(townButton);
       setSeasonBackground(descriptionSearched);
       isBgLiked();
       fillCityCard(

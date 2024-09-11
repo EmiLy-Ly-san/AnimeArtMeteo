@@ -1,27 +1,26 @@
 import {
+  idTownSearched,
+  tempSearched,
+  iconWeatherSearched,
+  descriptionSearched,
+  recoverTown,
+} from "./recoverTown.js";
+import {
   isTownLoaded,
   hasAlreadyLoadedTheCurrentCity,
   getEmptyButtons,
   getEmptyButtonsMainNav,
   getEmptyButtonsSecondNav,
+  getEmptyCards,
 } from "./utilities.js";
 import { buttonsCityNavArray } from "./navigation.js";
-import { idTownSearched } from "./recoverTown.js";
-
-/******CITY CARDS VARIABLES */
-export const getBigCityCardTitle = () =>
-  document.querySelector(".bigCityCardTitle");
-
-export const addCardCityBtn = document.querySelector(".addCardCityBtn");
-export const garbageCardCityBtn = document.querySelector(".garbageCardCityBtn");
-const bigCityCard = document.getElementById("cityCardModal");
-
-const getMiniCityCardTitle = () => document.querySelector(".miniCardTown");
-const favoritesCitiesCardsAll = document.querySelectorAll(".favoriteCityCard");
-let favoriteCityCardArray = Array.from(favoritesCitiesCardsAll);
 
 /***1.GENERATE CITY OBJECT */
+const getMiniCityCardTitle = () => document.querySelector(".miniCardTown");
+const favoritesCitiesCardsAll = document.querySelectorAll(".favoriteCityCard");
+export let favoriteCityCardArray = Array.from(favoritesCitiesCardsAll);
 let emptyButtonsArray;
+
 export async function generateCityObject(value) {
   const newCity = value;
   console.log({ newCity });
@@ -39,14 +38,14 @@ export async function generateCityObject(value) {
         let emptyButtonsMainNav = getEmptyButtonsMainNav(buttonsCityNavArray);
         const emptyButtonsSecondNav =
           getEmptyButtonsSecondNav(emptyButtonsArray);
-        if (emptyButtonsMainNav.length !== 0) {
+        if (emptyButtonsMainNav.length > 0) {
           emptyButtonsMainNav[0].textContent = newCity;
           emptyButtonsMainNav[0].disabled = false;
           emptyButtonsMainNav[0].classList.remove("btn-primary", "opacity-75");
           emptyButtonsMainNav[0].classList.add("border-secondary");
           emptyButtonsMainNav[0].dataset.id = idTownSearched;
           emptyButtonsMainNav = getEmptyButtonsMainNav(buttonsCityNavArray);
-          while (emptyButtonsMainNav.length !== 0) {
+          while (emptyButtonsMainNav.length > 0) {
             emptyButtonsSecondNav.forEach(function (btn) {
               emptyButtonsMainNav.push(btn);
               emptyButtonsSecondNav.shift(btn);
@@ -97,6 +96,13 @@ export async function generateCityObject(value) {
 }
 
 /***2. RESET AND Fill BIG CITY CARD*/
+const bigCityCard = document.getElementById("cityCardModal");
+export const getBigCityCardTitle = () =>
+  document.querySelector(".bigCityCardTitle");
+
+export const addCardCityBtn = document.querySelector(".addCardCityBtn");
+export const garbageCardCityBtn = document.querySelector(".garbageCardCityBtn");
+
 export const fillCityCard = (town, id, temp, iconWeather, description) => {
   document.querySelector(".bigCityCardTitle").textContent = `${town}`;
   bigCityCard.setAttribute("data-id", `${id}`);

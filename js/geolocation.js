@@ -1,20 +1,20 @@
-import { fillCityCard, fillReducedCityCard } from "./cityCard.js";
+import { fillCityCard, fillReducedCityCard } from "./cityCards.js";
 import { setSeasonBackground } from "./backgroundRandom.js";
 import { isBgLiked } from "./backgroundsUserCollection.js";
 import {
   tempSearched,
-  descriptionSearched,
   iconWeatherSearched,
+  descriptionSearched,
   recoverTown,
 } from "./recoverTown.js";
 
 /*********GEOLOCALISATION */
-let townGeo;
-let idGeo;
-let urlGeo;
-let tempGeo;
-let descriptionGeo;
-let iconWeatherGeo;
+export let townGeo;
+export let idGeo;
+export let urlGeo;
+export let tempGeo;
+export let descriptionGeo;
+export let iconWeatherGeo;
 
 export const geolocaliseMe = () => {
   if ("geolocation" in navigator) {

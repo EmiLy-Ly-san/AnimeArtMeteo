@@ -1,3 +1,14 @@
+import {
+  backgroundContainer,
+  backgroundId,
+  backgroundSeason,
+  randomBackground,
+} from "./backgroundRandom.js";
+import {
+  matchWithSrcCardToDisplay,
+  matchWithIdCardToRemove,
+} from "./utilities.js";
+
 /*********COLLECTION BACKGROUND */
 /***1.Verify is current background is Liked*/
 export const heartIcon = document.getElementById("heartIcon");
@@ -105,6 +116,7 @@ export function placeInCollectionBackground() {
     id: backgroundId,
     file: randomBackground,
     season: backgroundSeason,
+    //liked: true,
     putAwayInSubCollection: function () {
       if (miniBackgroundCard.season === "autumnWinter") {
         createNewBackgroundCard(autumnWinterSection);

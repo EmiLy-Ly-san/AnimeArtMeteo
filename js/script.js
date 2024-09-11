@@ -1,15 +1,15 @@
-import { backgroundsData } from "./backgrounds.js";
+/*import { backgroundsData } from "./backgrounds.js";
 
 /*******************************************************************GLOBAL SCOPE VARIABLES */
 /*********BUTTONS NAV VARIABLES*/
-const menuBtn = document.querySelectorAll(".menuBtn");
+/*const menuBtn = document.querySelectorAll(".menuBtn");
 const unrolledMenuContainer = document.querySelector(".unrolledMenuContainer");
 const menuIcon = document.getElementById("menuIcon");
 const mainNav = document.querySelector(".mainNav");
 const secondNav = document.querySelector(".secondNav");
 const extensionNav =
   document.querySelector(".navExtension"); /*DOUBLON AVEC CELUI D'AU DESSUS ??*/
-let getButtonsCityNav = () => document.querySelectorAll(".citiesBtn");
+/*let getButtonsCityNav = () => document.querySelectorAll(".citiesBtn");
 let buttonsCityNavArray = Array.from(getButtonsCityNav());
 buttonsCityNavArray[0].textContent = "Tokyo";
 buttonsCityNavArray[0].dataset.id = "1850144";
@@ -29,17 +29,17 @@ const expandBtn = document.querySelector(".expandBtn");
 const expandIcon = document.getElementById("expandIcon");
 
 /*********RESEARCHING TOWN VARIABLES */
-const geolocaliseMeBtn = document.querySelector(".geolocaliseMeBtn");
+/*const geolocaliseMeBtn = document.querySelector(".geolocaliseMeBtn");
 /*Seraching via menu*/
-const inputAddCity = document.getElementById("addCity");
+/*const inputAddCity = document.getElementById("addCity");
 const addCityBtn = document.querySelector(".addCityBtn");
 /*Searching via quick options*/
-const inputCityUser = document.querySelectorAll(".inputCityUser");
+/*const inputCityUser = document.querySelectorAll(".inputCityUser");
 let inputCityUserValue;
 const searchBtn = document.querySelectorAll(".searchBtn");
 
 /*********BACKGROUNDS VARIABLES */
-let backgroundContainer = document.querySelector(".background-container");
+/*let backgroundContainer = document.querySelector(".background-container");
 let backgroundContainerBig = document.querySelector(
   ".background-container-big"
 );
@@ -99,7 +99,7 @@ let backgroundId;
 let backgroundLink = document.querySelector(".backgroundLink");
 
 /*********CITY INFORMATIONS AND API VARIABLES */
-let townSearched;
+/*/*let townSearched;
 let idTownSearched;
 let tempSearched;
 let iconWeatherSearched;
@@ -114,7 +114,7 @@ let iconWeatherGeo;
 let hasAlreadyLoadedTheCurrentCity;
 
 /*********BACKGROUND CARD VARIABLES */
-const autumnWinterSection = document.querySelector(".autumnWinterSection");
+/*const autumnWinterSection = document.querySelector(".autumnWinterSection");
 const springSummerSection = document.querySelector(".springSummerSection");
 const backgroundsAutumnWinterCards =
   document.querySelectorAll(".autumnWinterCard");
@@ -136,7 +136,7 @@ const heartBtn = document.querySelector(".heart-button");
 const heartIcon = document.getElementById("heartIcon");
 
 /*********CITY CARD VARIABLES */
-const getBigCityCardTitle = () => document.querySelector(".bigCityCardTitle");
+/*const getBigCityCardTitle = () => document.querySelector(".bigCityCardTitle");
 const garbageCityBtn = document.querySelectorAll(".garbageCityBtn");
 const addCardCityBtn = document.querySelector(".addCardCityBtn");
 const garbageCardCityBtn = document.querySelector(".garbageCardCityBtn");
@@ -150,7 +150,7 @@ const favoritesCitiesCardsAll = document.querySelectorAll(".favoriteCityCard");
 let favoriteCityCardArray = Array.from(favoritesCitiesCardsAll);
 
 /*******************************************************************GENERALS FONCTIONS */
-function switchIcon(icon) {
+/*function switchIcon(icon) {
   const currentSrc = icon.getAttribute("src");
   const nextSrc = icon.getAttribute("data-icon");
   icon.setAttribute("src", nextSrc);
@@ -236,7 +236,7 @@ function removeCityBtn(elementWithCityNameInTextContent) {
   findTheButtonNavToDelete(textToFind);
   replaceBtnNavToDeleteByNewEmptyButton();
   /*removeButtonFromTheNav();*/
-}
+/*}
 
 function findTheButtonNavToDelete(textToFind) {
   buttonToFind = buttonsCityNavArray.find(
@@ -314,7 +314,7 @@ function placeInTheGoodNav() {
 }*/
 
 //REORGANIZE NAV
-let emptyButtonsMainNav = getEmptyButtonsMainNav(buttonsCityNavArray);
+/*let emptyButtonsMainNav = getEmptyButtonsMainNav(buttonsCityNavArray);
 let emptyButtonsSecondNav = getEmptyButtonsSecondNav(buttonsCityNavArray);
 let filledButtonsSecondNav = getFilledButtonsSecondNav(buttonsCityNavArray);
 let filledButtonsMainNav = getFilledButtonsMainNav(buttonsCityNavArray);
@@ -323,7 +323,7 @@ let buttonToUpgrade;
 function reorganizeNavifNecessary() {
   //in listener garbageCard
   /*getButtonsCityNav();*/
-  findIfBtnToUpgradeIsInSecondNav();
+/*findIfBtnToUpgradeIsInSecondNav();
   if (buttonToUpgrade && buttonToUpgrade === filledButtonsSecondNav[0]) {
     switchFirstEmptyBtnMainNavWithBtnToUpgradeSecondNav();
     createNewEmptyButtonInSecondNav();
@@ -398,7 +398,7 @@ function matchWithSrcCardToDisplay(button) {
 
 /*******************************************************************RUNNING FUNCTIONS */
 /*********GEOLOCALISATION */
-function geolocaliseMe() {
+/*function geolocaliseMe() {
   if ("geolocation" in navigator) {
     let options = {
       getHigheAccuracy: true,
@@ -483,7 +483,7 @@ async function recoverGeolocTown() {
 }
 
 /*******RECOVER A NEW MANUAL SEARCHING TOWN */
-async function recoverTown(town) {
+/*async function recoverTown(town) {
   const urlforSearching =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
     town +
@@ -510,7 +510,7 @@ async function recoverTown(town) {
 }
 
 /*********GENERATE BACKGROUND */
-function setSeasonBackground(description) {
+/*function setSeasonBackground(description) {
   let currentDate = new Date();
   let month = currentDate.getMonth();
   console.log({ month });
@@ -603,7 +603,7 @@ function getBackgroundAutumnWinter(description) {
 }
 
 /*********COLLECTION BACKGROUND */
-const createNewBackgroundCard = (section) => {
+/*const createNewBackgroundCard = (section) => {
   const newCard = document.createElement("div");
   section.append(newCard);
   newCard.classList.add(
@@ -735,7 +735,7 @@ const giveMsgOfNoBg = () => {
 
 /***************CITY COLLECTION */
 
-async function generateCityObject(value) {
+/*async function generateCityObject(value) {
   const newCity = value;
   console.log({ newCity });
   await recoverTown(newCity);
@@ -811,7 +811,7 @@ async function generateCityObject(value) {
 }
 
 /*********BIG CITY CARD FUNCTIONS */
-function fillCityCard(town, id, temp, iconWeather, description) {
+/*function fillCityCard(town, id, temp, iconWeather, description) {
   document.querySelector(".bigCityCardTitle").textContent = `${town}`;
   bigCityCard.setAttribute("data-id", `${id}`);
   document.querySelectorAll(".temperature").forEach(function (tempText) {
@@ -867,7 +867,7 @@ function fillReducedCityCard(town, temp, iconWeather) {
 }
 
 /*******************************************************************EVENTS */
-geolocaliseMeBtn.addEventListener("click", geolocaliseMe);
+/*geolocaliseMeBtn.addEventListener("click", geolocaliseMe);
 
 /*const newBtnNavFoundEvent = new CustomEvent("newBtnNavFound", {
   detail: getButtonsCityNav.createElement("button"),
@@ -877,7 +877,7 @@ document.addEventListener("newBtnNavFound", (e) =>
 );
 document.dispatchEvent(newBtnNavFoundEvent);*/
 
-function attachListenersToBtnCityNavButtons() {
+/*function attachListenersToBtnCityNavButtons() {
   const buttonsCityNav = getButtonsCityNav();
   buttonsCityNav.forEach(function (cityBtn) {
     cityBtn.addEventListener("click", async () => {
@@ -988,7 +988,7 @@ garbageCardCityBtn.addEventListener("click", () => {
   reorganizeNavifNecessary();
   /*matchWithTextButtonToRemove(getBigCityCardTitle());*/
 
-  matchWithIdCardToRemove(garbageCardCityBtn, favoriteCityCardArray);
+/*matchWithIdCardToRemove(garbageCardCityBtn, favoriteCityCardArray);
   resetBigCityCard();
 });
 
@@ -1050,7 +1050,7 @@ backgroundCollectionButton.forEach(function (button) {
 });
 
 /*******************************************************************LET APPLICATION */
-(async function runApplication() {
+/*(async function runApplication() {
   await geolocaliseMe();
   fillCityCard(townGeo, idGeo, tempGeo, iconWeatherGeo, descriptionGeo);
   var myModal = new bootstrap.Modal(

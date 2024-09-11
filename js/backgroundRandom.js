@@ -4,13 +4,13 @@ import { backgroundsData } from "./backgrounds.js";
 export let backgroundContainer = document.querySelector(
   ".background-container"
 );
-let backgroundContainerBig = document.querySelector(
+export let backgroundContainerBig = document.querySelector(
   ".background-container-big"
 );
 
 /*********GENERATE RANDOM BACKGROUND DEPENDING ON THE SEASON*/
 /****1.set the season */
-let backgroundSeason;
+export let backgroundSeason;
 export const setSeasonBackground = (description) => {
   let currentDate = new Date();
   let month = currentDate.getMonth();
@@ -74,6 +74,8 @@ const backgroundsSpringSummerThunderstorm = backgroundsData.springSummer.filter(
   }
 );
 
+let backgroundLink = document.querySelector(".backgroundLink");
+
 const getBackgroundSpringSummer = (description) => {
   switch (description) {
     case "Clear":
@@ -136,12 +138,11 @@ const getBackgroundAutumnWinter = (description) => {
 /***3.set background property */
 let randomIndex;
 let randomBackgroundArray;
-let randomBackground;
+export let randomBackground;
 const indexGenerator = (max) => {
   return Math.floor(Math.random() * Math.floor(max));
 };
-let backgroundId;
-let backgroundLink = document.querySelector(".backgroundLink");
+export let backgroundId;
 
 const setBackgroundProperties = (seasonBackgroundArray) => {
   randomIndex = indexGenerator(seasonBackgroundArray.length);
