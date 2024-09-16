@@ -108,6 +108,7 @@ const createNewBackgroundCard = (section) => {
   newGarbageButton.addEventListener("click", () => {
     matchWithIdCardToRemove(newGarbageButton, favoritesBackgroundsArray);
     isBgLiked();
+    giveMsgOfNoBgIfNecessary();
   });
 };
 
@@ -142,24 +143,38 @@ export function placeInCollectionBackground() {
 }
 
 /***Loading message no background yet */
-const getLikedBackgroundsAutumnWinter = () =>
-  autumnWinterSection.querySelectorAll(".favoriteBackgroundCard");
-const likedBackgroundsAutumnWinter = Array.from(
-  getLikedBackgroundsAutumnWinter()
-);
-const getLikedBackgroundsSpringSummer = () =>
-  springSummerSection.querySelectorAll(".favoriteBackgroundCard");
-const likedBackgroundsSpringSummer = Array.from(
-  getLikedBackgroundsSpringSummer()
-);
-const getExistedAutumWinterMessage = () =>
-  document.getElementById("autumnWinterMessageExisted");
-const getExistedSpringSummerMessage = () =>
-  document.getElementById("springSummerMessageExisted");
+
+const messageAutumnWinter = document.querySelector(".messageAutumnWinter");
+const messageSpringSummer = document.querySelector(".messageSpringSummer");
 
 export const giveMsgOfNoBgIfNecessary = () => {
-  debugger;
-  getLikedBackgroundsAutumnWinter();
+  const getLikedBackgroundsAutumnWinter = () =>
+    autumnWinterSection.querySelectorAll(".favoriteBackgroundCard");
+  const likedBackgroundsAutumnWinter = Array.from(
+    getLikedBackgroundsAutumnWinter()
+  );
+  console.log({ likedWinter: likedBackgroundsAutumnWinter.length });
+  if (likedBackgroundsAutumnWinter.length > 0) {
+    messageAutumnWinter.classList.remove("visible");
+    messageAutumnWinter.classList.add("hidden");
+  } else {
+    messageAutumnWinter.classList.remove("hidden");
+    messageAutumnWinter.classList.add("visible");
+  }
+  const getLikedBackgroundsSpringSummer = () =>
+    springSummerSection.querySelectorAll(".favoriteBackgroundCard");
+  const likedBackgroundsSpringSummer = Array.from(
+    getLikedBackgroundsSpringSummer()
+  );
+  if (likedBackgroundsSpringSummer.length > 0) {
+    messageSpringSummer.classList.remove("visible");
+    messageSpringSummer.classList.add("hidden");
+  } else {
+    messageSpringSummer.classList.remove("hidden");
+    messageSpringSummer.classList.add("visible");
+  }
+
+  /*getLikedBackgroundsAutumnWinter();
   getExistedAutumWinterMessage();
   console.log(getExistedAutumWinterMessage());
   let msgAutumnWinterIsNecessary =
@@ -207,5 +222,5 @@ export const giveMsgOfNoBgIfNecessary = () => {
   }
 
   console.log({ messageWinter: msgAutumnWinterIsNecessary });
-  console.log({ messageSpring: msgSpringSummerIsNecessary });
+  console.log({ messageSpring: msgSpringSummerIsNecessary });*/
 };
