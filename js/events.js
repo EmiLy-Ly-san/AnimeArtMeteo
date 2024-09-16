@@ -3,7 +3,7 @@ import {
   favoritesBackgroundsArray,
   placeInCollectionBackground,
   isBgLiked,
-  giveMsgOfNoBg,
+  giveMsgOfNoBgIfNecessary,
 } from "./backgroundsUserCollection.js";
 import {
   backgroundContainer,
@@ -16,7 +16,6 @@ import {
 } from "./utilities.js";
 import { geolocaliseMe } from "./geolocation.js";
 import {
-  townSearched,
   idTownSearched,
   tempSearched,
   iconWeatherSearched,
@@ -130,6 +129,8 @@ export function runEvents() {
   garbageButtonBackgroundCard.forEach(function (button) {
     button.addEventListener("click", () => {
       matchWithIdCardToRemove(button, favoritesBackgroundsArray);
+      isBgLiked();
+      giveMsgOfNoBgIfNecessary();
     });
   });
 
@@ -211,7 +212,7 @@ export function runEvents() {
   );
   backgroundCollectionButton.forEach(function (button) {
     button.addEventListener("click", () => {
-      giveMsgOfNoBg();
+      giveMsgOfNoBgIfNecessary();
     });
   });
 }

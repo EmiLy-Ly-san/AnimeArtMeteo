@@ -4,6 +4,7 @@ import {
   backgroundSeason,
   randomBackground,
 } from "./backgroundRandom.js";
+
 import {
   matchWithSrcCardToDisplay,
   matchWithIdCardToRemove,
@@ -55,7 +56,7 @@ const createNewBackgroundCard = (section) => {
   newCard.classList.add(
     "card",
     "favoriteBackgroundCard",
-    "springSummerCard",
+
     "shadow-sm",
     "overflow-hidden",
     "bg-primary",
@@ -141,27 +142,70 @@ export function placeInCollectionBackground() {
 }
 
 /***Loading message no background yet */
-export const giveMsgOfNoBg = () => {
-  const GetLikedBackgroundsAutumnWinter = () =>
-    autumnWinterSection.querySelectorAll(".favoriteBackgroundCard");
-  const likedBackgroundsAutumnWinter = Array.from(
-    GetLikedBackgroundsAutumnWinter()
-  );
-  const GetLikedBackgroundsSpringSummer = () =>
-    springSummerSection.querySelectorAll(".favoriteBackgroundCard");
-  const likedBackgroundsSpringSummer = Array.from(
-    GetLikedBackgroundsSpringSummer()
-  );
-  if (likedBackgroundsAutumnWinter.length === 0) {
-    const message = document.createElement("p");
-    message.classList.add("text-dark", "text-start", "fst-italic");
-    message.textContent = "You don't like any Autumn-Winter backgrounds yet.";
-    autumnWinterSection.append(message);
+const getLikedBackgroundsAutumnWinter = () =>
+  autumnWinterSection.querySelectorAll(".favoriteBackgroundCard");
+const likedBackgroundsAutumnWinter = Array.from(
+  getLikedBackgroundsAutumnWinter()
+);
+const getLikedBackgroundsSpringSummer = () =>
+  springSummerSection.querySelectorAll(".favoriteBackgroundCard");
+const likedBackgroundsSpringSummer = Array.from(
+  getLikedBackgroundsSpringSummer()
+);
+const getExistedAutumWinterMessage = () =>
+  document.getElementById("autumnWinterMessageExisted");
+const getExistedSpringSummerMessage = () =>
+  document.getElementById("springSummerMessageExisted");
+
+export const giveMsgOfNoBgIfNecessary = () => {
+  debugger;
+  getLikedBackgroundsAutumnWinter();
+  getExistedAutumWinterMessage();
+  console.log(getExistedAutumWinterMessage());
+  let msgAutumnWinterIsNecessary =
+    likedBackgroundsAutumnWinter.length === 0 &&
+    getExistedAutumWinterMessage() === null
+      ? true
+      : false;
+  getLikedBackgroundsSpringSummer();
+  getExistedSpringSummerMessage();
+  let msgSpringSummerIsNecessary =
+    likedBackgroundsSpringSummer.length === 0 &&
+    getExistedSpringSummerMessage() === null
+      ? true
+      : false;
+  if (msgAutumnWinterIsNecessary === true) {
+    const autumnWinterMessage = document.createElement("p");
+    autumnWinterMessage.id = "autumnWinterMessageExisted";
+    autumnWinterMessage.classList.add("text-dark", "text-start", "fst-italic");
+    autumnWinterMessage.textContent =
+      "You don't like any Autumn-Winter backgrounds yet.";
+    autumnWinterSection.append(autumnWinterMessage);
+    msgAutumnWinterIsNecessary = false;
+  } else {
+    getLikedBackgroundsAutumnWinter();
+    console.log(likedBackgroundsAutumnWinter.length);
+    if (likedBackgroundsAutumnWinter.length > 0) {
+      document.getElementById("autumnWinterMessageExisted").remove();
+    }
   }
-  if (likedBackgroundsSpringSummer.length === 0) {
-    const message = document.createElement("p");
-    message.classList.add("text-dark", "text-start", "fst-italic");
-    message.textContent = "You don't like any Spring-Summer backgrounds yet.";
-    springSummerSection.append(message);
+
+  if (msgSpringSummerIsNecessary === true) {
+    const springSummerMessage = document.createElement("p");
+    springSummerMessage.id = "springSummerMessageExisted";
+
+    springSummerMessage.classList.add("text-dark", "text-start", "fst-italic");
+    springSummerMessage.textContent =
+      "You don't like any Spring-Summer backgrounds yet.";
+    springSummerSection.append(springSummerMessage);
+    msgSpringSummerIsNecessary = false;
+  } else {
+    getLikedBackgroundsSpringSummer();
+    if (likedBackgroundsSpringSummer.length > 0) {
+      document.getElementById("springSummerMessageExisted").remove();
+    }
   }
+
+  console.log({ messageWinter: msgAutumnWinterIsNecessary });
+  console.log({ messageSpring: msgSpringSummerIsNecessary });
 };
