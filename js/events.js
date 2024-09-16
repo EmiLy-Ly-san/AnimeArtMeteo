@@ -86,11 +86,11 @@ export function runEvents() {
 
   const heartBtn = document.querySelector(".heart-button");
   heartBtn.addEventListener("click", () => {
-    if (heartIcon.getAttribute("src") == "assets/icons/hearts.png") {
-      heartIcon.setAttribute("src", "assets/icons/empty-heart.svg");
+    if (heartIcon.getAttribute("src") == "./assets/icons/hearts.png") {
+      heartIcon.setAttribute("src", "./assets/icons/empty-heart.svg");
       matchWithIdCardToRemove(backgroundContainer, favoritesBackgroundsArray);
     } else {
-      heartIcon.setAttribute("src", "assets/icons/hearts.png");
+      heartIcon.setAttribute("src", "./assets/icons/hearts.png");
       placeInCollectionBackground();
     }
   });

@@ -24,9 +24,9 @@ export const isBgLiked = () => {
   console.log({ favoritesBackgroundsArray });
   console.log({ bgToFind });
   if (bgToFind) {
-    heartIcon.setAttribute("src", "assets/icons/hearts.png");
+    heartIcon.setAttribute("src", "./assets/icons/hearts.png");
   } else {
-    heartIcon.setAttribute("src", "assets/icons/empty-heart.svg");
+    heartIcon.setAttribute("src", "./assets/icons/empty-heart.svg");
   }
 };
 
@@ -88,7 +88,7 @@ const createNewBackgroundCard = (section) => {
   newGarbageButton.classList.add("garbageButton", "btn", "w-25");
   const newGarbageIcon = document.createElement("img");
   newGarbageButton.append(newGarbageIcon);
-  newGarbageIcon.setAttribute("src", "assets/icons/garbage-blue.svg");
+  newGarbageIcon.setAttribute("src", "./assets/icons/garbage-blue.svg");
   newGarbageIcon.setAttribute(
     "alt",
     "icon to delete this city from your favorite"
@@ -100,7 +100,7 @@ const createNewBackgroundCard = (section) => {
   newVisibilityButton.setAttribute("type", "button");
   const newVisibilityIcon = document.createElement("img");
   newVisibilityButton.append(newVisibilityIcon);
-  newVisibilityIcon.setAttribute("src", "assets/icons/visibility-blue.svg");
+  newVisibilityIcon.setAttribute("src", "./assets/icons/visibility-blue.svg");
   newVisibilityIcon.setAttribute("alt", "icon to select and enlarge this city");
   newVisibilityButton.addEventListener("click", () => {
     matchWithSrcCardToDisplay(newVisibilityButton);

@@ -96,9 +96,9 @@ const getBackgroundSpringSummer = (description) => {
       break;
     default:
       backgroundContainer.style.backgroundImage =
-        "url(assets/backgrounds/summer-spring/sun/1e4fe3db756c83c5c3f7ed904e002436.jpg)";
+        "url(./assets/backgrounds/summer-spring/sun/1e4fe3db756c83c5c3f7ed904e002436.jpg)";
       backgroundContainerBig.style.backgroundImage =
-        "url(assets/backgrounds/summer-spring/sun/1e4fe3db756c83c5c3f7ed904e002436.jpg)";
+        "url(./assets/backgrounds/summer-spring/sun/1e4fe3db756c83c5c3f7ed904e002436.jpg)";
       backgroundContainer.dataset.id = "ss60";
       backgroundLink.href = "https://www.pinterest.fr/pin/238479742764135468/";
   }
@@ -127,9 +127,9 @@ const getBackgroundAutumnWinter = (description) => {
       break;
     default:
       backgroundContainer.style.backgroundImage =
-        "url(assets/backgrounds/autumn-winter/sun/2e22f614e218b2d8e9b6ad04a74db87f.jpg)";
+        "url(./assets/backgrounds/autumn-winter/sun/2e22f614e218b2d8e9b6ad04a74db87f.jpg)";
       backgroundContainerBig.style.backgroundImage =
-        "url(assets/backgrounds/autumn-winter/sun/2e22f614e218b2d8e9b6ad04a74db87f.jpg)";
+        "url(./assets/backgrounds/autumn-winter/sun/2e22f614e218b2d8e9b6ad04a74db87f.jpg)";
       backgroundContainer.dataset.id = "ah92";
       backgroundLink.href = "https://www.pinterest.fr/pin/238479742764225963/";
   }
