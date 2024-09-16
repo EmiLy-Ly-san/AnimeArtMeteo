@@ -40,9 +40,13 @@ function getEmptyButtonsMainNav() {
 function getEmptyButtonsSecondNav() {
   let getButtonsCityNav = () => document.querySelectorAll(".citiesBtn");
   let buttonsCityNavArray = Array.from(getButtonsCityNav());
-  return buttonsCityNavArray.filter(function (btn) {
-    return btn.classList.contains("citiesBtnSecondNav");
-  });
+  return buttonsCityNavArray
+    .filter(function (btn) {
+      return btn.classList.contains("citiesBtnSecondNav");
+    })
+    .filter(function (btn) {
+      return btn.textContent == "";
+    });
 }
 
 export async function generateCityObject(value) {
@@ -86,6 +90,7 @@ export async function generateCityObject(value) {
           emptyButtonsSecondNav[0].classList.add("border-secondary");
           emptyButtonsSecondNav[0].dataset.id = idTownSearched;
           console.log({ myButton: emptyButtonsSecondNav[0] });
+          createNewEmptyButton();
         }
       }
     },

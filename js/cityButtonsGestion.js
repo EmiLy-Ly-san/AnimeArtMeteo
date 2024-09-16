@@ -13,7 +13,7 @@ let buttonToFind;
 export function removeCityBtn(elementWithCityNameInTextContent) {
   textToFind = elementWithCityNameInTextContent.textContent;
   findTheButtonNavToDelete(textToFind);
-  replaceBtnNavToDeleteByNewEmptyButton();
+  placeNewEmptyButton();
 }
 
 function findTheButtonNavToDelete(textToFind) {
@@ -24,14 +24,14 @@ function findTheButtonNavToDelete(textToFind) {
   console.log({ buttonToFind: buttonToFind });
 }
 
-function replaceBtnNavToDeleteByNewEmptyButton() {
+function placeNewEmptyButton() {
   createNewEmptyButton();
   placeInTheGoodNav();
 }
 
 let newButtonLi;
 let newEmptyButton;
-function createNewEmptyButton() {
+export function createNewEmptyButton() {
   newButtonLi = document.createElement("li");
   newButtonLi.classList.add("nav-item", "citiesNavigation");
   newEmptyButton = document.createElement("button");
@@ -142,7 +142,7 @@ function switchFirstEmptyBtnMainNavWithBtnToUpgradeSecondNav() {
   emptyButtonsMainNav[0].classList.add("border-secondary");
 }
 
-function createNewEmptyButtonInSecondNav() {
+export function createNewEmptyButtonInSecondNav() {
   const newEmptyButtonSecondNav = document.createElement("button");
   newEmptyButtonSecondNav.classList.add(
     "citiesBtn",
