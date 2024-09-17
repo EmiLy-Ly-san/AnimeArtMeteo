@@ -10,6 +10,10 @@ import {
   hasAlreadyLoadedTheCurrentCity,
   getEmptyCards,
 } from "./utilities.js";
+import {
+  getVariablesInLocalStorage,
+  setElementFromVariablesinLocalStorage,
+} from "./localStorageGestion.js";
 
 /***1.GENERATE CITY OBJECT */
 const getMiniCityCardTitle = () => document.querySelector(".miniCardTown");
@@ -49,6 +53,8 @@ function getEmptyButtonsSecondNav() {
     });
 }
 
+export const newCitiesTostoreInLocalStorage = {};
+
 export async function generateCityObject(value) {
   const newCity = value;
   console.log({ newCity });
@@ -59,6 +65,7 @@ export async function generateCityObject(value) {
     temperature: tempSearched,
     icon: iconWeatherSearched,
     descriptionWeather: descriptionSearched,
+
     generateCityButton: function () {
       let getButtonsCityNav = () => document.querySelectorAll(".citiesBtn");
       let buttonsCityNavArray = Array.from(getButtonsCityNav());
@@ -126,9 +133,28 @@ export async function generateCityObject(value) {
           .setAttribute("data-bs-target", "#cityCardModal");
       }
     },
+    storeInLocalStorage: function () {
+      Object.defineProperty(
+        newCitiesTostoreInLocalStorage,
+        `${miniCityCard.id}`,
+        {
+          value: `${miniCityCard.cityName}`,
+        }
+      );
+      console.log({
+        newCitiesTostoreInLocalStorage: newCitiesTostoreInLocalStorage,
+      });
+
+      setElementFromVariablesinLocalStorage(
+        `${miniCityCard.id}`,
+        `${miniCityCard.cityName}`,
+        newCitiesTostoreInLocalStorage
+      );
+    },
   };
   miniCityCard.generateCityButton();
   miniCityCard.fillMiniCityCard();
+  miniCityCard.storeInLocalStorage();
   console.log({ miniCityCard });
 }
 

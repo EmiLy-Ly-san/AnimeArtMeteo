@@ -1,5 +1,4 @@
 import {
-  townSearched,
   idTownSearched,
   tempSearched,
   iconWeatherSearched,
