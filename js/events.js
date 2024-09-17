@@ -178,6 +178,7 @@ export function runEvents() {
     await recoverTown(townUser);
     setSeasonBackground(descriptionSearched);
     isBgLiked();
+    generateCityObject(townUser);
     fillCityCard(
       townUser,
       idTownSearched,
@@ -186,7 +187,6 @@ export function runEvents() {
       descriptionSearched
     );
     fillReducedCityCard(townUser, tempSearched, iconWeatherSearched);
-    generateCityObject(townUser);
   });
 
   const visibilityCityBtn = document.querySelectorAll(".visibilityCityBtn");
@@ -202,6 +202,7 @@ export function runEvents() {
         iconWeatherSearched,
         descriptionSearched
       );
+      fillReducedCityCard(cityToFind, tempSearched, iconWeatherSearched);
       setSeasonBackground(descriptionSearched);
       isBgLiked();
     });

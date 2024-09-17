@@ -24,7 +24,7 @@ export function getEmptyButtonsMainNav(buttonsArray) {
       return btn.classList.contains("citiesBtnMainNav");
     })
     .filter(function (btn) {
-      return btn.textContent == "";
+      return btn.textContent === "";
     });
 }
 

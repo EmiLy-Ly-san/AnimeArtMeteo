@@ -59,29 +59,26 @@ function placeInTheGoodNav() {
     mainNav.append(newButtonLi);
     newButtonLi.append(newEmptyButton);
     newEmptyButton.classList.add("citiesBtnMainNav");
-    /*newButtonsCityNavArray.push(newEmptyButton);*/
+    newButtonsCityNavArray.push(newEmptyButton);
     attachListenersToBtnCityNavButtons();
-    /*const buttonToFindLi = buttonToFind.closest("li");
-    buttonToFindLi.remove();*/
+    const buttonToFindLi = buttonToFind.closest("li");
+    buttonToFindLi.remove();
     buttonToFind.remove();
-    buttonToFind.textContent = "";
-    buttonToFind.classList.remove("citiesBtn"); //So this button won't be count in buttonsCituNavArray when this array will be called
+    newButtonsCityNavArray = newButtonsCityNavArray.filter(
+      (btn) => btn !== buttonToFind
+    );
   } else {
     secondNav.append(newButtonLi);
     newButtonLi.append(newEmptyButton);
     newEmptyButton.classList.add("citiesBtnSecondNav");
-    /*newButtonsCityNavArray.push(newEmptyButton);*/
+    newButtonsCityNavArray.push(newEmptyButton);
     attachListenersToBtnCityNavButtons();
-    /*const buttonToFindLi = buttonToFind.closest("li");
-    buttonToFindLi.remove();*/
+    const buttonToFindLi = buttonToFind.closest("li");
+    buttonToFindLi.remove();
     buttonToFind.remove();
-    buttonToFind.textContent = "";
-    buttonToFind.classList.remove(
-      "citiesBtn"
-    ); /*So this button won't be count in buttonsCituNavArray when this array will be called. Instead of  
-      buttonsCityNavArray = buttonsCityNavArray.filter(
+    newButtonsCityNavArray = newButtonsCityNavArray.filter(
       (btn) => btn !== buttonToFind
-    ); Indeed that modify the global variable buttonsCityNavArray in her origin file. But her, she is imported. And when a global is imported, she began a const variable in the file where she is imported*/
+    );
   }
 }
 
@@ -96,6 +93,7 @@ let buttonToUpgrade;
 
 export function reorganizeNavifNecessary() {
   findIfBtnToUpgradeIsInSecondNav();
+  console.log({ buttonToUpgrade: buttonToUpgrade });
   if (buttonToUpgrade && buttonToUpgrade === filledButtonsSecondNav[0]) {
     switchFirstEmptyBtnMainNavWithBtnToUpgradeSecondNav();
     createNewEmptyButtonInSecondNav();
@@ -120,6 +118,7 @@ function switchFirstEmptyBtnMainNavWithBtnToUpgradeSecondNav() {
     buttonToUpgrade.textContent = "";
     buttonToUpgrade.classList.add(
       "citiesBtn",
+      "citiesBtnMainNav",
       "btn",
       "btn-primary",
       "opacity-75",

@@ -90,7 +90,6 @@ export async function generateCityObject(value) {
           emptyButtonsSecondNav[0].classList.add("border-secondary");
           emptyButtonsSecondNav[0].dataset.id = idTownSearched;
           console.log({ myButton: emptyButtonsSecondNav[0] });
-          createNewEmptyButton();
         }
       }
     },
@@ -116,6 +115,15 @@ export async function generateCityObject(value) {
         cardToFill.querySelector(
           ".visibilityCityBtn"
         ).dataset.cityName = `${miniCityCard.cityName}`;
+        cardToFill
+          .querySelector(".visibilityCityBtn")
+          .setAttribute("data-bs-dismiss", "modal");
+        cardToFill
+          .querySelector(".visibilityCityBtn")
+          .setAttribute("data-bs-toggle", "modal");
+        cardToFill
+          .querySelector(".visibilityCityBtn")
+          .setAttribute("data-bs-target", "#cityCardModal");
       }
     },
   };
