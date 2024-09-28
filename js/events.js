@@ -36,6 +36,7 @@ import {
   removeCityBtn,
   reorganizeNavifNecessary,
 } from "./cityButtonsGestion.js";
+import { removeCityFromLocalStorage } from "./localStorageGestion.js";
 
 /****EVENTS */
 export function runEvents() {
@@ -146,14 +147,20 @@ export function runEvents() {
       removeCityBtn(currentMiniCityCardTitle);
       matchWithIdCardToRemove(button, favoriteCityCardArray);
       reorganizeNavifNecessary();
+      removeCityFromLocalStorage(idToFind);
     });
   });
 
-  garbageCardCityBtn.addEventListener("click", () => {
+  garbageCardCityBtn.addEventListener("click", (event) => {
+    const button = event.currentTarget;
+    const idToFind = button.dataset.id;
+
     removeCityBtn(getBigCityCardTitle());
     reorganizeNavifNecessary();
     matchWithIdCardToRemove(garbageCardCityBtn, favoriteCityCardArray);
     resetBigCityCard();
+
+    removeCityFromLocalStorage(idToFind);
   });
 
   addCardCityBtn.addEventListener("click", async () => {

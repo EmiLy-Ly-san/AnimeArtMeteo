@@ -1,11 +1,11 @@
-export const getVariablesInLocalStorage = (property) => {
+export const getVariablesInLocalStorage = (
+  property // string
+) => {
   const localStorageData = localStorage.getItem("citiesStored");
-  if (typeof localStorageData === "string") {
-    const parsedData = JSON.parse(localStorageData);
-    const myValue = parsedData?.[property];
-    return myValue;
-  }
-  return null;
+
+  const parsedData = JSON.parse(localStorageData);
+  const myValue = property in parsedData ? parsedData[property] : null;
+  return myValue;
 };
 
 export const setElementFromVariablesinLocalStorage = (
@@ -30,4 +30,17 @@ export const setElementFromVariablesinLocalStorage = (
   }
 
   return null;
+};
+
+export const removeCityFromLocalStorage = (cityId) => {
+  const currentCitiesInLocalStorage = localStorage.getItem("citiesStored");
+  if (currentCitiesInLocalStorage) {
+    const currentCities = JSON.parse(currentCitiesInLocalStorage);
+    const cityIsInLocalStorage = currentCities?.[cityId];
+
+    if (cityIsInLocalStorage) {
+      delete currentCities[cityId];
+      localStorage.setItem("citiesStored", JSON.stringify(currentCities));
+    }
+  }
 };

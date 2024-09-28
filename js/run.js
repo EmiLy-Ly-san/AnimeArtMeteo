@@ -9,7 +9,7 @@ import {
 import { fillCityCard, generateCityObject } from "./cityCards.js";
 import { attachListenersToBtnCityNavButtons } from "./navigation.js";
 import { runEvents } from "./events.js";
-import { newCitiesTosotreInLocalStorage } from "./cityCards.js";
+
 import { setElementFromVariablesinLocalStorage } from "./localStorageGestion.js";
 
 /****RUN APPLICATION */

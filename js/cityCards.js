@@ -134,22 +134,21 @@ export async function generateCityObject(value) {
       }
     },
     storeInLocalStorage: function () {
-      Object.defineProperty(
-        newCitiesTostoreInLocalStorage,
-        `${miniCityCard.id}`,
-        {
-          value: `${miniCityCard.cityName}`,
-        }
-      );
-      console.log({
-        newCitiesTostoreInLocalStorage: newCitiesTostoreInLocalStorage,
-      });
+      const currentCitiesInLocalStorage = localStorage.getItem("citiesStored");
+      if (currentCitiesInLocalStorage) {
+        const currentCities = JSON.parse(currentCitiesInLocalStorage);
+        const cityAlreadyStored =
+          currentCities?.[miniCityCard.id] &&
+          currentCities?.[miniCityCard.id] === miniCityCard.cityName;
 
-      setElementFromVariablesinLocalStorage(
-        `${miniCityCard.id}`,
-        `${miniCityCard.cityName}`,
-        newCitiesTostoreInLocalStorage
-      );
+        // Do not double store in localStorage for performance
+        if (!cityAlreadyStored) {
+          setElementFromVariablesinLocalStorage(
+            `${miniCityCard.id}`,
+            `${miniCityCard.cityName}`
+          );
+        }
+      }
     },
   };
   miniCityCard.generateCityButton();
