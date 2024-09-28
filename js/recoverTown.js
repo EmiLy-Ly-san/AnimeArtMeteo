@@ -1,9 +1,12 @@
+import { geolocaliseMe } from "./geolocation.js";
+
 /*******RECOVER A NEW MANUAL SEARCHING TOWN */
 export let townSearched;
 export let idTownSearched;
 export let tempSearched;
 export let iconWeatherSearched;
 export let descriptionSearched;
+export let recoverTownIsPossible;
 
 export async function recoverTown(town) {
   const urlforSearching =
@@ -13,10 +16,13 @@ export async function recoverTown(town) {
   const request = await fetch(urlforSearching, {
     method: "GET",
   });
+  recoverTownIsPossible = true;
   if (!request.ok) {
     alert(
       "Please, write your city with the correct spelling.\nWARNING! Hyphens are not accepted. For example in New-York, write New York instead."
     );
+    recoverTownIsPossible = false;
+    geolocaliseMe();
   } else {
     let datas = await request.json();
     console.log({ datas });

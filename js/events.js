@@ -21,6 +21,7 @@ import {
   iconWeatherSearched,
   descriptionSearched,
   recoverTown,
+  recoverTownIsPossible,
 } from "./recoverTown.js";
 import {
   fillCityCard,
@@ -183,17 +184,19 @@ export function runEvents() {
   addCityBtn.addEventListener("click", async () => {
     const townUser = inputAddCity.value;
     await recoverTown(townUser);
-    setSeasonBackground(descriptionSearched);
-    isBgLiked();
-    generateCityObject(townUser);
-    fillCityCard(
-      townUser,
-      idTownSearched,
-      tempSearched,
-      iconWeatherSearched,
-      descriptionSearched
-    );
-    fillReducedCityCard(townUser, tempSearched, iconWeatherSearched);
+    if (recoverTownIsPossible === true) {
+      setSeasonBackground(descriptionSearched);
+      isBgLiked();
+      generateCityObject(townUser);
+      fillCityCard(
+        townUser,
+        idTownSearched,
+        tempSearched,
+        iconWeatherSearched,
+        descriptionSearched
+      );
+      fillReducedCityCard(townUser, tempSearched, iconWeatherSearched);
+    }
   });
 
   const visibilityCityBtn = document.querySelectorAll(".visibilityCityBtn");
