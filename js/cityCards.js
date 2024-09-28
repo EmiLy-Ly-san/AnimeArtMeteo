@@ -67,7 +67,7 @@ export async function generateCityObject(value) {
     descriptionWeather: descriptionSearched,
 
     generateCityButton: function () {
-      let getButtonsCityNav = () => document.querySelectorAll(".citiesBtn");
+      const getButtonsCityNav = () => document.querySelectorAll(".citiesBtn");
       let buttonsCityNavArray = Array.from(getButtonsCityNav());
       isTownLoaded(buttonsCityNavArray, newCity);
       if (!hasAlreadyLoadedTheCurrentCity) {

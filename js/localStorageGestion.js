@@ -9,20 +9,21 @@ export const getVariablesInLocalStorage = (property) => {
 };
 
 export const setElementFromVariablesinLocalStorage = (
-  property,
-  value,
-  object
+  property, //string
+  value // any value
 ) => {
+  //property and value of the object
   const localStorageData = localStorage.getItem("citiesStored");
-  if (typeof localStorageData === "string") {
-    const parsedData = JSON.parse(localStorageData);
+  // if already localstorage data for citiesStored
+  if (localStorageData) {
+    //If localStorage is exist
+    const parsedData = JSON.parse(localStorageData); //Convert the json string in js langage by json.parse
     parsedData[property] = value;
     localStorage.setItem("citiesStored", JSON.stringify(parsedData));
   } else {
     localStorage.setItem(
       "citiesStored",
       JSON.stringify({
-        ...object,
         [property]: value,
       })
     );

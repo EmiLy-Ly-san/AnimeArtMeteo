@@ -173,5 +173,4 @@ export const giveMsgOfNoBgIfNecessary = () => {
     messageSpringSummer.classList.remove("hidden");
     messageSpringSummer.classList.add("visible");
   }
-
-  
+};
