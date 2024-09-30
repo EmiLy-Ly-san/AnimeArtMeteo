@@ -84,6 +84,17 @@ async function recoverGeolocTown() {
   });
   if (!request.ok) {
     alert("Sorry, a problem has occurred");
+    await recoverTown(townGeo);
+    fillReducedCityCard(townGeo, tempGeo, iconWeatherGeo);
+    fillCityCard(
+      townGeo,
+      idGeo,
+      tempSearched,
+      descriptionSearched,
+      iconWeatherSearched
+    );
+    setSeasonBackground(descriptionSearched);
+    isBgLiked();
   } else {
     let datas = await request.json();
     console.log({ datas });
